@@ -11,12 +11,12 @@
 # Host discovery, generate a list of surviving hosts
 
     nmap -sn -T4 -oG Discovery.gnmap 192.168.1.1/24
-    grep “Status: Up” Discovery.gnmap | cut -f 2 -d ‘ ‘ > LiveHosts.txt
-
+    grep "Status: Up" /home/kali/Desktop/work/Discovery.gnmap | cut -f 2 -d '' > /home/kali/Desktop/work/LiveHosts.txt
+    
     #http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf
 
-    nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
-    nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+    nmap -sS -T4 -Pn -oG /home/kali/Desktop/work/TopTCP -iL /home/kali/Desktop/work/LiveHosts.txt
+    nmap -sU -T4 -Pn -oN /home/kali/Desktop/work/TopUDP -iL /home/kali/Desktop/work/LiveHosts.txt
 
 # Port found, found all the ports, but UDP port scanning will be very slow
 
