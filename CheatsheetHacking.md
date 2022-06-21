@@ -101,9 +101,9 @@ Por simplicidad, solo ejecuto los comandos core.
     nikto -C all -h http://IP
     nikto -C all -h 150.107.31.61
     nikto -C all -h https://www.northernrich.com/en/
-    WordPress scan
+# WordPress scan Está en kali por defecto.
     git clone https://github.com/wpscanteam/wpscan.git && cd wpscan
-    ./wpscan –url http://IP/ –enumerate p
+    ./wpscan --url (https://www.northernrich.com/en/ –enumerate p
 
 # HTTP fingerprint identification
 
