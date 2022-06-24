@@ -8,6 +8,15 @@ Por simplicidad, solo ejecuto los comandos core.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# OSINT
+    OSRF 
+    
+    https://github.com/i3visio/osrframework
+    
+    Maltego
+    
+    Google Dorks!
+    
 # Apply the best nmap scanning strategy for all size networks
 
 # Host discovery, generate a list of surviving hosts
