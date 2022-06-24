@@ -1,6 +1,6 @@
-El autor del fork ha quitado carácteres extraños que no funcionaban en mi kali.
-Idealmente lanzarías estos comandos detrás de una vpn y poniendo proxychains configurado para funcionar a través de Tor.
-Por simplicidad, solo ejecuto los comandos core.
+Ideally you would run these commands behind a vpn and have proxychains configured to work through Tor.
+For simplicity, I only run the core commands.
+
 # Hacking Cheatsheet
     List of commands and techniques to while conducting any kind of hacking :)
 
