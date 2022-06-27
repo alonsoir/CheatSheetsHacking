@@ -9,14 +9,132 @@ For simplicity, I only run the core commands.
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
 # OSINT
+
     OSRF 
     
     https://github.com/i3visio/osrframework
     
-    Maltego
     
-    Google Dorks!
+# Passive collection of information:
+
+    1) google dorks!
+
+    2) Shodan.io
+
+    3) Censys.io
+
+    4) theHarvester
+
+    5) Maltego
+
+    6) recon-ng
+
+    7) archive.org
+
+# Semi-passive pickup:
+
+    1) Foca. Only windows
+
+    2) dnsdumpster
+
+    3) centralOps
+
+    4) whireshark
+
+    5) tcpdump
+
+# Active collection:
+
+    1) dnsRecon
+
+    2) nmap
+
+    3) amap
+
+    4) masscan
     
+# Vulnerability scan:
+
+    1) CVE,CPE,CVSS
+
+    2) nmap
+
+    3) nessus
+
+# Exploitation and hacking of hosts
+
+    1) metasploit
+
+    2) msfvenom
+
+    3) pesidous
+
+    4) armitage
+
+# Exploitation and hacking of websites -> You have to see this again.
+
+    1) Burp Suite
+
+    2) SQLInjection
+
+    3) inyeccion de código
+
+    4) sqlMap
+
+    5) path Traversal
+
+    6) webshells
+
+    7) file upload
+
+    8) html injection y XSS
+
+    9) CSRF
+
+    10) XSstrike
+
+    11) Cookie tampering, command injection
+
+# Exploitation and hacking of network vulnerabilities
+
+    1) MITM
+
+    2) Bettercap
+
+    3) ARP Spoofing
+
+    4) DNS Spoofing
+
+    5) Social engineering toolkit
+
+    6) Polymorph. Manipulation of network traffic in real time and programmable. Black magic!
+
+# Post-exploitation techniques
+
+    1) meterpreter en metasploit
+
+    2) Mimicatz
+
+    3) UAC bypass
+
+    4) procdump y lsass.exe
+
+    5) backdoors en binarios con msfvenom
+
+    6) Password cracking in hashed form with John the ripper and hashcat
+
+    7) session migration using the backdoor.
+
+# Machine learning applied to cybersecurity
+
+    1) Batting, reconnaissance of hosts based on their impact
+
+    2) pesidous, mutating backdoors using the one created by msfVenom.
+
+    3) Deep fakes.
+
+# Mitre&Attck
+
 # Apply the best nmap scanning strategy for all size networks
 
 # Host discovery, generate a list of surviving hosts
