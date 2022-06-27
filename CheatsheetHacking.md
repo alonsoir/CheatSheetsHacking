@@ -17,13 +17,41 @@ For simplicity, I only run the core commands.
     
 # Passive collection of information:
 
-    1) google dorks!
+    1) google dorks! -> 
+    
+    https://www.hackingloops.com/google-dorks/ 
+    
+    https://cheatsheet.haax.fr/open-source-intelligence-osint/dorks/google_dorks/
+    
+    Understanding Google Dorks Operators:
+
+    intitle – This allows a hacker to search for pages with specific text in their HTML title. 
+    So intitle: “login page” will help a hacker scour the web for login pages.
+    
+    allintitle – Similar to the previous operator, but only returns results for pages that meet all of the keyword criteria.
+    
+    inurl – Allows a hacker to search for pages based on the text contained in the URL (i.e., “login.php”).
+    
+    allinurl – Similar to the previous operator, but only returns matches for URLs that meet all the matching criteria.
+    
+    filetype – Helps a hacker narrow down search results to specific files such as PHP, PDF, or TXT file types.
+    
+    ext – Very similar to filetype, but this looks for files based on their file extension.
+    
+    intext – This operator searches the entire content of a given page for keywords supplied by the hacker.
+    
+    allintext – Similar to the previous operator but requires a page to match all of the given keywords.
+    
+    site – Limits the scope of a query to a single website.
+
 
     2) Shodan.io
 
     3) Censys.io
 
-    4) theHarvester
+    4) theHarvester-> kali version is broken!
+    
+    https://github.com/laramies/theHarvester
 
     5) Maltego
 
