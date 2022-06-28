@@ -49,31 +49,37 @@ For simplicity, I only run the core commands.
 
     3) Censys.io
 
-    4) theHarvester-> kali version is broken!
+    4) theHarvester-> kali version is broken! muy limitado, no me gusta.
     
     https://github.com/laramies/theHarvester
+    
+    python3 theHarvester.py -d https://www.northernrich.com/en -g -s -v -n -b all
 
-    5) Maltego
+    5) Maltego -> powerfull, but interesting stuff is not free
 
     6) recon-ng
+    https://www.nosolohacking.info/recon-ng-instalacion/
+    
 
     7) archive.org
 
 # Semi-passive pickup:
 
-    1) Foca. Only windows
+    1) Foca. Only windows. Metadata gathering recovery tool. 
 
-    2) dnsdumpster
+    2) dnsdumpster -> https://dnsdumpster.com/
 
-    3) centralOps
+    3) centralOps -> https://centralops.net/co/
 
-    4) whireshark
+    4) whireshark -> packet sniffer
 
-    5) tcpdump
+    5) tcpdump -> packet sniffer
 
 # Active collection:
 
     1) dnsRecon
+    
+    dnsrecon -s -a  -f -b -y -k -w  -z  -v -t brt --db /home/kali/Desktop/work/dns-recon-sql-northernrich.file -d https://www.northernrich.com/admin -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
 
     2) nmap
 
