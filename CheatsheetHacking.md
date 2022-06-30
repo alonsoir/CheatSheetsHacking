@@ -19,31 +19,30 @@ For simplicity, I only run the core commands.
 
     1) google dorks! -> 
     
-    https://www.hackingloops.com/google-dorks/ 
-    
-    https://cheatsheet.haax.fr/open-source-intelligence-osint/dorks/google_dorks/
-    
-    Understanding Google Dorks Operators:
+        https://www.hackingloops.com/google-dorks/ 
 
-    intitle – This allows a hacker to search for pages with specific text in their HTML title. 
-    So intitle: “login page” will help a hacker scour the web for login pages.
-    
-    allintitle – Similar to the previous operator, but only returns results for pages that meet all of the keyword criteria.
-    
-    inurl – Allows a hacker to search for pages based on the text contained in the URL (i.e., “login.php”).
-    
-    allinurl – Similar to the previous operator, but only returns matches for URLs that meet all the matching criteria.
-    
-    filetype – Helps a hacker narrow down search results to specific files such as PHP, PDF, or TXT file types.
-    
-    ext – Very similar to filetype, but this looks for files based on their file extension.
-    
-    intext – This operator searches the entire content of a given page for keywords supplied by the hacker.
-    
-    allintext – Similar to the previous operator but requires a page to match all of the given keywords.
-    
-    site – Limits the scope of a query to a single website.
+        https://cheatsheet.haax.fr/open-source-intelligence-osint/dorks/google_dorks/
 
+        Understanding Google Dorks Operators:
+
+        intitle – This allows a hacker to search for pages with specific text in their HTML title. 
+        So intitle: “login page” will help a hacker scour the web for login pages.
+
+        allintitle – Similar to the previous operator, but only returns results for pages that meet all of the keyword criteria.
+
+        inurl – Allows a hacker to search for pages based on the text contained in the URL (i.e., “login.php”).
+
+        allinurl – Similar to the previous operator, but only returns matches for URLs that meet all the matching criteria.
+
+        filetype – Helps a hacker narrow down search results to specific files such as PHP, PDF, or TXT file types.
+
+        ext – Very similar to filetype, but this looks for files based on their file extension.
+
+        intext – This operator searches the entire content of a given page for keywords supplied by the hacker.
+
+        allintext – Similar to the previous operator but requires a page to match all of the given keywords.
+
+        site – Limits the scope of a query to a single website.
 
     2) Shodan.io
 
@@ -60,7 +59,6 @@ For simplicity, I only run the core commands.
     6) recon-ng
     https://www.nosolohacking.info/recon-ng-instalacion/
     
-
     7) archive.org
 
 # Semi-passive pickup:
@@ -79,7 +77,37 @@ For simplicity, I only run the core commands.
 
     1) dnsRecon
     
-    dnsrecon -s -a  -f -b -y -k -w  -z  -v -t brt --db /home/kali/Desktop/work/dns-recon-sql-northernrich.file -d https://www.northernrich.com/admin -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+    dnsrecon -s -a  -f -b -y -k -w  -z  -v -t brt --db /home/kali/Desktop/work/dns-recon-sql-northernrich.file -d https://www.northernrich.com/admin -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt --xml /home/kali/Desktop/work/dnsrecon1-northernrich.xml
+    
+    > dnsrecon -s -a  -f -b -y -k -w  -z  -v -t std --db /home/kali/Desktop/work/dns-recon-sql-northernrich.file -d https://www.northernrich.com/admin  --xml /home/kali/Desktop/work/dnsrecon1-northernrich.xml
+    zsh: correct '/home/kali/Desktop/work/dnsrecon1-northernrich.xml' to '/home/kali/Desktop/work/dnsrecon-northernrich.xml' [nyae]? n
+    [*] std: Performing General Enumeration against: https://www.northernrich.com/admin...
+    [*] Checking for Zone Transfer for https://www.northernrich.com/admin name servers
+    [*] Resolving SOA Record
+    [*] Resolving NS Records
+    [*] NS Servers found:
+    [*] Removing any duplicate NS server IP Addresses...
+    [*] Checking for Zone Transfer for https://www.northernrich.com/admin name servers
+    [*] Resolving SOA Record
+    [*] Resolving NS Records
+    [*] NS Servers found:
+    [*] Removing any duplicate NS server IP Addresses...
+    [*] Saving records to XML file: /home/kali/Desktop/work/dnsrecon1-northernrich.xml
+    [*] Saving records to SQLite3 file: /home/kali/Desktop/work/dns-recon-sql-northernrich.file
+    
+    > dnsrecon -d www.northernrich.com -D /usr/share/wordlists/dnsmap.txt -t std --xml /home/kali/Desktop/work/dnsrecon-northernrich.xml
+    [*] std: Performing General Enumeration against: www.northernrich.com...
+    [-] DNSSEC is not configured for www.northernrich.com
+    [*]      SOA ns.northernrich.com 150.107.31.61
+    [*]      NS ns.northernrich.com 150.107.31.61
+    [*]      MX mail.northernrich.com 150.107.31.61
+    [*]      CNAME www.northernrich.com northernrich.com
+    [*]      A northernrich.com 150.107.31.61
+    [*]      TXT www.northernrich.com v=spf1 a mx ip4:150.107.31.61 ~all
+    [*] Enumerating SRV Records
+    [+] 0 Records Found
+    [*] Saving records to XML file: /home/kali/Desktop/work/dnsrecon-northernrich.xml
+
 
     2) nmap
 
@@ -168,6 +196,11 @@ For simplicity, I only run the core commands.
     3) Deep fakes.
 
 # Mitre&Attck
+
+# Decompiling techniques (black magic)
+
+    GHidra -> in Kali 
+    IDA -> /opt/idafree-7.7 ./ida64
 
 # Apply the best nmap scanning strategy for all size networks
 
