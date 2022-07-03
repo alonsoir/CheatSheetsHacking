@@ -8,6 +8,12 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# Commands to hack some web vulnerability
+
+    https://gist.github.com/alonsoir/dff9e961ed090464808e9018080ea6fe   
+    
+    https://www.youtube.com/watch?v=ggkUREL6djQ&t=4321s
+    
 # OSINT
 
     OSRF 
