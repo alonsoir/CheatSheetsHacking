@@ -204,7 +204,9 @@ For simplicity, I only run the core commands.
 
     1) metasploit -> THE framework to hack and exploit.
     
-    sudo msfdb init && msfconsole
+    I did a scanning session, but it is too long, so i created a gist.
+    
+    https://gist.github.com/alonsoir/65a703f44ccbbfa7f1ef57c49e86b8de
     
     https://www.kali.org/tools/metasploit-framework/
     
@@ -307,7 +309,18 @@ For simplicity, I only run the core commands.
     > ls -tatlh putty-fake.exe
     -rw-r--r-- 1 kali kali 1.4M Jul  1 13:37 putty-fake.exe
 
-    3) pesidous
+    3) pesidous -> weird, now i cannot run it... 
+
+    https://kalilinuxtutorials.com/pesidious/
+    
+    quick install commands.
+    
+    > conda create -n py36 python=3.6 ipykernel
+    > conda activate py36
+    > python --version
+    Python 3.6.13 :: Anaconda, Inc.
+    > pip install pip==8.1.1
+    > pip install -r pip_requirements/requirements.txt
 
     4) armitage
 
