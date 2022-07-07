@@ -8,6 +8,16 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# Wifi wardriving
+
+    I modified a bit s4vitar`s version. I have an alfa awu0360h
+    
+    https://gist.github.com/alonsoir/ebb659ceb939700f577caf33b512d23b
+    
+    https://gist.github.com/
+    
+    sudo ./s4viPwnWifi.sh -a  PKMID -n wlan0
+    
 # Commands to hack some web vulnerability
 
     https://gist.github.com/alonsoir/dff9e961ed090464808e9018080ea6fe   
@@ -63,10 +73,37 @@ For simplicity, I only run the core commands.
     5) Maltego -> powerfull, but interesting stuff is not free
 
     6) recon-ng
+    
     https://www.nosolohacking.info/recon-ng-instalacion/
     
     7) archive.org
+    
+    8) Sherlock
+    
+    > sherlock --print-all --browse andrewmakokha575@gmail.com
+    [*] Checking username andrewmakokha575@gmail.com on:
+    ...
+    [+] Coil: https://coil.com/u/andrewmakokha575@gmail.com
+    [-] ColourLovers: Not Found!
+    ...
 
+    9) > maigret XYZ@gmail.com
+    [-] Starting a search on top 500 sites from the Maigret database...
+    [!] You can run search by full list of sites with flag `-a`
+
+    maigret works with python3.8, so probably you have to activate the environment:
+    
+    conda create -m mypython3.8 ipykernel=3.8
+    conda activate mypython3.8
+    pip3 install maigret
+    ...
+    
+    after the work, deactivate it
+    
+    conda deactivate
+    
+    10) https://whatsmyname.app/
+    
 # Semi-passive pickup:
 
     1) Foca. Only windows. Metadata gathering recovery tool. 
