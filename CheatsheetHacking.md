@@ -1346,3 +1346,7 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     You already have the link to send.
 
     You can see the ip at iplogger.com
+    
+    # Encrypt/decrypt and more!!
+    
+    https://gchq.github.io/CyberChef
