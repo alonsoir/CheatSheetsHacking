@@ -1337,7 +1337,9 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     1) upload an image to es.imgbb.com
     2) get the url
     3) create a link on iplogger.com
-        alternative https://www.iplocation.net/ip-lookup
+        alternatives 
+        https://www.iplocation.net/ip-lookup
+        https://ipinfo.io/account/search
     4) get the url
     5) create a link at https://www.shorturl.at/shortener.php
 
