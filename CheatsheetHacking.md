@@ -18,6 +18,10 @@ For simplicity, I only run the core commands.
     
     sudo ./s4viPwnWifi.sh -a  PKMID -n wlan0
     
+    airgeddon
+    
+    https://github.com/v1s1t0r1sh3r3/airgeddon
+    
 # Commands to hack some web vulnerability
 
     https://gist.github.com/alonsoir/dff9e961ed090464808e9018080ea6fe   
@@ -26,6 +30,18 @@ For simplicity, I only run the core commands.
     
 # OSINT
 
+    Iky -> pretty amazing. Provide an email and get data!
+    
+    https://kennbroorg.gitlab.io/ikyweb/
+    
+    Run redis-server first
+    
+    go to folder and run the script with sudo
+    
+    https://gitlab.com/kennbroorg/iKy/blob/iKy/README.md
+    
+    http://127.0.0.1:4200/pages/apikeys
+    
     OSRF 
     
     https://github.com/i3visio/osrframework
