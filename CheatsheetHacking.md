@@ -30,22 +30,117 @@ For simplicity, I only run the core commands.
     
 # OSINT
 
-    Iky -> pretty amazing. Provide an email and get data!
+    # Iky -> pretty amazing. Provide an email and get data!
     
     https://kennbroorg.gitlab.io/ikyweb/
     
     Run redis-server first
     
-    go to folder and run the script with sudo
+    go to folder backend and run the script with sudo
+    
+    sudo python app.py -e prod
     
     https://gitlab.com/kennbroorg/iKy/blob/iKy/README.md
     
     http://127.0.0.1:4200/pages/apikeys
     
-    OSRF 
+    # OSRF framework, set of tools
     
     https://github.com/i3visio/osrframework
     
+    # Phone numbers search, phoneinfoga
+    
+    https://github.com/sundowndev/phoneinfoga
+    
+    just type in terminal phoneinfoga serve
+    
+    a gui will be open in localhost:5000
+    
+    # Osintgram (Instagram)
+    
+    https://github.com/Datalux/Osintgram
+    
+    clone the project, run the next commands to create the docker container:
+    
+    docker build -t osintgram .
+    
+    make setup -> put your credentials
+    
+    make run -> execute
+    
+    It has some workarounds the moment i tried, but it looks interesting
+    
+    # xeuledoc
+    
+    Fetch information about any public Google document.
+    
+    https://github.com/Malfrats/xeuledoc
+    
+    > xeuledoc  https://docs.google.com/document/d/1if1Fq_pcHAP0RYla-lsuAI-7BwWL7yCR9nWp8yU1k6M/edit
+    Twitter : @MalfratsInd
+    Github : https://github.com/Malfrats/xeuledoc
+
+    Document ID : 1if1Fq_pcHAP0RYla-lsuAI-7BwWL7yCR9nWp8yU1k6M
+
+    [+] Creation date : 2020/10/27 21:51:56 (UTC)
+    [+] Last edit date : 2020/11/17 10:15:03 (UTC)
+
+    Public permissions :
+    - reader
+    [+] You have special permissions :
+    - reader
+    - commenter
+
+    [+] Owner found !
+
+    Name : Samantha Menot
+    Email : samantha.menot@databricks.com
+    Google ID : 15790401968530511716
+    
+    # Dante's Gate -> set of tools. It has a lot of errors, probably it is a non maintained version...
+    
+    https://github.com/Quantika14/osint-suite-tools
+    
+    > pwd
+    /home/kali/git/osint-suite-tools
+    > ls
+    bots               BuscadorNick.py            BuscadorPersonas.py   data     modules      README.md         search_engines
+    BuscadorEmails.py  BuscadorNoticiasFalsas.py  BuscadorTelefonos.py  LICENSE  __pycache__  requiriments.txt  targets.txt
+    > sudo python3 -m BuscadorPersonas
+    [sudo] password for kali: 
+
+
+            T U T I O W Y M V R M D Y I H C H A S E Q G P L 3 W 5 K G X 9 B 0
+            R X D A N T E ' S   G A T E S   M I N I M A L   V E R S I O N K 2
+            5 3 J I T 7 Q Y Q L D M S K Y H L N A W C O M H B C O 9 I N A K G
+
+            Jorge Coronado (aka @JorgeWebsec)
+            01.06.02
+
+
+          ____________________________________________________________________________________________________
+
+          Discleimer: This application allows you to create intelligence through open sources. 
+          You do not access information that is not public. The author is not responsible for its use.
+          ____________________________________________________________________________________________________
+
+          Description: Dante's Gates Minimal Version is an open application with a GNU license for OSINT with
+          Spanish and international sources. Currently it is maintained by Jorge Coronado and there are other
+          versions such as mobile and APIs for your applications.
+          ----
+          Important: the author of this software is not responsible for it's use. The App aims to help
+          researchers in OSINT, not to do evil. For more information contact the author.
+
+
+    None
+    __________________________________________________
+    | 1. Name, surnames  and DNI                     |
+    | 2. Search names and surnames in list           |
+    |________________________________________________|
+
+    Select 1/2/3: 
+
+    # https://github.com/Quantika14 
     
 # Passive collection of information:
 
