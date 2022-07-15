@@ -987,6 +987,11 @@ Gets a hash value
 
     hashcat -m 400 -a 0 hash /root/rockyou.txt
     
+    https://www.securityartwork.es/2017/02/15/cracking-contrasenas-hashcat/
+    
+    https://sniferl4bs.com/showcase/
+    
+    
 # Use the NC to fetch Banner information
 
     nc 150.107.31.61 80
