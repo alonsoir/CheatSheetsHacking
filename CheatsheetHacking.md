@@ -140,7 +140,29 @@ For simplicity, I only run the core commands.
 
     Select 1/2/3: 
 
-    # https://github.com/Quantika14 
+    # more tools, creators of Dante's Gate 
+    
+    https://github.com/Quantika14 
+    
+    # Gephi (installed in osx...) TODO
+    
+    https://gephi.org/users/download/
+    
+    # Blockchain explorer
+    
+    https://www.blockchain.com/explorer
+    
+    # Spiderfoot -> TODO
+    
+    https://github.com/smicallef/spiderfoot?ref=d
+    
+    set api keys -> todo
+    
+    https://sf-e3814fe.hx.spiderfoot.net/optsapi
+    
+    # TrueCaller -> spam teléfonico
+    
+    https://www.truecaller.com
     
 # Passive collection of information:
 
