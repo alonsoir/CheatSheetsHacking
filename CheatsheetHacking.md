@@ -168,6 +168,8 @@ For simplicity, I only run the core commands.
 
     1) google dorks! -> 
     
+        https://github.com/m3n0sd0n4ld/GooFuzz -> TODO
+    
         https://www.hackingloops.com/google-dorks/ 
 
         https://cheatsheet.haax.fr/open-source-intelligence-osint/dorks/google_dorks/
