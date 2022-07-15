@@ -30,6 +30,12 @@ For simplicity, I only run the core commands.
     
 # OSINT
 
+    https://epieos.com provide an email!
+    
+    https://github.com/lulz3xploit/LittleBrother todo!
+    
+    https://github.com/tgscan/tgscan-data
+
     # Iky -> pretty amazing. Provide an email and get data!
     
     https://kennbroorg.gitlab.io/ikyweb/
