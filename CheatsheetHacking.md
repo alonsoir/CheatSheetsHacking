@@ -61,8 +61,18 @@ For simplicity, I only run the core commands.
     https://www.youtube.com/watch?v=ggkUREL6djQ&t=4321s
     
 # OSINT
-
-    https://epieos.com provide an email!
+    
+    # PyWhat. Identify what something is, online. Use it with pcap files, btc adresses,...
+    
+    https://reconshell.com/pywhat-identify-anything/
+    
+    https://github.com/bee-san/pyWhat
+    
+    # Basilisk. It uses shodan api to find vulnerable camaras.
+    
+    https://github.com/spicesouls/basilisk
+    
+    https://epieos.com provide an email to get data.
     
     https://github.com/lulz3xploit/LittleBrother todo!
     
