@@ -7,35 +7,38 @@ For simplicity, I only run the core commands.
     # "The quieter you become, The more you’re able to hear"
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
+
+# Post exploitation techniques
 # Netcat pivot relay
 
     # La idea es que estas redirigiendo tráfico desde un puerto no controlado por el firewall (40) a uno que si está controlado por el firewall (23), 
     # es decir, quieres enviar algo al puerto cerrado por el firewall. Para ello, una vez que tienes acceso a la máquina destino, vas a levantar 
     # un servicio netcat escuchando por el 23 
-    3) 
-        > nc -lvp 23
-        listening on [any] 23 ...
-                connect to [127.0.0.1] from localhost [127.0.0.1] 42662
-        hola
-        redirigiendo tráfico desde el puerto 40 que esstara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
+     
+    > nc -lvp 23
+    listening on [any] 23 ...
+    connect to [127.0.0.1] from localhost [127.0.0.1] 42662
+    hola
+    redirigiendo tráfico desde el puerto 40 que esstara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
     # Luego, en otra máquina o en la misma máquina vulnerable, vas a crear un nodo de caracteres especiales (pivot) que sirva de pila donde enviar el       # exploit
     # man mknod
     # NAME
     #   mknod - make block or character special files
     ...
-    2) > mknod pivot  p
+    
+    > mknod pivot  p
     # Creo el puente entre el puerto 40 no filtrado hacia el puerto 23 filtrado por el fw, usando la pila. 
     # Cuando escribo al puerto 40, leo desde la pila, cuando leo desde el 23, escribo a la pila.
         
-        > nc -lvp 40 0<pivot | nc 127.0.0.1 23 > pivot
-        listening on [any] 40 ...
-        connect to [127.0.0.1] from localhost [127.0.0.1] 44386
+    > nc -lvp 40 0<pivot | nc 127.0.0.1 23 > pivot
+    listening on [any] 40 ...
+    connect to [127.0.0.1] from localhost [127.0.0.1] 44386
 
     # Finalmente creo la conexion al puerto vulnerable. Lo que escriba aquí, finalmente se escribe al puerto supuestamente filtrado por el firewall.
-    1)  > nc 127.0.0.1 40
-        hola
-        redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
+    > nc 127.0.0.1 40
+    hola
+    redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
 # Wifi wardriving
 
