@@ -1311,6 +1311,10 @@ DEP (“Data Execution Prevention”) is a set of hardware and software technolo
 # ASLR – Address space format randomization
     # https://en.wikipedia.org/wiki/Address_space_layout_randomization
     !mona noaslr 
+# A Tool using Shodan and RTSP to find vulnerable cameras around the world.
+
+    https://github.com/spicesouls/basilisk
+
 # EGG Hunter technology
 
 Egg hunting This technique can be categorized as a “graded shellcode”, which basically supports you to find your actual (larger) shellcode (our “egg”) with a small, specially crafted shellcode, In search of our final shellcode. In other words, a short code executes first, then goes to the real shellcode and executes it. – Making reference to see Ice Forum , more details can be found in the code I add comments link.
