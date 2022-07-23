@@ -40,6 +40,274 @@ For simplicity, I only run the core commands.
     hola
     redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
+# Subfinder,  searching subdomains
+    
+    https://www.kali.org/tools/subfinder/
+
+    > proxychains subfinder -d as.com -silent
+    [proxychains] config file found: /etc/proxychains.conf
+    [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+    [proxychains] DLL init: proxychains-ng 4.16
+    serielistas.as.com
+    entradas.as.com
+    metrics.as.com
+    us.as.com
+    cdn.gamingclub.as.com
+    juegos.as.com
+    mainportal.be.as.com
+    www.awtas.as.com
+    www.swlss.as.com
+    mexico.as.com
+    peru.as.com
+    chile.as.com
+    colombia.as.com
+    argentina.as.com
+    pxlpid.as.com
+    api.results.as.com
+    api.preferences.as.com
+    resultados.as.com
+    futbol.as.com
+    apuestas.as.com
+    videos.esports.as.com
+    esports.as.com
+    en.as.com
+    stories.as.com
+    hls.esports.as.com
+    vod.esports.as.com
+    pxlctl.as.com
+    smetrics.as.com
+    parrillatv.int.as.com
+    biwenger.as.com
+    masdeporte.as.com
+    stories.esports.as.com
+    arabia.as.com
+    cache-api.results.int.as.com
+    public.biwenger.api.resultados.as.com
+    bstories.esports.as.com
+    biwenger.api.resultados.as.com
+    next.arabia.as.com
+    mejorconsalud.as.com
+    int-api.ucs.be.as.com
+    api.ucs.be.as.com
+    api.as.com
+    www.as.com
+    login.meristation.as.com
+    siscom.be.as.com
+    seguimosconectados.esports.as.com
+    10.86.180.25pxlctl.as.com
+    img4.meristation.as.com
+    vdmedia.as.com
+    usuarios.as.com
+    newspress.arabia.as.com
+    suscripciones.as.com
+    seguro.meristation.as.com
+    t.info.as.com
+    meristation.as.com
+    media-pm.as.com
+    mail.megastore.as.com
+    megastore.as.com
+    my.as.com
+    tenis.as.com
+    m.as.com
+    servicios.as.com
+    ejerciciosencasa.as.com
+    sg.as.com
+    sa.as.com
+    motor.as.com
+    s2.as.com
+    motormercado.as.com
+    asfan.as.com
+    movil.as.com
+    seguro.as.com
+    s1.as.com
+    www-org.as.com
+    ciclismo.as.com
+    fan.as.com
+    opinion.as.com
+    s3.as.com
+    s5.as.com
+    sdmedia.as.com
+    venezuela.as.com
+    descuentos.as.com
+    za.as.com
+    as.com
+    jornadaperfecta.as.com
+    parrillatv.api.as.com
+    parrillatv.dev.as.com
+    parrillatv.pre.as.com
+    preferences.api.as.com
+    results.dev.as.com
+    results.int.as.com
+    results.pre.as.com
+    www.mail.megastore.as.com
+    blogs.as.com
+    club.meristation.as.com
+    www.meristation.as.com
+    webmail.as.com
+    wap.as.com
+    pda.as.com
+    upload.as.com
+    test.as.com
+    tendencias.as.com
+    vdelivery.as.com
+    s4.as.com
+    lacomunidad.as.com
+    js.meristation.as.com
+    img6.meristation.as.com
+    img5.meristation.as.com
+    img3.meristation.as.com
+    img2.meristation.as.com
+    img1.meristation.as.com
+    foros.as.com
+    css.meristation.as.com
+    baloncesto.as.com
+    backend.meristation.as.com
+    api.scores.be.as.com
+    indice.as.com
+    link.as.com
+    static.next.arabia.as.com
+    static.arabia.as.com
+    api.arabia.as.com
+    sports-assets.arabia.as.com
+    astv.as.com
+    chat.as.com
+    connect.as.com
+    forosv3.as.com
+    www.astv.as.com
+    www.megastore.as.com
+    mail.as.com
+    feeds.as.com
+    malaysia.as.com
+    mexcico.as.com
+    playertop-meristation.as.com
+    singapore.as.com
+
+     ⭐  ~  ok  took 31s  at 12:44:23 >  
+
+# httpx
+
+    https://github.com/projectdiscovery/httpx
+
+# subfinder and httpx anonimizado por Tor usando proxychains. Buscando ficheros mysql.sql en subdominios.
+    
+    > proxychains subfinder -d as.com -silent | httpx silent -path "/wp-content/mysql.sql" -mC 200 -t 250 -ports 80,443,8080,8443
+    [proxychains] config file found: /etc/proxychains.conf
+    [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+    [proxychains] DLL init: proxychains-ng 4.16
+
+        __    __  __       _  __
+       / /_  / /_/ /_____ | |/ /
+      / __ \/ __/ __/ __ \|   /
+     / / / / /_/ /_/ /_/ /   |
+    /_/ /_/\__/\__/ .___/_/|_|
+                 /_/              v1.2.0
+
+                    projectdiscovery.io
+
+    Use with caution. You are responsible for your actions.
+    Developers assume no liability and are not responsible for any misuse or damage.
+    https://biwenger.as.com
+    https://entradas.as.com
+    https://fan.as.com
+    https://esports.as.com
+    https://api.as.com
+    https://feeds.as.com
+    https://colombia.as.com
+    https://bstories.esports.as.com
+    https://cdn.gamingclub.as.com
+    https://chile.as.com
+    https://ciclismo.as.com
+    https://apuestas.as.com
+    https://argentina.as.com
+    https://en.as.com
+    https://asfan.as.com
+    https://baloncesto.as.com
+    https://api.preferences.as.com
+    https://hls.esports.as.com
+    https://as.com
+    https://futbol.as.com
+    https://int-api.ucs.be.as.com
+    https://cache-api.results.int.as.com
+    https://mail.as.com
+    https://malaysia.as.com
+    https://arabia.as.com
+    https://juegos.as.com
+    https://mail.megastore.as.com
+    http://api.results.as.com
+    https://api.ucs.be.as.com
+    https://mejorconsalud.as.com
+    https://masdeporte.as.com
+    https://mexico.as.com
+    https://biwenger.api.resultados.as.com
+    https://my.as.com
+    https://motormercado.as.com
+    https://opinion.as.com
+    https://pda.as.com
+    https://m.as.com
+    https://mainportal.be.as.com
+    https://motor.as.com
+    https://peru.as.com
+    https://metrics.as.com
+    https://pxlctl.as.com
+    https://public.biwenger.api.resultados.as.com
+    https://resultados.as.com
+    https://pxlpid.as.com
+    https://parrillatv.int.as.com
+    https://s2.as.com
+    https://ejerciciosencasa.as.com
+    https://sg.as.com
+    https://megastore.as.com
+    https://singapore.as.com
+    https://seguimosconectados.esports.as.com
+    https://s4.as.com
+    https://serielistas.as.com
+    https://us.as.com
+    https://smetrics.as.com
+    https://sdmedia.as.com
+    https://s5.as.com
+    https://tenis.as.com
+    http://tendencias.as.com
+    https://servicios.as.com
+    https://stories.esports.as.com
+    https://sa.as.com
+    https://venezuela.as.com
+    https://www.as.com
+    https://webmail.as.com
+    https://videos.esports.as.com
+    https://vdmedia.as.com
+    https://wap.as.com
+    https://za.as.com
+    https://vdelivery.as.com
+    https://stories.as.com
+    https://vod.esports.as.com
+    https://usuarios.as.com
+    https://www-org.as.com
+    https://www.megastore.as.com
+    https://t.info.as.com
+    https://s3.as.com
+    https://s1.as.com
+    https://suscripciones.as.com
+    https://playertop-meristation.as.com
+    http://connect.as.com
+    http://blogs.as.com
+    http://img2.meristation.as.com
+    http://club.meristation.as.com
+    http://img3.meristation.as.com
+    http://img4.meristation.as.com
+    http://img5.meristation.as.com
+    http://img6.meristation.as.com
+    http://backend.meristation.as.com
+    http://css.meristation.as.com
+    http://img1.meristation.as.com
+    http://js.meristation.as.com
+    http://login.meristation.as.com
+    http://meristation.as.com
+    http://movil.as.com
+    http://seguro.meristation.as.com
+    http://www.meristation.as.com
+
+     ⭐  ~  ok  took 1m 20s  at 12:35:15 >                                                                                     
+
 # Wifi wardriving
 
     I modified a bit s4vitar`s version. I have an alfa awu0360h
