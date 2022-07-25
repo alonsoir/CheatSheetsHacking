@@ -8,6 +8,29 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# Web scrapper
+
+    https://github.com/m8sec/pymeta
+    
+    > pymeta -d as.com -s all -f as.com.csv
+
+    [*] Starting PyMeta web scraper
+    [*] Extension  |  Number of New Files Found  |  Search URL
+    [!] Captcha'ed by google: Skipping this source...
+    [*] pdf :  0 http://www.bing.com/search?q=site:as.com%20filetype:pdf&first=0
+    [*] xls :  0 http://www.bing.com/search?q=site:as.com%20filetype:xls&first=0
+    [*] xlsx:  0 http://www.bing.com/search?q=site:as.com%20filetype:xlsx&first=0
+    [*] csv :  0 http://www.bing.com/search?q=site:as.com%20filetype:csv&first=0
+    [*] doc :  2 http://www.bing.com/search?q=site:as.com%20filetype:doc&first=0
+    [*] doc :  0 http://www.bing.com/search?q=site:as.com%20filetype:doc&first=34
+    [*] docx:  0 http://www.bing.com/search?q=site:as.com%20filetype:docx&first=0
+    [*] ppt :  0 http://www.bing.com/search?q=site:as.com%20filetype:ppt&first=0
+    [*] pptx:  0 http://www.bing.com/search?q=site:as.com%20filetype:pptx&first=0
+    [*] Downloading 2 files to: ./as.c_meta2/
+    [*] Extracting Metadata...
+    [*] Adding source URL's to the report
+    [+] Report complete: as.com.csv
+    
 # Post exploitation techniques
 # Netcat pivot relay
 
