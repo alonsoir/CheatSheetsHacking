@@ -63,7 +63,30 @@ For simplicity, I only run the core commands.
     hola
     redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
-# Subscraper, searching dubdomains
+# subwalker, searching subdomains
+
+    https://github.com/m8sec/SubWalker
+    
+    > ./subwalker.sh northernrich.com
+    [*] Executing SubWalker against: northernrich.com
+    [*] Launching SubScraper
+    [*] Launching Sublist3r
+    [*] Launching assetfinder
+    [*] Waiting until all scripts complete...
+    cat: subscraper.txt: No such file or directory
+    cat: sublist3r.txt: No such file or directory
+    rm: cannot remove 'subscraper.txt': No such file or directory
+    rm: cannot remove 'sublist3r.txt': No such file or directory
+
+    [+] SubWalker complete with 4 results
+    [+] Output saved to: /home/kali/git/subwalker/subwalker.txt
+    > cat subwalker.txt
+    mail.northernrich.com
+    northernrich.com
+    ns.northernrich.com
+    www.northernrich.com
+    
+# Subscraper, searching subdomains
 
     https://github.com/m8sec/subscraper
 
