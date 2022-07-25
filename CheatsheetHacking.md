@@ -373,7 +373,54 @@ For simplicity, I only run the core commands.
     https://www.youtube.com/watch?v=ggkUREL6djQ&t=4321s
     
 # OSINT
+
+    # Searching in Linkedin...
     
+    https://github.com/m8sec/CrossLinked
+    
+    > python3 crosslinked.py -f '{first}.{last}@sopra.com' "sopra steria"
+
+         _____                    _             _            _                                                                                                                                                
+        /  __ \                  | |   (x)     | |          | |                                                                                                                                               
+        | /  \/_ __ ___  ___ ___ | |    _ _ __ | | _____  __| |                                                                                                                                               
+        | |   | '__/ _ \/ __/ __|| |   | | '_ \| |/ / _ \/ _` |                                                                                                                                               
+        | \__/\ | | (_) \__ \__ \| |___| | | | |   <  __/ (_| |                                                                                                                                               
+         \____/_|  \___/|___/___/\_____/_|_| |_|_|\_\___|\__,_| v0.1.0                                                                                                                                        
+
+        @m8r0wn                                                                                                                                                                                               
+
+    [*] Searching google for valid employee names at "sopra steria"
+    [!] No results found
+    [*] Searching bing for valid employee names at "sopra steria"
+    [*] 9 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=65
+    [*] 17 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=124
+    [*] 22 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=183
+    [*] 27 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=243
+    [*] 32 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=302
+    [*] 37 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=361
+    [*] 42 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=420
+    [*] 48 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=479
+    [*] 52 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=538
+    [*] 55 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=597
+    [*] 59 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=656
+    [*] 62 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=715
+    [*] 65 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=774
+    [*] 66 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=833
+    [*] 70 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=892
+    [*] 73 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=951
+    [*] 77 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1010
+    [*] 79 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1068
+    [*] 80 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1126
+    [*] 81 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1184
+    [*] 85 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1300
+    [*] 86 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1358
+    [*] 87 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=1938
+    [*] 88 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=2112
+    [*] 89 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=2170
+    [*] 90 : http://www.bing.com/search?q=site:linkedin.com/in+%22sopra%20steria%22&first=2460
+    [+] 90 unique names added to names.txt!
+    > cat names.txt
+
     # PyWhat. Identify what something is, online. Use it with pcap files, btc adresses,...
     
     https://reconshell.com/pywhat-identify-anything/
@@ -559,7 +606,8 @@ For simplicity, I only run the core commands.
 
     3) Censys.io
 
-    4) theHarvester-> kali version is broken! muy limitado, no me gusta.
+    4) theHarvester-> kali version is broken! muy limitado, no me gusta. Muy agresivo, google te bloquea enseguida. 
+    Habría que jugar con las opciones para ver si es menos agresivo.
     
     https://github.com/laramies/theHarvester
     
