@@ -40,6 +40,27 @@ For simplicity, I only run the core commands.
     hola
     redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
+# Subscraper, searching dubdomains
+
+    https://github.com/m8sec/subscraper
+
+    > subscraper --all --censys-id someId --censys-secret blablebliblobluxD northernrich.com
+
+         ___      _    ___                                                                                                                                                                                    
+        / __|_  _| |__/ __| __ _ _ __ _ _ __  ___ _ _                                                                                                                                                         
+        \__ \ || | '_ \__ \/ _| '_/ _` | '_ \/ -_) '_|                                                                                                                                                        
+        |___/\_,_|_.__/___/\__|_| \__,_| .__/\___|_| v3.0.2                                                                                                                                                   
+                                       |_|           @m8r0wn 
+
+                                       / 4 Subdomains Found.
+    [*] Identified 4 subdomain(s) in 0:00:36.093118.
+    [*] Subdomains written to ./subscraper_report.txt.
+    > cat ./subscraper_report.txt
+    www.northernrich.com
+    mail.northernrich.com
+    ns.northernrich.com
+    ftp.northernrich.com
+    
 # Subfinder,  searching subdomains
     
     https://www.kali.org/tools/subfinder/
