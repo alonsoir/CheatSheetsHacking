@@ -8,6 +8,12 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# How to find phising websites using censys.io. In this case, i am searching about websites related with Santander bank, phising websites.
+
+    (santarder*) AND parsed.issuer.organization.raw:"Let's Encrypt"
+    
+    https://search.censys.io/certificates?q=%28santarder%2A%29+AND+parsed.issuer.organization.raw%3A%22Let%27s+Encrypt%22
+    
 # Recon web sites
 
     https://github.com/root-x-krypt0n-x/s1c0n
