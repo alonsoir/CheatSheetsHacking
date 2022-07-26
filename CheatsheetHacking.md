@@ -8,6 +8,52 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# Recon web sites
+
+    https://github.com/root-x-krypt0n-x/s1c0n
+    
+    > sudo python3 sicon.py -u as.com 
+    
+                  ┏━┓╺┓ ┏━╸┏━┓┏┓╻
+                  ┗━┓ ┃ ┃  ┃┃┃┃┗┫
+                  ┗━┛╺┻╸┗━╸┗━┛╹ ╹
+                
+                    Simple Recon
+                Coded by UnknownSec666
+                   Thanks to: Jeager
+
+        [*] Starting recon on as.com:
+
+          [+] WAF: NOT DETECTED
+
+          [+] OPENED PORTS: 2
+            -> 80/tcp  open  http
+            -> 443/tcp open  https
+            
+          [+] SUBDOMAINS DETECTED: 194
+            -> xn--90as.com | [80, 113, 443, 2000, 5060, 8008]
+            -> telegra.ph | [80, 113, 443, 2000, 5060, 8008]
+            -> www.mail.megastore.as.com | FAIL MAYBE HOST DIED
+            -> my.as.com | [80, 443]
+            -> seuglucmachespti.tk | [80, 443, 8080, 8443]
+            -> meristation.as.com | [80]
+            -> 2fmeristation.as.com | FAIL MAYBE HOST DIED
+            -> backend.meristation.as.com | [80]
+            -> parrillatv.api.as.com | FAIL MAYBE HOST DIED
+            -> www.toogas.com | [80, 443, 8080, 8443]
+            -> dy6.jgdy99.com | [80, 113, 443, 2000, 5060, 8008, 8080, 8443]
+            -> serielistas.as.com | [80, 443]
+            -> entradas.as.com | [80, 443]
+            -> as.com | [80, 443]
+            -> colombia.as.com | [80, 443]
+            -> be.as.com | FAIL MAYBE HOST DIED
+            -> *.resultados.as.com | FAIL MAYBE HOST DIED
+            -> api.preferences.as.com | [80, 443]
+            -> www.ultra--as.com | FAIL MAYBE HOST DIED
+            -> sdmedia.as.com | [80, 443]
+            -> fan.as.com | [80, 443]
+            -> login.meristation.as.com | [80]
+
 # Web scrapper
 
     https://github.com/m8sec/pymeta
