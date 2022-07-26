@@ -443,6 +443,10 @@ For simplicity, I only run the core commands.
     
 # OSINT
 
+    # Set of osint websites
+    
+    https://osint.hopain.cyou/Domain.html
+    
     # Searching in Linkedin...
     
     https://github.com/m8sec/CrossLinked
