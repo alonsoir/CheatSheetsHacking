@@ -16,6 +16,12 @@ For simplicity, I only run the core commands.
     
 # Recon web sites
 
+    # spiderfoot. Next command will run a server in localhost 5001 port. Deep scan. 
+    
+    python3 ./sf.py -l 127.0.0.1:5001
+    
+    https://github.com/smicallef/spiderfoot
+
     https://github.com/root-x-krypt0n-x/s1c0n
     
     > sudo python3 sicon.py -u as.com 
