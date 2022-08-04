@@ -159,7 +159,7 @@ For simplicity, I only run the core commands.
 
 # spiderfoot. 
 
-    Next command will run a server in localhost 5001 port. Deep scan. 
+    Next command will run a server in localhost 5001 port. Deep scan. In my personal case, i have to run it with sudo.
     
     python3 ./sf.py -l 127.0.0.1:5001
     
