@@ -47,6 +47,15 @@ For simplicity, I only run the core commands.
     hola
     redirigiendo tráfico desde el puerto 40 que estara fuera del control del firewall al puerto 23 que si estará controlado por el firewall
 
+    # Podemos usar netcat en conjuncion con otra herramienta, rlwrap. 
+    
+    # It  returns a standard netcat listener on port 4444. 
+    # However, your shell will be improved with added benefit of allowing you to cycle between used  commands by using your Up-Arrow and Down-Arrow         keys.
+    
+    > rlwrap -cAr nc -nvlp 4444
+    listening on [any] 4444 ...
+
+    
 # Wifi wardriving
 
     I modified a bit s4vitar`s version. I have an alfa awu0360h
