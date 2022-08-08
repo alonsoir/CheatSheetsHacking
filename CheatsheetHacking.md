@@ -14,6 +14,45 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# How to evaluate phone numbers
+
+    https://apilayer.com/marketplace
+    
+    There are lot of open api
+    
+    https://apilayer.com/marketplace/number_verification-api
+    
+    https://www.numberingplans.com/?page=analysis&sub=phonenr
+    
+    https://numeracionyoperadores.cnmc.es/portabilidad/movil/operador
+    
+    https://www.numerosdetelefono.es
+    
+    google dorks! intext:“918025421" (☎OR ☏ OR ✆ OR 📱)
+    
+    https://www.abctelefonos.com
+    
+    https://www.paginasamarillas.es
+    
+    https://haveibeenpwned.com
+    
+    https://main.whoisxmlapi.com
+    
+    https://www.truecaller.com
+    
+    https://whoscall.com/en
+    
+    https://sync.me
+    
+    https://t.me/+123456789
+    
+    https://api.whatsapp.com/send/?phone=%2B123456789&text&type=phone_number&app_absent=0
+    
+    https://viber.click/123456789
+    
+    https://checkwa.online/register/
+    
+    
 # How to find phising websites using censys.io. In this case, i am searching about websites related with Santander bank, phising websites.
 
     (santarder*) AND parsed.issuer.organization.raw:"Let's Encrypt"
