@@ -2,6 +2,12 @@ Ideally you would run these commands behind a vpn and have proxychains configure
 For simplicity, I only run the core commands.
 
 # Hacking Cheatsheet
+
+    git clone https://github.com/Tib3rius/Pentest-Cheatsheets
+    sudo make clean 
+    sudo make html
+    firefox file:///home/kali/git/Pentest-Cheatsheets/_build/html/index.html
+    
     List of commands and techniques to while conducting any kind of hacking :)
 
     # "The quieter you become, The more you’re able to hear"
@@ -14,6 +20,22 @@ For simplicity, I only run the core commands.
     
     https://search.censys.io/certificates?q=%28santarder%2A%29+AND+parsed.issuer.organization.raw%3A%22Let%27s+Encrypt%22
     
+# Autorecon
+
+    AutoRecon is a multi-threaded network reconnaissance tool which performs automated enumeration of services
+    
+    https://github.com/Tib3rius/AutoRecon
+    
+    sudo apt install seclists curl enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
+    
+    > sudo pip install git+https://github.com/Tib3rius/AutoRecon.git
+    ...
+    python3 -m pip install -r requirements.txt
+    ...
+    > sudo python3 autorecon.py  -vvv --single-target localhost
+    [*] Scanning target localhost
+    [*] Port scan Top TCP Ports (top-tcp-ports) running against localhost
+    ...
     
 # Post exploitation techniques
 # Netcat pivot relay
