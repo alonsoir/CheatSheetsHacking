@@ -12,7 +12,7 @@ For simplicity, I only run the core commands.
 
     # "The quieter you become, The more you’re able to hear"
 
-<img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
+<img src="[https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png](https://cdn.pixabay.com/photo/2016/05/25/18/18/penguin-1415562_1280.png)"/>
 
 # How to evaluate phone numbers
 
