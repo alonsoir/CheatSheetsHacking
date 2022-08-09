@@ -14,6 +14,14 @@ For simplicity, I only run the core commands.
 
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+# Scan IOT
+
+    Kamerka, it requires api keys to work
+    
+    https://github.com/woj-ciech/Kamerka-GUI
+    
+    http://localhost:8000/
+    
 # How to evaluate phone numbers
 
     https://apilayer.com/marketplace
