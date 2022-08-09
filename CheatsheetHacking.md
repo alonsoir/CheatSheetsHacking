@@ -1,5 +1,4 @@
-Ideally you would run these commands behind a vpn and have proxychains configured to work through Tor.
-For simplicity, I only run the core commands.
+<img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
 # Hacking Cheatsheet
 
@@ -12,9 +11,8 @@ For simplicity, I only run the core commands.
 
     # "The quieter you become, The more you’re able to hear"
 
-<img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
-# Basic hardening linux server,, debian based
+# Basic hardening linux server, debian based
 
     https://www.youtube.com/watch?v=ZhMw53Ud2tY
     
