@@ -109,9 +109,6 @@
 
     -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
 
-
-
-
 # Scan IOT
 
     Kamerka, it requires api keys to work
@@ -157,8 +154,7 @@
     https://viber.click/123456789
     
     https://checkwa.online/register/
-    
-    
+        
 # How to find phising websites using censys.io. In this case, i am searching about websites related with Santander bank, phising websites.
 
     (santarder*) AND parsed.issuer.organization.raw:"Let's Encrypt"
@@ -182,6 +178,37 @@
     [*] Port scan Top TCP Ports (top-tcp-ports) running against localhost
     ...
     
+# Sn1per framework Attack Surface management
+
+    Recommended Docker install or aws.
+    
+    https://sn1persecurity.com/wordpress/
+    
+    https://github.com/1N3/Sn1per
+    
+    ┌──(root💀c096301bec63)-[/]
+    └─# sniper -t https://7xfx.com -b          
+    Starting PostgreSQL 13 database server: main.
+    [*] Loaded configuration file from /usr/share/sniper/sniper.conf [OK]
+    [*] Loaded configuration file from /root/.sniper.conf [OK]
+    [*] Saving loot to /usr/share/sniper/loot/ [OK]
+    [*] Scanning 7xfx.com [OK]
+    Starting PostgreSQL 13 database server: main.
+    [*] Loaded configuration file from /usr/share/sniper/sniper.conf [OK]
+    [*] Loaded configuration file from /root/.sniper.conf [OK]
+    [*] Saving loot to /usr/share/sniper/loot/workspace/https:--7xfx.com [OK]
+    [*] Scanning 7xfx.com [OK]
+                    ____               
+        _________  /  _/___  ___  _____
+       / ___/ __ \ / // __ \/ _ \/ ___/
+      (__  ) / / // // /_/ /  __/ /    
+     /____/_/ /_/___/ .___/\___/_/     
+                   /_/                 
+
+     + -- --=[https://sn1persecurity.com
+     + -- --=[Sn1per v9.0 by @xer0dayz
+     + 
+     ...
 # Post exploitation techniques
 # Netcat pivot relay
 
