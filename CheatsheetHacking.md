@@ -11,7 +11,6 @@
 
     # "The quieter you become, The more you’re able to hear"
 
-
 # Basic hardening linux server, debian based
 
     https://www.youtube.com/watch?v=ZhMw53Ud2tY
@@ -439,7 +438,17 @@
     ------------------------------                                                                                                                                                                            
     [!] None :(                                                                                                                                                                                               
     ------------------------------                                                                                                                                                                            
-                                                                                                                                                                                                         
+     
+
+# Build your own bot framework
+
+    Follow these instructions, https://github.com/malwaredllc/byob/wiki/Running-Web-GUI-in-a-Docker-container
+    build the container, run it, go to 0.0.0.0:5000 in browser.
+    
+# DDOS scripts. Do not use them!
+
+    https://github.com/IkzCx/ProgramsForDDos
+    
 # Wifi wardriving
 
     I modified a bit s4vitar`s version. I have an alfa awu0360h
