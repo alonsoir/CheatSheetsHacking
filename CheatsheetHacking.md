@@ -1,6 +1,89 @@
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
-# Hacking Cheatsheet
+# Pasos de Israel (@perito_inf) para realizar un proceso de pentesting.
+
+    https://twitter.com/perito_inf/status/1178741955561492481
+    
+    ESCANEO DE LA RED
+    nmap -sn 10.11.1.*
+    nmap -sL 10.11.1.*
+    nbtscan -r 10.11.1.0/24
+    smbtree
+    netdiscover
+    
+    ESCANEO AL HOST
+    nmap --top-ports 20 --open -iL iplist.txt
+    nmap -sS -A -sV -O -p- ipaddress
+    nmap -sU ipaddress
+
+    ESCANEO DE LOS SERVICIOS
+
+    SERVICIOS WEB
+    
+    Nikto
+    dirb
+    dirbuster
+    wpscan
+    otdotpwn
+    view source 
+    davtest\cadevar
+    droopscan
+    joomscan
+    LFI\RFI Test
+
+    S.O. LINUX/WINDOWS
+    
+    snmpwalk -c public -v1 ipaddress 1
+    smbclient -L //ipaddress
+    showmount -e ipaddress port
+    rpcinfo
+    Enum4Linux
+
+    OTROS
+    nmap scripts (locate *nse* | grep servicename)
+    MSF Aux Modules
+    
+    EXPLOTACIÓN
+    Recolección versiones del software
+    Searchsploit
+    Credenciales por defecto
+    Uso de credenciales obtenidos
+    Descarga de software
+
+    POST EXPLOTACIÓN
+
+    LINUX
+    http://linux-local-enum.sh
+    http://inuxprivchecker.py
+    http://linux-exploit-suggestor.sh
+    http://unix-privesc-check.py
+
+    WINDOWS
+    wpc.exe
+    http://windows-exploit-suggestor.py
+    windows_privesc_check.py
+    windows-privesc-check2.exe
+
+    ESCALADA DE PRIVILEGIOS
+    Acceso a servicios internos (portfwd)
+    Añadir una cuenta
+
+    WINDOWS
+    Lista de exploits
+
+    LINUX
+    Sudo su 
+    KernelDB
+    Searchsploit
+
+    FINALIZACIÓN
+    Capturas de pantalla IPConfig\WhoamI
+    Dump hashes 
+    Dump SSH Keys
+    Borrado de archivos
+    Documentación final.
+    
+# Another hacking Cheatsheet
 
     git clone https://github.com/Tib3rius/Pentest-Cheatsheets
     sudo make clean 
