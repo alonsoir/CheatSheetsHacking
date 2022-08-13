@@ -1,5 +1,55 @@
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
+#   Find javascript files from a malicious webserver.
+
+    https://github.com/bhavik-kanejiya/SecretFinder
+    
+    zsh 6551 [1] master% python3 -m pip install -r requirements.txt
+    Collecting requests_file
+      Downloading requests_file-1.5.1-py2.py3-none-any.whl (3.7 kB)
+    ...
+    Successfully built jsbeautifier
+    Installing collected packages: editorconfig, requests-file, jsbeautifier
+    Successfully installed editorconfig-0.12.3 jsbeautifier-1.14.5 requests-file-1.5.1
+    (base) [sáb 22/08/13 12:51 CEST][s000][x86_64/darwin21.0/21.6.0][5.8.1]
+    <aironman@MacBook-Pro-de-Alonso:~/git/SecretFinder>
+    zsh 6552 master% python3 SecretFinder.py -i https://www.metanoa.vip/\#/ -e 
+    [ + ] URL: https://www.metanoa.vip//./static/js/manifest.f4f4a9a7742499ed15ad.js
+    [ + ] URL: https://www.metanoa.vip//./static/js/vendor.a8be22dfe66398d155ce.js
+    [ + ] URL: https://www.metanoa.vip//./static/js/app.a45df6fa2d6c8283993c.js
+    
+    Then, we can use https://beautifier.io to deobfsucate the javascript code and analyze it.
+    
+    Looking for something like https, i can see an url, lets ping it:
+    
+    <aironman@MacBook-Pro-de-Alonso:~/git/SecretFinder>
+    zsh 6554 master% ping -c 1 h5.metanoa.vip                                                                      
+    PING h5.metanoa.vip (156.240.105.170): 56 data bytes
+    64 bytes from 156.240.105.170: icmp_seq=0 ttl=49 time=338.158 ms
+
+    --- h5.metanoa.vip ping statistics ---
+    1 packets transmitted, 1 packets received, 0.0% packet loss
+    round-trip min/avg/max/stddev = 338.158/338.158/338.158/0.000 ms
+    
+    h5.metanoa.vip looks different from https://www.metanoa.vip/\#/, so probably is the real ip address.
+    
+    Using this tool, i can see that the ip is located in Hong Kong, and it is static, probably it is the real ip address.
+    
+    https://whatismyipaddress.com/ip/156.240.105.170
+    
+    If i ping the other ip address:
+    
+    <aironman@MacBook-Pro-de-Alonso:~/git/SecretFinder>
+    zsh 6557 [68] master% ping -c 1 www.metanoa.vip 
+    PING www.metanoa.vip (156.240.105.170): 56 data bytes
+    64 bytes from 156.240.105.170: icmp_seq=0 ttl=49 time=253.263 ms
+
+    --- www.metanoa.vip ping statistics ---
+    1 packets transmitted, 1 packets received, 0.0% packet loss
+    round-trip min/avg/max/stddev = 253.263/253.263/253.263/0.000 ms
+    
+    probably it is not behind any web firewall.
+    
 # Pasos de Israel (@perito_inf) para realizar un proceso de pentesting.
 
     https://twitter.com/perito_inf/status/1178741955561492481
