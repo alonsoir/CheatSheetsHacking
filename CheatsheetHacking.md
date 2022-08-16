@@ -55,14 +55,78 @@
     https://twitter.com/perito_inf/status/1178741955561492481
     
     ESCANEO DE LA RED
-    nmap -sn 10.11.1.*
-    nmap -sL 10.11.1.*
-    nbtscan -r 10.11.1.0/24
+    
+    > nmap -sn 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:32 CEST
+    Nmap scan report for 156.242.11.17
+    Host is up (0.17s latency).
+    Nmap done: 1 IP address (1 host up) scanned in 0.24 seconds
+
+    >  nmap -sL 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:31 CEST
+    Nmap scan report for 156.242.11.17
+    Nmap done: 1 IP address (0 hosts up) scanned in 0.05 seconds
+        
+    > nbtscan -r  156.242.11.17/24
+    Doing NBT name scan for addresses from 156.242.11.17/24
+
+    IP address       NetBIOS Name     Server    User             MAC address      
+    ------------------------------------------------------------------------------
+    156.242.11.18    MS01-C6220-DS07  <server>  <unknown>        e0:db:55:fd:91:e6
+    156.242.11.14    MS01-5038ML-018  <server>  <unknown>        ac:1f:6b:f2:7e:4d
+
+    # smbtree - A text based smb network browser. Windows only
     smbtree
-    netdiscover
+    
+    # Netdiscover es una herramienta activa/pasiva para el reconocimiento de direcciones, desarrollada 
+    # principalmente para redes inalámbricas sin   servidor dhcp, cuando se está realizando wardriving. 
+    # Y también puede ser utilizada en redes con hub o switch.
+
+    # Construido sobre libnet y libcap, puede detectar de manera pasiva hosts en funcionamiento, o búsqueda 
+    # de ellos, enviando solicitudes ARP, esto también puede ser utilizado para inspeccionar el tráfico de red
+    # ARP, o encontrar direcciones de red utilizando el modo de auto escaneo, lo cual puede escanear por redes 
+    # locales comunes.
+    
+    # Aquí estoy usando la herramienta como un sniffer de mi red local...
+    
+    > sudo netdiscover -P -i eth0 -r 192.168.85.0/24
+     _____________________________________________________________________________
+       IP            At MAC Address     Count     Len  MAC Vendor / Hostname      
+     -----------------------------------------------------------------------------
+     192.168.85.1    a6:83:e7:39:c4:65      1      60  Unknown vendor
+     192.168.85.2    00:50:56:e5:34:24      1      60  VMware, Inc.
+     192.168.85.254  00:50:56:e3:1d:c6      1      60  VMware, Inc.
+
+    -- Active scan completed, 3 Hosts found.
+
     
     ESCANEO AL HOST
-    nmap --top-ports 20 --open -iL iplist.txt
+    > nmap --top-ports  20 --open 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:37 CEST
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 17 filtered tcp ports (no-response), 1 closed tcp port (conn-refused)
+    Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+    PORT    STATE SERVICE
+    80/tcp  open  http
+    443/tcp open  https
+    
+    > echo 156.242.11.17 > iplist.txt
+    > cat iplist.txt
+    156.242.11.17
+    > nmap --top-ports  20 --open -iL iplist.txt
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:40 CEST
+    Nmap scan report for 156.242.11.17
+    Host is up (0.19s latency).
+    Not shown: 17 filtered tcp ports (no-response), 1 closed tcp port (conn-refused)
+    Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+    PORT    STATE SERVICE
+    80/tcp  open  http
+    443/tcp open  https
+
+    Nmap done: 1 IP address (1 host up) scanned in 3.21 seconds
+
+    # deep!
     nmap -sS -A -sV -O -p- ipaddress
     nmap -sU ipaddress
 
@@ -71,6 +135,49 @@
     SERVICIOS WEB
     
     Nikto
+        
+        https://ciberseguridad.com/herramientas/software/nikto/#Instalacion_basada_en_Kali_Linux
+        
+    > sudo nikto -h 156.242.11.17 -ssl  -maxtime 60 -output nikto-156-242-11-17.txt -no404 -timeout 15
+    - Nikto v2.1.6
+    ---------------------------------------------------------------------------
+    + Target IP:          156.242.11.17
+    + Target Hostname:    156.242.11.17
+    + Target Port:        443
+    ---------------------------------------------------------------------------
+    + SSL Info:        Subject:  /CN=www.aavadefimax.xyz
+                       Ciphers:  ECDHE-RSA-AES256-GCM-SHA384
+                       Issuer:   /C=US/O=Let's Encrypt/CN=R3
+    + Start Time:         2022-08-16 12:55:45 (GMT2)
+    ---------------------------------------------------------------------------
+    + Server: nginx
+    + Retrieved x-powered-by header: PHP/7.2.34
+    + The anti-clickjacking X-Frame-Options header is not present.
+    + The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
+    + The site uses SSL and the Strict-Transport-Security HTTP header is not defined.
+    + The site uses SSL and Expect-CT header is not present.
+    + The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
+    + No CGI Directories found (use '-C all' to force check all possible dirs)
+    + ERROR: Host maximum execution time of 60 seconds reached
+    + SCAN TERMINATED:  0 error(s) and 6 item(s) reported on remote host
+    + End Time:           2022-08-16 12:56:49 (GMT2) (64 seconds)
+    ---------------------------------------------------------------------------
+    + 1 host(s) tested
+    
+    # I generated an output file...
+    > cat nikto-156-242-11-17.txt
+    - Nikto v2.1.6/2.1.5
+    + Target Host: 156.242.11.17
+    + Target Port: 443
+    + GET Retrieved x-powered-by header: PHP/7.2.34
+    + GET The anti-clickjacking X-Frame-Options header is not present.
+    + GET The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
+    + GET The site uses SSL and the Strict-Transport-Security HTTP header is not defined.
+    + GET The site uses SSL and Expect-CT header is not present.
+    + GET The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
+
+     ⭐  ~  ok  at 12:59:33 >                                                                                           
+        
     dirb
     dirbuster
     wpscan
@@ -132,6 +239,13 @@
     Dump SSH Keys
     Borrado de archivos
     Documentación final.
+    
+#   GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems.
+
+    The project collects legitimate functions of Unix binaries that can be abused to get the f**k break out restricted shells, 
+    escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks.
+
+    https://gtfobins.github.io
     
 # Another hacking Cheatsheet
 
