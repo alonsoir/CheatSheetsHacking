@@ -126,9 +126,176 @@
 
     Nmap done: 1 IP address (1 host up) scanned in 3.21 seconds
 
-    # deep!
-    nmap -sS -A -sV -O -p- ipaddress
-    nmap -sU ipaddress
+    # deep, maybe 1 hour!
+    
+    > sudo nmap -p- -sS -A -sV -O  -iL iplist.txt
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:41 CEST
+    Stats: 0:00:14 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+    SYN Stealth Scan Timing: About 0.94% done                                                                                                               ...             
+    Stats: 0:31:28 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+    SYN Stealth Scan Timing: About 60.01% done; ETC: 13:34 (0:20:58 remaining)                                                                                                                                    
+    Stats: 0:43:45 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan                                                                                                                               
+    SYN Stealth Scan Timing: About 83.71% done; ETC: 13:34 (0:08:31 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.068s latency).
+    Not shown: 65519 filtered tcp ports (no-response)
+    PORT      STATE  SERVICE   VERSION
+    22/tcp    closed ssh
+    80/tcp    open   http      nginx
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    443/tcp   open   ssl/http  nginx
+    |_ssl-date: TLS randomness does not represent time
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    | tls-alpn: 
+    |_  http/1.1
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    2052/tcp  closed clearvisn
+    2053/tcp  closed knetd
+    2082/tcp  closed infowave
+    2083/tcp  open   ssl/http  nginx
+    | ssl-cert: Subject: commonName=CloudFlare Origin Certificate/organizationName=CloudFlare, Inc.
+    | Subject Alternative Name: DNS:*.defi-aava.xyz, DNS:defi-aava.xyz
+    | Not valid before: 2022-03-11T06:50:00
+    |_Not valid after:  2037-03-07T06:50:00
+    | http-title: 400 The plain HTTP request was sent to HTTPS port
+    |_Requested resource was /index/index/welcome
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    | tls-alpn: 
+    |_  http/1.1
+    |_ssl-date: TLS randomness does not represent time
+    23323/tcp open   http      nginx
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    23324/tcp open   ssl/http  nginx
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    | tls-alpn: 
+    |_  http/1.1
+    |_ssl-date: TLS randomness does not represent time
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    23325/tcp open   http      nginx
+    | http-title: \xE6\xAC\xA2\xE8\xBF\x8E\xE8\xAE\xBF\xE9\x97\xAEAI\xE6\x99\xBA\xE8\x83\xBD\xE5\xAE\xA2\xE6\x9C\x8D\xE7\xB3\xBB\xE7\xBB\x9F
+    |_Requested resource was /index/index/welcome
+    | http-cookie-flags: 
+    |   /: 
+    |     PHPSESSID: 
+    |_      httponly flag not set
+    23326/tcp open   ssl/http  nginx
+    | tls-alpn: 
+    |_  http/1.1
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    |_ssl-date: TLS randomness does not represent time
+    | http-title: 400 The plain HTTP request was sent to HTTPS port
+    |_Requested resource was /index/index/welcome
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    23327/tcp open   unknown
+    | fingerprint-strings: 
+    |   DNSStatusRequestTCP, DNSVersionBindReqTCP, HTTPOptions, Help, RPCCheck, RTSPRequest, SSLSessionReq: 
+    |     HTTP/1.1 400 Bad Request
+    |     <b>400 Bad Request</b><br>Invalid handshake data for websocket. <br> See <a href="http://wiki.workerman.net/Error1">http://wiki.workerman.net/Error1</a> for detail.
+    |   GetRequest: 
+    |     HTTP/1.1 400 Bad Request
+    |_    <b>400 Bad Request</b><br>Sec-WebSocket-Key not found.<br>This is a WebSocket service and can not be accessed via HTTP.<br>See <a href="http://wiki.workerman.net/Error1">http://wiki.workerman.net/Error1</a> for detail.
+    32200/tcp open   ssh       OpenSSH 7.4p1 Debian 10+deb9u7 (protocol 2.0)
+    | ssh-hostkey: 
+    |   2048 6e:53:7f:f6:97:fa:9e:a5:b8:75:57:80:94:d2:35:19 (RSA)
+    |   256 80:9e:85:1e:ff:f8:55:64:32:62:9d:85:ac:7c:e8:64 (ECDSA)
+    |_  256 c0:b4:c7:01:ae:77:53:93:af:f7:d7:59:ab:3e:67:6c (ED25519)
+    32201/tcp open   http      nginx
+    | http-title: \xE6\xAC\xA2\xE8\xBF\x8E\xE8\xAE\xBF\xE9\x97\xAEAI\xE6\x99\xBA\xE8\x83\xBD\xE5\xAE\xA2\xE6\x9C\x8D\xE7\xB3\xBB\xE7\xBB\x9F
+    |_Requested resource was /index/index/welcome
+    | http-cookie-flags: 
+    |   /: 
+    |     PHPSESSID: 
+    |_      httponly flag not set
+    32202/tcp open   http      nginx
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    40000/tcp open   ssl/http  nginx
+    | tls-alpn: 
+    |_  http/1.1
+    |_ssl-date: TLS randomness does not represent time
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+    SF-Port23327-TCP:V=7.92%I=7%D=8/16%Time=62FB80CA%P=x86_64-pc-linux-gnu%r(G
+    SF:etRequest,F6,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n<b>400\x20Bad\x
+    SF:20Request</b><br>Sec-WebSocket-Key\x20not\x20found\.<br>This\x20is\x20a
+    SF:\x20WebSocket\x20service\x20and\x20can\x20not\x20be\x20accessed\x20via\
+    SF:x20HTTP\.<br>See\x20<a\x20href=\"http://wiki\.workerman\.net/Error1\">h
+    SF:ttp://wiki\.workerman\.net/Error1</a>\x20for\x20detail\.")%r(HTTPOption
+    SF:s,C0,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n<b>400\x20Bad\x20Reques
+    SF:t</b><br>Invalid\x20handshake\x20data\x20for\x20websocket\.\x20<br>\x20
+    SF:See\x20<a\x20href=\"http://wiki\.workerman\.net/Error1\">http://wiki\.w
+    SF:orkerman\.net/Error1</a>\x20for\x20detail\.")%r(RTSPRequest,C0,"HTTP/1\
+    SF:.1\x20400\x20Bad\x20Request\r\n\r\n<b>400\x20Bad\x20Request</b><br>Inva
+    SF:lid\x20handshake\x20data\x20for\x20websocket\.\x20<br>\x20See\x20<a\x20
+    SF:href=\"http://wiki\.workerman\.net/Error1\">http://wiki\.workerman\.net
+    SF:/Error1</a>\x20for\x20detail\.")%r(RPCCheck,C0,"HTTP/1\.1\x20400\x20Bad
+    SF:\x20Request\r\n\r\n<b>400\x20Bad\x20Request</b><br>Invalid\x20handshake
+    SF:\x20data\x20for\x20websocket\.\x20<br>\x20See\x20<a\x20href=\"http://wi
+    SF:ki\.workerman\.net/Error1\">http://wiki\.workerman\.net/Error1</a>\x20f
+    SF:or\x20detail\.")%r(DNSVersionBindReqTCP,C0,"HTTP/1\.1\x20400\x20Bad\x20
+    SF:Request\r\n\r\n<b>400\x20Bad\x20Request</b><br>Invalid\x20handshake\x20
+    SF:data\x20for\x20websocket\.\x20<br>\x20See\x20<a\x20href=\"http://wiki\.
+    SF:workerman\.net/Error1\">http://wiki\.workerman\.net/Error1</a>\x20for\x
+    SF:20detail\.")%r(DNSStatusRequestTCP,C0,"HTTP/1\.1\x20400\x20Bad\x20Reque
+    SF:st\r\n\r\n<b>400\x20Bad\x20Request</b><br>Invalid\x20handshake\x20data\
+    SF:x20for\x20websocket\.\x20<br>\x20See\x20<a\x20href=\"http://wiki\.worke
+    SF:rman\.net/Error1\">http://wiki\.workerman\.net/Error1</a>\x20for\x20det
+    SF:ail\.")%r(Help,C0,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n<b>400\x20
+    SF:Bad\x20Request</b><br>Invalid\x20handshake\x20data\x20for\x20websocket\
+    SF:.\x20<br>\x20See\x20<a\x20href=\"http://wiki\.workerman\.net/Error1\">h
+    SF:ttp://wiki\.workerman\.net/Error1</a>\x20for\x20detail\.")%r(SSLSession
+    SF:Req,C0,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n<b>400\x20Bad\x20Requ
+    SF:est</b><br>Invalid\x20handshake\x20data\x20for\x20websocket\.\x20<br>\x
+    SF:20See\x20<a\x20href=\"http://wiki\.workerman\.net/Error1\">http://wiki\
+    SF:.workerman\.net/Error1</a>\x20for\x20detail\.");
+    Aggressive OS guesses: Actiontec MI424WR-GEN3I WAP (98%), DD-WRT v24-sp2 (Linux 2.4.37) (98%), Linux 3.2 (97%), Linux 4.4 (97%), Microsoft Windows XP SP3 or Windows 7 or Windows Server 2012 (96%), Microsoft Windows XP SP3 (95%), BlueArc Titan 2100 NAS device (91%)
+    No exact OS matches for host (test conditions non-ideal).
+    Network Distance: 2 hops
+    Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+    TRACEROUTE (using port 80/tcp)
+    HOP RTT      ADDRESS
+    1   57.46 ms 192.168.85.2
+    2   51.12 ms 156.242.11.17
+
+    OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 3192.48 seconds
+
+     ⭐  ~  ok  took 53m 13s  at 13:35:12 >  
+     
+    > nmap sU -iL iplist.txt
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 13:47 CEST
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    443/tcp open   https
+
+    Nmap done: 1 IP address (1 host up) scanned in 11.85 seconds
+
+     ⭐  ~  ok  took 12s  at 13:47:47 >  
 
     ESCANEO DE LOS SERVICIOS
 
@@ -177,13 +344,72 @@
     + GET The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
 
      ⭐  ~  ok  at 12:59:33 >                                                                                           
+    
+    dotdotpwn. scan In progress
+    
+        https://www.kali.org/tools/dotdotpwn/
         
-    dirb
-    dirbuster
-    wpscan
-    otdotpwn
-    view source 
-    davtest\cadevar
+        
+    view source ??? preguntar a Isra
+    
+    davtest
+    
+        You can upload files to a vulnerable webdav server using this.
+        WebDav se usa para compartir ficheros en un servidor web, como un ftp, pero sobre la web.
+        
+        El protocolo WebDAV (Web-based Distributed Authoring and Versioning) está desarrollado por la IETF, 
+        es un protocolo que se encarga de permitirnos de forma sencilla guardar, editar, copiar, mover y 
+        compartir archivos desde servidores web. Gracias a este protocolo, podremos trabajar con archivos 
+        directamente en un servidor web, como si de un servidor Samba o FTP se tratara. 
+        
+        Actualmente, la mayoría de sistemas operativos modernos como Windows, Linux o macOS, permiten soporte 
+        para WebDAV, haciendo que los ficheros de un servidor WebDAV aparezcan como almacenados en un directorio. 
+        
+        https://www.kali.org/tools/davtest/
+        
+        Tienes que crear un directorio tests, si no, falla.
+        ┌──(root㉿kali)-[/home/kali]
+        └─# mkdir tests                      
+
+        ┌──(root㉿kali)-[/home/kali]
+        └─# davtest -url http://156.242.11.17
+        ********************************************************
+         Testing DAV connection
+        OPEN            FAIL:   http://156.242.11.17    Server response: 405 Not Allowed
+        
+        Como puedes ver, ese servidor no tiene webdav habilidato, por lo que, tenemos que detectar servidores web con
+        webdav habilitado. Nmap tiene un script llamado http-iis-webdav-vuln
+        
+        ┌──(root㉿kali)-[/home/kali]
+        └─# nmap -T4 -p80 --script=http-iis-webdav-vuln 156.242.11.17
+        Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 14:11 CEST
+        Nmap scan report for 156.242.11.17
+        Host is up (0.040s latency).
+
+        PORT   STATE SERVICE
+        80/tcp open  http
+
+        Nmap done: 1 IP address (1 host up) scanned in 2.01 seconds
+
+        ┌──(root㉿kali)-[/home/kali]
+        └─# nmap -T4 -p443 --script=http-iis-webdav-vuln 156.242.11.17
+        Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 14:12 CEST
+        Nmap scan report for 156.242.11.17
+        Host is up (0.040s latency).
+
+        PORT    STATE SERVICE
+        443/tcp open  https
+
+        Nmap done: 1 IP address (1 host up) scanned in 2.16 seconds
+        
+        Como podemos ver, este servidor NO es vulnerable.
+        
+        Si buscamos con Shodan, vemos un montón.
+        
+        https://beta.shodan.io/search?query=%28Win32%29+DAV%2F2
+        
+    cadevar
+    
     droopscan
     joomscan
     LFI\RFI Test
