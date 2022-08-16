@@ -461,17 +461,342 @@
         
         https://beta.shodan.io/search?query=%28Win32%29+DAV%2F2
         
-    # cadaver
+    # cadaver. A command-line WebDAV client for Unix.
     
-    droopscan
-    joomscan
-    LFI\RFI Test
+        https://www.kali.org/tools/cadaver/
+        
+    # droopscan. Drupal scan
+    
+    > sudo droopescan scan drupal -u 18.232.209.104
+    [+] Plugins found:                                                              
+        acquia_connector http://18.232.209.104/sites/all/modules/acquia_connector/
 
+    [+] Themes found:
+        seven http://18.232.209.104/themes/seven/
+
+    [+] Possible version(s):
+        7.79
+        7.80
+        7.81
+        7.82
+
+    [+] Possible interesting urls found:
+        Default changelog file - http://18.232.209.104/CHANGELOG.txt
+
+    [+] Scan finished (0:02:29.886451 elapsed)
+
+     ⭐  ~  ok  took 2m 30s  at 20:00:52 >   
+    
+    # joomscan. joomla scanner.
+    
+        https://www.kali.org/tools/joomscan/
+        
+        ____  _____  _____  __  __  ___   ___    __    _  _ 
+   (_  _)(  _  )(  _  )(  \/  )/ __) / __)  /__\  ( \( )
+  .-_)(   )(_)(  )(_)(  )    ( \__ \( (__  /(__)\  )  ( 
+  \____) (_____)(_____)(_/\/\_)(___/ \___)(__)(__)(_)\_)
+                        (1337.today)
+
+    > sudo joomscan -u 114.34.51.108  -ec --timeout 1000  
+    --=[OWASP JoomScan
+    +---++---==[Version : 0.0.7
+    +---++---==[Update Date : [2018/09/23]
+    +---++---==[Authors : Mohammad Reza Espargham , Ali Razmjoo
+    --=[Code name : Self Challenge
+    @OWASP_JoomScan , @rezesp , @Ali_Razmjo0 , @OWASP
+
+    Processing http://114.34.51.108 ...
+
+
+
+    [+] FireWall Detector
+    [++] Firewall not detected
+
+    [+] Detecting Joomla Version
+    [++] ver 404
+
+
+    [+] Core Joomla Vulnerability
+    [++] Target Joomla core is not vulnerable
+    ...
+    
+    # LFI\RFI Test. Por favor, limpia los parámetros de entrada para evitar este problema.
+    
+        https://kalilinuxtutorials.com/rfi-lfi-local-remote-file-inclusion/
+        
     S.O. LINUX/WINDOWS
     
     snmpwalk -c public -v1 ipaddress 1
-    smbclient -L //ipaddress
-    showmount -e ipaddress port
+    
+    > sudo nmap -sU -p 161 -sV  91.195.80.226
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 20:46 CEST
+    Nmap scan report for 91.195.80.226
+    Host is up (0.029s latency).
+
+    PORT    STATE SERVICE VERSION
+    161/udp open  snmp    SNMPv1 server; American Power Conversion Corp. SNMPv3 server (public)
+    Service Info: Host: RackPDU
+
+    Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 14.11 seconds
+
+    # Vemos como el puerto 161 está abierto y es un servicio público...
+    
+    > sudo snmpwalk -v1 -c public 91.195.80.226
+    iso.3.6.1.2.1.1.1.0 = STRING: "APC Web/SNMP Management Card (MB:v4.1.1 PF:v3.9.2 PN:apc_hw02_aos_392.bin AF1:v3.9.2 AN1:apc_hw02_rpdu_392.bin MN:AP7920 HR:B2 SN: ZA0609020383 MD:02/24/2006) "
+    iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.318.1.3.4.5
+    iso.3.6.1.2.1.1.3.0 = Timeticks: (1185541650) 137 days, 5:10:16.50
+    iso.3.6.1.2.1.1.4.0 = STRING: "Unknown"
+    iso.3.6.1.2.1.1.5.0 = STRING: "RackPDU"
+    iso.3.6.1.2.1.1.6.0 = STRING: "Unknown"
+    iso.3.6.1.2.1.1.7.0 = INTEGER: 72
+    iso.3.6.1.2.1.1.8.0 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.1.9.1.2.1 = OID: joint-iso-ccitt.281.2.5.6.3.1
+    iso.3.6.1.2.1.1.9.1.2.2 = OID: iso.3.6.1.6.3.10.3.1.1
+    iso.3.6.1.2.1.1.9.1.2.3 = OID: iso.3.6.1.6.3.11.3.1.1
+    iso.3.6.1.2.1.1.9.1.2.4 = OID: iso.3.6.1.6.3.15.2.1.1
+    iso.3.6.1.2.1.1.9.1.2.5 = OID: iso.3.6.1.6.3.16.2.1.1
+    iso.3.6.1.2.1.1.9.1.3.1 = STRING: "The MIB Module from SNMPv2 entities"
+    iso.3.6.1.2.1.1.9.1.3.2 = STRING: "SNMP Management Architecture MIB"
+    iso.3.6.1.2.1.1.9.1.3.3 = STRING: "Message Processing and Dispatching MIB"
+    iso.3.6.1.2.1.1.9.1.3.4 = STRING: "USM User MIB"
+    iso.3.6.1.2.1.1.9.1.3.5 = STRING: "VACM MIB"
+    iso.3.6.1.2.1.1.9.1.4.1 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.1.9.1.4.2 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.1.9.1.4.3 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.1.9.1.4.4 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.1.9.1.4.5 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.2.1.0 = INTEGER: 2
+    iso.3.6.1.2.1.2.2.1.1.1 = INTEGER: 1
+    iso.3.6.1.2.1.2.2.1.1.2 = INTEGER: 2
+    iso.3.6.1.2.1.2.2.1.2.1 = STRING: "LOOPBACK"
+    iso.3.6.1.2.1.2.2.1.2.2 = STRING: "lance"
+    iso.3.6.1.2.1.2.2.1.3.1 = INTEGER: 24
+    iso.3.6.1.2.1.2.2.1.3.2 = INTEGER: 6
+    iso.3.6.1.2.1.2.2.1.4.1 = INTEGER: 1500
+    iso.3.6.1.2.1.2.2.1.4.2 = INTEGER: 1500
+    iso.3.6.1.2.1.2.2.1.5.1 = Gauge32: 0
+    iso.3.6.1.2.1.2.2.1.5.2 = Gauge32: 10000000
+    iso.3.6.1.2.1.2.2.1.6.1 = ""
+    iso.3.6.1.2.1.2.2.1.6.2 = Hex-STRING: 00 C0 B7 7C FC 87 
+    iso.3.6.1.2.1.2.2.1.7.1 = INTEGER: 1
+    iso.3.6.1.2.1.2.2.1.7.2 = INTEGER: 1
+    iso.3.6.1.2.1.2.2.1.8.1 = INTEGER: 1
+    iso.3.6.1.2.1.2.2.1.8.2 = INTEGER: 1
+    iso.3.6.1.2.1.2.2.1.9.1 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.2.2.1.9.2 = Timeticks: (0) 0:00:00.00
+    iso.3.6.1.2.1.2.2.1.10.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.10.2 = Counter32: 1764105772
+    iso.3.6.1.2.1.2.2.1.11.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.11.2 = Counter32: 50810623
+    iso.3.6.1.2.1.2.2.1.12.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.12.2 = Counter32: 3872077
+    iso.3.6.1.2.1.2.2.1.13.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.13.2 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.14.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.14.2 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.15.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.15.2 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.16.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.16.2 = Counter32: 2952551957
+    iso.3.6.1.2.1.2.2.1.17.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.17.2 = Counter32: 9851043
+    iso.3.6.1.2.1.2.2.1.18.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.18.2 = Counter32: 21975
+    iso.3.6.1.2.1.2.2.1.19.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.19.2 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.20.1 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.20.2 = Counter32: 0
+    iso.3.6.1.2.1.2.2.1.21.1 = Gauge32: 0
+    iso.3.6.1.2.1.2.2.1.21.2 = Gauge32: 1
+    iso.3.6.1.2.1.2.2.1.22.1 = OID: ccitt.0
+    iso.3.6.1.2.1.2.2.1.22.2 = OID: ccitt.0
+    iso.3.6.1.2.1.3.1.1.1.2.1.91.195.80.1 = INTEGER: 2
+    iso.3.6.1.2.1.3.1.1.1.2.1.91.195.80.2 = INTEGER: 2
+    iso.3.6.1.2.1.3.1.1.2.2.1.91.195.80.1 = Hex-STRING: 8A 79 1B 41 EE 60 
+    iso.3.6.1.2.1.3.1.1.2.2.1.91.195.80.2 = Hex-STRING: 8A 79 1B 41 EE 60 
+    iso.3.6.1.2.1.3.1.1.3.2.1.91.195.80.1 = IpAddress: 91.195.80.1
+    iso.3.6.1.2.1.3.1.1.3.2.1.91.195.80.2 = IpAddress: 91.195.80.2
+    iso.3.6.1.2.1.4.1.0 = INTEGER: 2
+    iso.3.6.1.2.1.4.2.0 = INTEGER: 64
+    iso.3.6.1.2.1.4.3.0 = Counter32: 54358403
+    iso.3.6.1.2.1.4.4.0 = Counter32: 0
+    iso.3.6.1.2.1.4.5.0 = Counter32: 581685
+    iso.3.6.1.2.1.4.6.0 = Counter32: 0
+    iso.3.6.1.2.1.4.7.0 = Counter32: 1206
+    iso.3.6.1.2.1.4.8.0 = Counter32: 0
+    iso.3.6.1.2.1.4.9.0 = Counter32: 53775520
+    iso.3.6.1.2.1.4.10.0 = Counter32: 9552483
+    iso.3.6.1.2.1.4.11.0 = Counter32: 0
+    iso.3.6.1.2.1.4.12.0 = Counter32: 0
+    iso.3.6.1.2.1.4.13.0 = INTEGER: 0
+    iso.3.6.1.2.1.4.14.0 = Counter32: 2
+    iso.3.6.1.2.1.4.15.0 = Counter32: 0
+    iso.3.6.1.2.1.4.16.0 = Counter32: 2
+    iso.3.6.1.2.1.4.17.0 = Counter32: 0
+    iso.3.6.1.2.1.4.18.0 = Counter32: 0
+    iso.3.6.1.2.1.4.19.0 = Counter32: 0
+    iso.3.6.1.2.1.4.20.1.1.91.195.80.226 = IpAddress: 91.195.80.226
+    iso.3.6.1.2.1.4.20.1.1.127.0.0.1 = IpAddress: 127.0.0.1
+    iso.3.6.1.2.1.4.20.1.2.91.195.80.226 = INTEGER: 2
+    iso.3.6.1.2.1.4.20.1.2.127.0.0.1 = INTEGER: 1
+    iso.3.6.1.2.1.4.20.1.3.91.195.80.226 = IpAddress: 255.255.255.0
+    iso.3.6.1.2.1.4.20.1.3.127.0.0.1 = IpAddress: 255.255.255.255
+    iso.3.6.1.2.1.4.20.1.4.91.195.80.226 = INTEGER: 1
+    iso.3.6.1.2.1.4.20.1.4.127.0.0.1 = INTEGER: 1
+    iso.3.6.1.2.1.4.20.1.5.91.195.80.226 = INTEGER: 1500
+    iso.3.6.1.2.1.4.20.1.5.127.0.0.1 = INTEGER: 1500
+    iso.3.6.1.2.1.4.21.1.1.0.0.0.0 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.4.21.1.1.91.195.80.0 = IpAddress: 91.195.80.0
+    iso.3.6.1.2.1.4.21.1.1.127.0.0.1 = IpAddress: 127.0.0.1
+    iso.3.6.1.2.1.4.21.1.2.0.0.0.0 = INTEGER: 2
+    iso.3.6.1.2.1.4.21.1.2.91.195.80.0 = INTEGER: 2
+    iso.3.6.1.2.1.4.21.1.2.127.0.0.1 = INTEGER: 1
+    iso.3.6.1.2.1.4.21.1.3.0.0.0.0 = INTEGER: 1
+    iso.3.6.1.2.1.4.21.1.3.91.195.80.0 = INTEGER: 0
+    iso.3.6.1.2.1.4.21.1.3.127.0.0.1 = INTEGER: 0
+    iso.3.6.1.2.1.4.21.1.4.0.0.0.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.4.91.195.80.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.4.127.0.0.1 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.5.0.0.0.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.5.91.195.80.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.5.127.0.0.1 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.6.0.0.0.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.6.91.195.80.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.6.127.0.0.1 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.7.0.0.0.0 = IpAddress: 91.195.80.1
+    iso.3.6.1.2.1.4.21.1.7.91.195.80.0 = IpAddress: 91.195.80.226
+    iso.3.6.1.2.1.4.21.1.7.127.0.0.1 = IpAddress: 127.0.0.1
+    iso.3.6.1.2.1.4.21.1.8.0.0.0.0 = INTEGER: 4
+    iso.3.6.1.2.1.4.21.1.8.91.195.80.0 = INTEGER: 3
+    iso.3.6.1.2.1.4.21.1.8.127.0.0.1 = INTEGER: 3
+    iso.3.6.1.2.1.4.21.1.9.0.0.0.0 = INTEGER: 2
+    iso.3.6.1.2.1.4.21.1.9.91.195.80.0 = INTEGER: 2
+    iso.3.6.1.2.1.4.21.1.9.127.0.0.1 = INTEGER: 2
+    iso.3.6.1.2.1.4.21.1.10.0.0.0.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.10.91.195.80.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.10.127.0.0.1 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.11.0.0.0.0 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.4.21.1.11.91.195.80.0 = IpAddress: 255.255.255.0
+    iso.3.6.1.2.1.4.21.1.11.127.0.0.1 = IpAddress: 255.255.255.255
+    iso.3.6.1.2.1.4.21.1.12.0.0.0.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.12.91.195.80.0 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.12.127.0.0.1 = INTEGER: 65535
+    iso.3.6.1.2.1.4.21.1.13.0.0.0.0 = OID: ccitt.0
+    iso.3.6.1.2.1.4.21.1.13.91.195.80.0 = OID: ccitt.0
+    iso.3.6.1.2.1.4.21.1.13.127.0.0.1 = OID: ccitt.0
+    iso.3.6.1.2.1.4.22.1.1.2.91.195.80.1 = INTEGER: 2
+    iso.3.6.1.2.1.4.22.1.1.2.91.195.80.2 = INTEGER: 2
+    iso.3.6.1.2.1.4.22.1.2.2.91.195.80.1 = Hex-STRING: 8A 79 1B 41 EE 60 
+    iso.3.6.1.2.1.4.22.1.2.2.91.195.80.2 = Hex-STRING: 8A 79 1B 41 EE 60 
+    iso.3.6.1.2.1.4.22.1.3.2.91.195.80.1 = IpAddress: 91.195.80.1
+    iso.3.6.1.2.1.4.22.1.3.2.91.195.80.2 = IpAddress: 91.195.80.2
+    iso.3.6.1.2.1.4.22.1.4.2.91.195.80.1 = INTEGER: 3
+    iso.3.6.1.2.1.4.22.1.4.2.91.195.80.2 = INTEGER: 3
+    iso.3.6.1.2.1.4.23.0 = Counter32: 0
+    iso.3.6.1.2.1.5.1.0 = Counter32: 1021642
+    iso.3.6.1.2.1.5.2.0 = Counter32: 120
+    iso.3.6.1.2.1.5.3.0 = Counter32: 356024
+    iso.3.6.1.2.1.5.4.0 = Counter32: 73452
+    iso.3.6.1.2.1.5.5.0 = Counter32: 0
+    iso.3.6.1.2.1.5.6.0 = Counter32: 0
+    iso.3.6.1.2.1.5.7.0 = Counter32: 6351
+    iso.3.6.1.2.1.5.8.0 = Counter32: 542336
+    iso.3.6.1.2.1.5.9.0 = Counter32: 43359
+    iso.3.6.1.2.1.5.10.0 = Counter32: 0
+    iso.3.6.1.2.1.5.11.0 = Counter32: 0
+    iso.3.6.1.2.1.5.12.0 = Counter32: 0
+    iso.3.6.1.2.1.5.13.0 = Counter32: 0
+    iso.3.6.1.2.1.5.14.0 = Counter32: 648052
+    iso.3.6.1.2.1.5.15.0 = Counter32: 0
+    iso.3.6.1.2.1.5.16.0 = Counter32: 61815
+    iso.3.6.1.2.1.5.17.0 = Counter32: 0
+    iso.3.6.1.2.1.5.18.0 = Counter32: 0
+    iso.3.6.1.2.1.5.19.0 = Counter32: 0
+    iso.3.6.1.2.1.5.20.0 = Counter32: 0
+    iso.3.6.1.2.1.5.21.0 = Counter32: 43901
+    iso.3.6.1.2.1.5.22.0 = Counter32: 542336
+    iso.3.6.1.2.1.5.23.0 = Counter32: 0
+    iso.3.6.1.2.1.5.24.0 = Counter32: 0
+    iso.3.6.1.2.1.5.25.0 = Counter32: 0
+    iso.3.6.1.2.1.5.26.0 = Counter32: 0
+    iso.3.6.1.2.1.6.1.0 = INTEGER: 4
+    iso.3.6.1.2.1.6.2.0 = INTEGER: 1000
+    iso.3.6.1.2.1.6.3.0 = INTEGER: 60000
+    iso.3.6.1.2.1.6.4.0 = INTEGER: 32
+    iso.3.6.1.2.1.6.5.0 = Counter32: 0
+    iso.3.6.1.2.1.6.6.0 = Counter32: 41895
+    iso.3.6.1.2.1.6.7.0 = Counter32: 12824
+    iso.3.6.1.2.1.6.8.0 = Counter32: 1203
+    iso.3.6.1.2.1.6.9.0 = Gauge32: 0
+    iso.3.6.1.2.1.6.10.0 = Counter32: 1977934
+    iso.3.6.1.2.1.6.11.0 = Counter32: 1222446
+    iso.3.6.1.2.1.6.12.0 = Counter32: 2117
+    iso.3.6.1.2.1.6.13.1.1.0.0.0.0.80.0.0.0.0.0 = INTEGER: 2
+    iso.3.6.1.2.1.6.13.1.2.0.0.0.0.80.0.0.0.0.0 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.6.13.1.3.0.0.0.0.80.0.0.0.0.0 = INTEGER: 80
+    iso.3.6.1.2.1.6.13.1.4.0.0.0.0.80.0.0.0.0.0 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.6.13.1.5.0.0.0.0.80.0.0.0.0.0 = INTEGER: 0
+    iso.3.6.1.2.1.6.14.0 = Counter32: 1805
+    iso.3.6.1.2.1.6.15.0 = Counter32: 1152223
+    iso.3.6.1.2.1.7.1.0 = Counter32: 41565025
+    iso.3.6.1.2.1.7.2.0 = Counter32: 3347169
+    iso.3.6.1.2.1.7.3.0 = Counter32: 5863874
+    iso.3.6.1.2.1.7.4.0 = Counter32: 7558276
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.161 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.33281 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.33795 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.34822 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.45925 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.0.0.0.0.63702 = IpAddress: 0.0.0.0
+    iso.3.6.1.2.1.7.5.1.1.91.195.80.226.9950 = IpAddress: 91.195.80.226
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.161 = INTEGER: 161
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.33281 = INTEGER: 33281
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.33795 = INTEGER: 33795
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.34822 = INTEGER: 34822
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.45925 = INTEGER: 45925
+    iso.3.6.1.2.1.7.5.1.2.0.0.0.0.63702 = INTEGER: 63702
+    iso.3.6.1.2.1.7.5.1.2.91.195.80.226.9950 = INTEGER: 9950
+    iso.3.6.1.2.1.11.1.0 = Counter32: 7558360
+    iso.3.6.1.2.1.11.2.0 = Counter32: 7558024
+    iso.3.6.1.2.1.11.3.0 = Counter32: 0
+    iso.3.6.1.2.1.11.4.0 = Counter32: 36
+    iso.3.6.1.2.1.11.5.0 = Counter32: 8
+    iso.3.6.1.2.1.11.6.0 = Counter32: 319
+    iso.3.6.1.2.1.11.8.0 = Counter32: 0
+    iso.3.6.1.2.1.11.9.0 = Counter32: 0
+    iso.3.6.1.2.1.11.10.0 = Counter32: 0
+    iso.3.6.1.2.1.11.11.0 = Counter32: 0
+    iso.3.6.1.2.1.11.12.0 = Counter32: 0
+    iso.3.6.1.2.1.11.13.0 = Counter32: 3165
+    iso.3.6.1.2.1.11.14.0 = Counter32: 0
+    iso.3.6.1.2.1.11.15.0 = Counter32: 1270
+    iso.3.6.1.2.1.11.16.0 = Counter32: 518
+    iso.3.6.1.2.1.11.17.0 = Counter32: 0
+    iso.3.6.1.2.1.11.18.0 = Counter32: 0
+    iso.3.6.1.2.1.11.19.0 = Counter32: 0
+    iso.3.6.1.2.1.11.20.0 = Counter32: 0
+    iso.3.6.1.2.1.11.21.0 = Counter32: 9
+    iso.3.6.1.2.1.11.22.0 = Counter32: 0
+    iso.3.6.1.2.1.11.24.0 = Counter32: 0
+    iso.3.6.1.2.1.11.25.0 = Counter32: 0
+    iso.3.6.1.2.1.11.26.0 = Counter32: 0
+    iso.3.6.1.2.1.11.27.0 = Counter32: 0
+    iso.3.6.1.2.1.11.28.0 = Counter32: 7558049
+    iso.3.6.1.2.1.11.29.0 = Counter32: 216
+    iso.3.6.1.2.1.11.30.0 = INTEGER: 1
+    iso.3.6.1.2.1.11.31.0 = Counter32: 0
+    iso.3.6.1.2.1.11.32.0 = Counter32: 0
+    
+    ahora, la pregunta es, qué hago con ésto?
+    
+    https://www.shodan.io/search?query=snmp+port%3A161
+    
+    # smbclient -L //ipaddress
+        
+        hum...
+    
+    # showmount -e ipaddress port
     rpcinfo
     Enum4Linux
 
