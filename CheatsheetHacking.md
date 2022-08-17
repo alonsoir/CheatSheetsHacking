@@ -623,8 +623,14 @@
         https://www.computerhope.com/unix/urpcinfo.htm#examples
         
     # Enum4Linux
-
+        
+        https://www.kali.org/tools/enum4linux/
+        
+        Enum4linux is a tool for enumerating information from Windows and Samba systems. 
+        It attempts to offer similar functionality to enum.exe formerly available from www.bindview.com.
+        
     OTROS
+    
     nmap scripts (locate *nse* | grep servicename)
     MSF Aux Modules
     
@@ -635,10 +641,14 @@
     Uso de credenciales obtenidos
     Descarga de software
 
-    POST EXPLOTACIÓN
+    # POST EXPLOTACIÓN
 
+        https://highon.coffee/blog/linux-commands-cheat-sheet/
+    
     LINUX
-    http://linux-local-enum.sh
+        
+        http://linux-local-enum.sh
+    
     http://inuxprivchecker.py
     http://linux-exploit-suggestor.sh
     http://unix-privesc-check.py
