@@ -665,7 +665,519 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         
     OTROS
     
+    nmap scripts
+    
+    https://nmap.org/book/man-nse.html
+    13 categories: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln
     nmap scripts (locate *nse* | grep servicename)
+    
+    > nmap -script dos  --webxml -oA nmap-156.242.11.17 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:27 CEST
+    Stats: 0:00:16 elapsed; 0 hosts completed (0 up), 1 undergoing Ping Scan
+    Parallel DNS resolution of 1 host. Timing: About 0.00% done
+    Stats: 0:00:40 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 0.79% done
+
+    > nmap -script discovery  --webxml -oA nmap-156.242.11.17-discovery 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:33 CEST
+    Stats: 0:00:02 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+    NSE Timing: About 94.29% done; ETC: 18:33 (0:00:00 remaining)
+    Pre-scan script results:
+    | targets-asn: 
+    |_  targets-asn.asn is a mandatory parameter
+    |_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+    |_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+
+    > nmap -script default  --webxml -oA nmap-156.242.11.17-default 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:39 CEST
+    Stats: 0:00:09 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+    Connect Scan Timing: About 40.10% done; ETC: 18:39 (0:00:13 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    443/tcp open   https
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    | tls-alpn: 
+    |_  http/1.1
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    |_ssl-date: TLS randomness does not represent time
+
+    Nmap done: 1 IP address (1 host up) scanned in 22.30 seconds
+
+     ⭐  ~  ok  took 22s  at 18:39:24 >
+     
+     > nmap -script malware  --webxml -oA nmap-156.242.11.17-malware 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:54 CEST
+    Stats: 0:00:10 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+    Connect Scan Timing: About 78.90% done; ETC: 18:54 (0:00:03 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    443/tcp open   https
+
+    Nmap done: 1 IP address (1 host up) scanned in 20.09 seconds
+
+     ⭐  ~  ok  took 20s  at 18:54:41 > 
+    > nmap -script safe  --webxml -oA nmap-156.242.11.17-safe 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:55 CEST
+    Stats: 0:00:15 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+    NSE Timing: About 96.83% done; ETC: 18:55 (0:00:01 remaining)
+    Stats: 0:00:32 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+    NSE Timing: About 98.41% done; ETC: 18:56 (0:00:01 remaining)
+    Pre-scan script results:
+    |_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+    |_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+    | targets-asn: 
+    |_  targets-asn.asn is a mandatory parameter
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    |_http-referer-checker: Couldn't find any cross-domain scripts.
+    |_http-date: Fri, 19 Aug 2022 16:56:49 GMT; -3s from local time.
+    |_http-mobileversion-checker: No mobile version detected.
+    | http-vuln-cve2011-3192: 
+    |   VULNERABLE:
+    |   Apache byterange filter DoS
+    |     State: VULNERABLE
+    |     IDs:  CVE:CVE-2011-3192  BID:49303
+    |       The Apache web server is vulnerable to a denial of service attack when numerous
+    |       overlapping byte ranges are requested.
+    |     Disclosure date: 2011-08-19
+    |     References:
+    |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192
+    |       https://seclists.org/fulldisclosure/2011/Aug/175
+    |       https://www.securityfocus.com/bid/49303
+    |_      https://www.tenable.com/plugins/nessus/55976
+    |_http-xssed: No previously reported XSS vuln.
+    |_http-fetch: Please enter the complete path of the directory to save data in.
+    | http-security-headers: 
+    |   Cache_Control: 
+    |_    Header: Cache-Control: no-cache
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    | http-headers: 
+    |   Server: nginx
+    |   Date: Fri, 19 Aug 2022 16:56:46 GMT
+    |   Content-Type: text/html; charset=utf-8
+    |   Content-Length: 712
+    |   Last-Modified: Mon, 25 Apr 2022 03:00:07 GMT
+    |   Connection: close
+    |   ETag: "62660eb7-2c8"
+    |   Cache-Control: no-cache
+    |   Accept-Ranges: bytes
+    |   
+    |_  (Request type: HEAD)
+    | http-useragent-tester: 
+    |   Status for browser useragent: 200
+    |   Allowed User Agents: 
+    |     Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)
+    |     libwww
+    |     lwp-trivial
+    |     libcurl-agent/1.0
+    |     PHP/
+    |     Python-urllib/2.5
+    |     GT::WWW
+    |     Snoopy
+    |     MFC_Tear_Sample
+    |     HTTP::Lite
+    |     PHPCrawl
+    |     URI::Fetch
+    |     Zend_Http_Client
+    |     http client
+    |     PECL::HTTP
+    |     Wget/1.13.4 (linux-gnu)
+    |_    WWW-Mechanize/1.34
+    | http-comments-displayer: 
+    | Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=156.242.11.17
+    |     
+    |     Path: http://156.242.11.17:80/
+    |     Line number: 4
+    |     Comment: 
+    |         <!-- <meta property="og:site_name" content="CB-W">
+    |             <meta property="og:title" content="Coinbase Wallet">
+    |             <meta property="og:image" content="machine/og_img.png">
+    |             <meta property="og:url" content="machine/share.html">
+    |             <meta property="og:type" content="website" />
+    |             <meta property="og:updated_time" content="1637723687" /> -->
+    |     
+    |     Path: http://156.242.11.17:80/
+    |     Line number: 3
+    |     Comment: 
+    |         <!-- og meta -->
+    |     
+    |     Path: http://156.242.11.17:80/
+    |     Line number: 10
+    |     Comment: 
+    |         <!-- twitter -->
+    |     
+    |     Path: http://156.242.11.17:80/
+    |     Line number: 11
+    |     Comment: 
+    |         <!-- <meta name="twitter:site" content="CB-W" />
+    |             <meta name="twitter:title" content="Coinbase Wallet ">
+    |             <meta name="twitter:image" content="machine/og_img.png">
+    |_            <meta name="twitter:card" content="summary_large_image" /> -->
+    443/tcp open   https
+    | http-useragent-tester: 
+    |   Status for browser useragent: 200
+    |   Allowed User Agents: 
+    |     Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)
+    |     libwww
+    |     lwp-trivial
+    |     libcurl-agent/1.0
+    |     PHP/
+    |     Python-urllib/2.5
+    |     GT::WWW
+    |     Snoopy
+    |     MFC_Tear_Sample
+    |     HTTP::Lite
+    |     PHPCrawl
+    |     URI::Fetch
+    |     Zend_Http_Client
+    |     http client
+    |     PECL::HTTP
+    |     Wget/1.13.4 (linux-gnu)
+    |_    WWW-Mechanize/1.34
+    | http-security-headers: 
+    |   Strict_Transport_Security: 
+    |     HSTS not configured in HTTPS Server
+    |   Cache_Control: 
+    |_    Header: Cache-Control: no-cache
+    |_http-mobileversion-checker: No mobile version detected.
+    | http-headers: 
+    |   Server: nginx
+    |   Date: Fri, 19 Aug 2022 16:56:49 GMT
+    |   Content-Type: text/html; charset=utf-8
+    |   Content-Length: 712
+    |   Last-Modified: Mon, 25 Apr 2022 03:00:07 GMT
+    |   Connection: close
+    |   ETag: "62660eb7-2c8"
+    |   Cache-Control: no-cache
+    |   Accept-Ranges: bytes
+    |   
+    |_  (Request type: HEAD)
+    |_ssl-date: TLS randomness does not represent time
+    |_http-referer-checker: Couldn't find any cross-domain scripts.
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    |_http-date: Fri, 19 Aug 2022 16:56:44 GMT; 0s from local time.
+    |_http-xssed: No previously reported XSS vuln.
+    | http-comments-displayer: 
+    | Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=156.242.11.17
+    |     
+    |     Path: https://156.242.11.17:443/
+    |     Line number: 4
+    |     Comment: 
+    |         <!-- <meta property="og:site_name" content="CB-W">
+    |             <meta property="og:title" content="Coinbase Wallet">
+    |             <meta property="og:image" content="machine/og_img.png">
+    |             <meta property="og:url" content="machine/share.html">
+    |             <meta property="og:type" content="website" />
+    |             <meta property="og:updated_time" content="1637723687" /> -->
+    |     
+    |     Path: https://156.242.11.17:443/
+    |     Line number: 3
+    |     Comment: 
+    |         <!-- og meta -->
+    |     
+    |     Path: https://156.242.11.17:443/
+    |     Line number: 10
+    |     Comment: 
+    |         <!-- twitter -->
+    |     
+    |     Path: https://156.242.11.17:443/
+    |     Line number: 11
+    |     Comment: 
+    |         <!-- <meta name="twitter:site" content="CB-W" />
+    |             <meta name="twitter:title" content="Coinbase Wallet ">
+    |             <meta name="twitter:image" content="machine/og_img.png">
+    |_            <meta name="twitter:card" content="summary_large_image" /> -->
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    |_http-fetch: Please enter the complete path of the directory to save data in.
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    | tls-alpn: 
+    |_  http/1.1
+
+    Host script results:
+    |_tor-consensus-checker: 156.242.11.17 not found in Tor consensus
+    | port-states: 
+    |   tcp: 
+    |     open: 80,443
+    |     filtered: 1,3-4,6-7,9,13,17,19-21,23-26,30,32-33,37,42-43,49,53,70,79,81-85,88-90,99-100,106,109-111,113,119,125,135,139,143-144,146,161,163,179,199,211-212,222,254-256,259,264,280,301,306,311,340,366,389,406-407,416-417,425,427,444-445,458,464-465,481,497,500,512-515,524,541,543-545,548,554-555,563,587,593,616-617,625,631,636,646,648,666-668,683,687,691,700,705,711,714,720,722,726,749,765,777,783,787,800-801,808,843,873,880,888,898,900-903,911-912,981,987,990,992-993,995,999-1002,1007,1009-1011,1021-1100,1102,1104-1108,1110-1114,1117,1119,1121-1124,1126,1130-1132,1137-1138,1141,1145,1147-1149,1151-1152,1154,1163-1166,1169,1174-1175,1183,1185-1187,1192,1198-1199,1201,1213,1216-1218,1233-1234,1236,1244,1247-1248,1259,1271-1272,1277,1287,1296,1300-1301,1309-1311,1322,1328,1334,1352,1417,1433-1434,1443,1455,1461,1494,1500-1501,1503,1521,1524,1533,1556,1580,1583,1594,1600,1641,1658,1666,1687-1688,1700,1717-1721,1723,1755,1761,1782-1783,1801,1805,1812,1839-1840,1862-1864,1875,1900,1914,1935,1947,1971-1972,1974,1984,1998-2010,2013,2020-2022,2030,2033-2035,2038,2040-2043,2045-2049,2065,2068,2099-2100,2103,2105-2107,2111,2119,2121,2126,2135,2144,2160-2161,2170,2179,2190-2191,2196,2200,2222,2251,2260,2288,2301,2323,2366,2381-2383,2393-2394,2399,2401,2492,2500,2522,2525,2557,2601-2602,2604-2605,2607-2608,2638,2701-2702,2710,2717-2718,2725,2800,2809,2811,2869,2875,2909-2910,2920,2967-2968,2998,3000-3001,3003,3005-3007,3011,3013,3017,3030-3031,3052,3071,3077,3128,3168,3211,3221,3260-3261,3268-3269,3283,3300-3301,3306,3322-3325,3333,3351,3367,3369-3372,3389-3390,3404,3476,3493,3517,3527,3546,3551,3580,3659,3689-3690,3703,3737,3766,3784,3800-3801,3809,3814,3826-3828,3851,3869,3871,3878,3880,3889,3905,3914,3918,3920,3945,3971,3986,3995,3998,4000-4006,4045,4111,4125-4126,4129,4224,4242,4279,4321,4343,4443-4446,4449,4550,4567,4662,4848,4899-4900,4998,5000-5004,5009,5030,5033,5050-5051,5054,5060-5061,5080,5087,5100-5102,5120,5190,5200,5214,5221-5222,5225-5226,5269,5280,5298,5357,5405,5414,5431-5432,5440,5500,5510,5544,5550,5555,5560,5566,5631,5633,5666,5678-5679,5718,5730,5800-5802,5810-5811,5815,5822,5825,5850,5859,5862,5877,5900-5904,5906-5907,5910-5911,5915,5922,5925,5950,5952,5959-5963,5987-5989,5998-6007,6009,6025,6059,6100-6101,6106,6112,6123,6129,6156,6346,6389,6502,6510,6543,6547,6565-6567,6580,6646,6666-6669,6689,6692,6699,6779,6788-6789,6792,6839,6881,6901,6969,7000-7002,7004,7007,7019,7025,7070,7100,7103,7106,7200-7201,7402,7435,7443,7496,7512,7625,7627,7676,7741,7777-7778,7800,7911,7920-7921,7937-7938,7999-8002,8007-8011,8021-8022,8031,8042,8045,8080-8090,8093,8099-8100,8180-8181,8192-8194,8200,8222,8254,8290-8292,8300,8333,8383,8400,8402,8443,8500,8600,8649,8651-8652,8654,8701,8800,8873,8888,8899,8994,9000-9003,9009-9011,9040,9050,9071,9080-9081,9090-9091,9099-9103,9110-9111,9200,9207,9220,9290,9415,9418,9485,9500,9502-9503,9535,9575,9593-9595,9618,9666,9876-9878,9898,9900,9917,9929,9943-9944,9968,9998-10004,10009-10010,10012,10024-10025,10082,10180,10215,10243,10566,10616-10617,10621,10626,10628-10629,10778,11110-11111,11967,12000,12174,12265,12345,13456,13722,13782-13783,14000,14238,14441-14442,15000,15002-15004,15660,15742,16000-16001,16012,16016,16018,16080,16113,16992-16993,17877,17988,18040,18101,18988,19101,19283,19315,19350,19780,19801,19842,20000,20005,20031,20221-20222,20828,21571,22939,23502,24444,24800,25734-25735,26214,27000,27352-27353,27355-27356,27715,28201,30000,30718,30951,31038,31337,32768-32785,33354,33899,34571-34573,35500,38292,40193,40911,41511,42510,44176,44442-44443,44501,45100,48080,49152-49161,49163,49165,49167,49175-49176,49400,49999-50003,50006,50300,50389,50500,50636,50800,51103,51493,52673,52822,52848,52869,54045,54328,55055-55056,55555,55600,56737-56738,57294,57797,58080,60020,60443,61532,61900,62078,63331,64623,64680,65000,65129,65389
+    |_    closed: 22
+    | dns-blacklist: 
+    |   SPAM
+    |     bl.spamcop.net - FAIL
+    |     dnsbl.inps.de - FAIL
+    |     l2.apews.org - FAIL
+    |     sbl.spamhaus.org - FAIL
+    |     spam.dnsbl.sorbs.net - FAIL
+    |     bl.nszones.com - FAIL
+    |     list.quorum.to - FAIL
+    |     all.spamrats.com - FAIL
+    |   ATTACK
+    |     all.bl.blocklist.de - FAIL
+    |   PROXY
+    |_    socks.dnsbl.sorbs.net - FAIL
+    | unusual-port: 
+    |_  WARNING: this script depends on Nmap's service/version detection (-sV)
+    |_clock-skew: mean: -1s, deviation: 2s, median: -3s
+    | whois-ip: Record found at whois.afrinic.net
+    | inetnum: 156.242.11.0 - 156.242.11.255
+    | netname: HongKong_MEGALAYER_Technology
+    | descr: HongKong MEGALAYER Technology
+    |_country: US
+    |_fcrdns: FAIL (No PTR record)
+    |_asn-query: No Answers
+    |_whois-domain: You should provide a domain name.
+    | ip-geolocation-geoplugin: coordinates: 34.0544, -118.244
+    |_location: California, United States
+
+    Post-scan script results:
+    Bug in ip-geolocation-map-bing: no string output.
+    | reverse-index: 
+    |   80/tcp: 156.242.11.17
+    |_  443/tcp: 156.242.11.17
+    Bug in ip-geolocation-map-google: no string output.
+    Bug in ip-geolocation-map-kml: no string output.
+    Nmap done: 1 IP address (1 host up) scanned in 140.46 seconds
+
+    ⭐  ~  ok  took 2m 21s  at 18:57:51 >    
+
+
+     > nmap -script auth  --webxml -oA nmap-156.242.11.17-auth 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:40 CEST
+    Stats: 0:00:06 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+    Connect Scan Timing: About 0.65% done
+    Stats: 0:00:12 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+    Connect Scan Timing: About 58.50% done; ETC: 18:40 (0:00:06 remaining)
+    Stats: 0:00:17 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 78.79% done; ETC: 18:40 (0:00:00 remaining)
+    Stats: 0:00:20 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 98.48% done; ETC: 18:40 (0:00:00 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    |_http-config-backup: ERROR: Script execution failed (use -d to debug)
+    443/tcp open   https
+    |_http-config-backup: ERROR: Script execution failed (use -d to debug)
+
+    Nmap done: 1 IP address (1 host up) scanned in 20.35 seconds
+
+     ⭐  ~  ok  took 20s  at 18:40:36 >  
+    
+    > nmap -script broadcast  --webxml -oA nmap-156.242.11.17-broadcast 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:41 CEST
+    Stats: 0:00:29 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+    NSE Timing: About 98.08% done; ETC: 18:42 (0:00:01 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    443/tcp open   https
+
+    Nmap done: 1 IP address (1 host up) scanned in 52.34 seconds
+
+     ⭐  ~  ok  took 52s  at 18:42:39 >     
+     
+    > nmap -script vuln  --webxml -oA nmap-156.242.11.17-vuln 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 19:09 CEST
+    Stats: 0:09:04 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.53% done; ETC: 19:18 (0:00:02 remaining)
+    Stats: 0:10:35 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.53% done; ETC: 19:20 (0:00:03 remaining)
+    Stats: 0:11:32 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.53% done; ETC: 19:21 (0:00:03 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    | http-vuln-cve2011-3192: 
+    |   VULNERABLE:
+    |   Apache byterange filter DoS
+    |     State: VULNERABLE
+    |     IDs:  CVE:CVE-2011-3192  BID:49303
+    |       The Apache web server is vulnerable to a denial of service attack when numerous
+    |       overlapping byte ranges are requested.
+    |     Disclosure date: 2011-08-19
+    |     References:
+    |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192
+    |       https://www.tenable.com/plugins/nessus/55976
+    |       https://seclists.org/fulldisclosure/2011/Aug/175
+    |_      https://www.securityfocus.com/bid/49303
+    | http-enum: 
+    |   /0/: Potentially interesting folder
+    |_  /index/: Potentially interesting folder
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+    443/tcp open   https
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+    | http-enum: 
+    |   /0/: Potentially interesting folder
+    |_  /index/: Potentially interesting folder
+    | http-vuln-cve2011-3192: 
+    |   VULNERABLE:
+    |   Apache byterange filter DoS
+    |     State: VULNERABLE
+    |     IDs:  CVE:CVE-2011-3192  BID:49303
+    |       The Apache web server is vulnerable to a denial of service attack when numerous
+    |       overlapping byte ranges are requested.
+    |     Disclosure date: 2011-08-19
+    |     References:
+    |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192
+    |       https://www.tenable.com/plugins/nessus/55976
+    |       https://seclists.org/fulldisclosure/2011/Aug/175
+    |_      https://www.securityfocus.com/bid/49303
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+
+    Nmap done: 1 IP address (1 host up) scanned in 931.36 seconds
+
+     ⭐  ~  ok  took 15m 31s  at 19:25:06 >               
+
+    > nmap -script exploit  --webxml -oA nmap-156.242.11.17-exploit 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:44 CEST
+    Stats: 0:00:16 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 95.74% done; ETC: 18:44 (0:00:00 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.19s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+    443/tcp open   https
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+
+    Nmap done: 1 IP address (1 host up) scanned in 22.40 seconds
+
+     ⭐  ~  ok  took 22s  at 18:44:23 > 
+
+    > nmap -script external  --webxml -oA nmap-156.242.11.17-external 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:45 CEST
+    Pre-scan script results:
+    |_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+    | targets-asn: 
+    |_  targets-asn.asn is a mandatory parameter
+    |_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+    Stats: 0:00:57 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 65.79% done; ETC: 18:46 (0:00:23 remaining)
+    Stats: 0:01:29 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 92.31% done; ETC: 18:46 (0:00:06 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    |_http-xssed: No previously reported XSS vuln.
+    443/tcp open   https
+    |_http-xssed: No previously reported XSS vuln.
+
+    Host script results:
+    | dns-blacklist: 
+    |   SPAM
+    |     dnsbl.inps.de - FAIL
+    |     l2.apews.org - FAIL
+    |_    list.quorum.to - FAIL
+    |_asn-query: No Answers
+    |_tor-consensus-checker: 156.242.11.17 not found in Tor consensus
+    Bug in ip-geolocation-geoplugin: no string output.
+    |_whois-domain: You should provide a domain name.
+    | whois-ip: Record found at whois.afrinic.net
+    | inetnum: 156.242.11.0 - 156.242.11.255
+    | netname: HongKong_MEGALAYER_Technology
+    | descr: HongKong MEGALAYER Technology
+    |_country: US
+
+    Nmap done: 1 IP address (1 host up) scanned in 91.68 seconds
+
+     ⭐  ~  ok  took 1m 32s  at 18:46:56 >   
+    
+    > nmap -script intrusive  --webxml -oA nmap-156.242.11.17-intrusive 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:49 CEST
+    Stats: 0:00:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 18.81% done; ETC: 18:49 (0:00:22 remaining)
+    Stats: 0:01:08 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 19.24% done; ETC: 18:53 (0:03:13 remaining)
+    Stats: 0:02:09 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 19.24% done; ETC: 18:58 (0:07:29 remaining)
+    Stats: 0:03:58 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 19.24% done; ETC: 19:08 (0:15:07 remaining)
+    ...
+
+    > nmap -script fuzzer  --webxml -oA nmap-156.242.11.17-fuzzer 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:48 CEST
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE
+    22/tcp  closed ssh
+    80/tcp  open   http
+    443/tcp open   https
+
+    Nmap done: 1 IP address (1 host up) scanned in 12.80 seconds
+
+     ⭐  ~  ok  took 13s  at 18:48:17 >  
+
+
+    > nmap -sV  -A --webxml -oA nmap-156.242.11.17 156.242.11.17
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:20 CEST
+    Stats: 0:00:08 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+    Connect Scan Timing: About 52.80% done; ETC: 18:20 (0:00:08 remaining)
+    Nmap scan report for 156.242.11.17
+    Host is up (0.18s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE  SERVICE  VERSION
+    22/tcp  closed ssh
+    80/tcp  open   http     nginx
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    443/tcp open   ssl/http nginx
+    |_http-title: Site doesn't have a title (text/html; charset=utf-8).
+    | ssl-cert: Subject: commonName=www.aavadefimax.xyz
+    | Subject Alternative Name: DNS:www.aavadefimax.xyz
+    | Not valid before: 2022-07-24T07:32:08
+    |_Not valid after:  2022-10-22T07:32:07
+    | tls-nextprotoneg: 
+    |_  http/1.1
+    |_ssl-date: TLS randomness does not represent time
+    | tls-alpn: 
+    |_  http/1.1
+
+    Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 35.47 seconds
+    > ls nmap-156.242.11.17.*
+    nmap-156.242.11.17.gnmap  nmap-156.242.11.17.nmap  nmap-156.242.11.17.xml
+    
     MSF Aux Modules
     
     EXPLOTACIÓN
