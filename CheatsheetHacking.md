@@ -1,7 +1,31 @@
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
-#   Find javascript files from a malicious webserver.
+# Descargo de responsabilidad
+# La finalidad de este fichero es recopilar información actualizada mientras aprendo pentesting, hardening y 
+# seguridad informática en definitiva. Por favor, no uses este conocimiento para cometer actos ilegales, por lo que 
+# yo no me hago responsable de las acciones ilegales que puedas cometer. 
 
+# Usa estos comandos en un laboratorio controlado, por ejemplo, ejecutando distintas máquinas virtuales en vmware o virtualbox,
+# o en las máquinas que provee hackthebox. Están diseñadas para ser divertidas de hackear mientras aprendes.
+# Un gran poder conlleva una gran responsabilidad, procura ser un agente del bien.
+
+# Actualmente el fichero está disgregado, verás distintos ejemplos de la misma herramienta por aquí y por allá. 
+# Está hecho así a proposito, algún día, cuando tenga mucho material actualizado acumulado, dentro de unos años, lo dejaré bien ordenado.
+# También me gustaría que este trabajo llegue algún a las manos de Israel, la persona de quien forkeé el original. 
+# Estoy aprendiendo de él y de otros más como Santiago Hernandez y S4vitar.
+# En estos momentos voy agregando lo último que voy viendo al principio del fichero.
+
+# Disclaimer
+# The purpose of this file is to collect updated information while I learn pentesting,hardening cloud systems and
+# cybersecurity . Please do not use this knowledge to commit illegal acts, so i am not responsible for any illegal 
+# actions you may commit.
+
+# Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
+# or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
+
+# Find javascript files from a malicious webserver.
+
+    
     https://github.com/bhavik-kanejiya/SecretFinder
     
     zsh 6551 [1] master% python3 -m pip install -r requirements.txt
@@ -20,7 +44,7 @@
     
     Then, we can use https://beautifier.io to deobfsucate the javascript code and analyze it.
     
-    Looking for something like https, i can see an url, lets ping it:
+    Looking for something like https, i can see an url, h5.metanoa.vip, lets ping it:
     
     <aironman@MacBook-Pro-de-Alonso:~/git/SecretFinder>
     zsh 6554 master% ping -c 1 h5.metanoa.vip                                                                      
@@ -48,13 +72,13 @@
     1 packets transmitted, 1 packets received, 0.0% packet loss
     round-trip min/avg/max/stddev = 253.263/253.263/253.263/0.000 ms
     
-    probably it is not behind any web firewall.
+    probably it is not behind any fancy web firewall.
     
 # Pasos de Israel (@perito_inf) para realizar un proceso de pentesting.
 
     https://twitter.com/perito_inf/status/1178741955561492481
     
-    ESCANEO DE LA RED
+# ESCANEO DE LA RED
     
     > nmap -sn 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:32 CEST
@@ -100,7 +124,10 @@
     -- Active scan completed, 3 Hosts found.
 
     
-    ESCANEO AL HOST
+    ESCANEO AL HOST. 
+    
+    Veinte puertos abiertos más importantes.
+    
     > nmap --top-ports 20 --open 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:37 CEST
     Nmap scan report for 156.242.11.17
