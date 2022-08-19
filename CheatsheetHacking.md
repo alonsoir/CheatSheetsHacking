@@ -1,27 +1,27 @@
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
 # Descargo de responsabilidad
-# La finalidad de este fichero es recopilar información actualizada mientras aprendo pentesting, hardening y 
-# seguridad informática en definitiva. Por favor, no uses este conocimiento para cometer actos ilegales, por lo que 
-# yo no me hago responsable de las acciones ilegales que puedas cometer. 
+La finalidad de este fichero es recopilar información actualizada mientras aprendo pentesting, hardening y 
+seguridad informática en definitiva. Por favor, no uses este conocimiento para cometer actos ilegales, por lo que 
+yo no me hago responsable de las acciones ilegales que puedas cometer. 
 
-# Usa estos comandos en un laboratorio controlado, por ejemplo, ejecutando distintas máquinas virtuales en vmware o virtualbox,
-# o en las máquinas que provee hackthebox. Están diseñadas para ser divertidas de hackear mientras aprendes.
-# Un gran poder conlleva una gran responsabilidad, procura ser un agente del bien.
+Usa estos comandos en un laboratorio controlado, por ejemplo, ejecutando distintas máquinas virtuales en vmware o virtualbox,
+o en las máquinas que provee hackthebox. Están diseñadas para ser divertidas de hackear mientras aprendes.
+Un gran poder conlleva una gran responsabilidad, procura ser un agente del bien.
 
-# Actualmente el fichero está disgregado, verás distintos ejemplos de la misma herramienta por aquí y por allá. 
-# Está hecho así a proposito, algún día, cuando tenga mucho material actualizado acumulado, dentro de unos años, lo dejaré bien ordenado.
-# También me gustaría que este trabajo llegue algún a las manos de Israel, la persona de quien forkeé el original. 
-# Estoy aprendiendo de él y de otros más como Santiago Hernandez y S4vitar.
-# En estos momentos voy agregando lo último que voy viendo al principio del fichero.
+Actualmente el fichero está disgregado, verás distintos ejemplos de la misma herramienta por aquí y por allá. 
+Está hecho así a proposito, algún día, cuando tenga mucho material actualizado acumulado, dentro de unos años, lo dejaré bien ordenado.
+También me gustaría que este trabajo llegue algún a las manos de Israel, la persona de quien forkeé el original. 
+Estoy aprendiendo de él y de otros más como Santiago Hernandez y S4vitar.
+En estos momentos voy agregando lo último que voy viendo al principio del fichero.
 
 # Disclaimer
-# The purpose of this file is to collect updated information while I learn pentesting,hardening cloud systems and
-# cybersecurity . Please do not use this knowledge to commit illegal acts, so i am not responsible for any illegal 
-# actions you may commit.
+The purpose of this file is to collect updated information while I learn pentesting,hardening cloud systems and
+cybersecurity . Please do not use this knowledge to commit illegal acts, so i am not responsible for any illegal 
+actions you may commit.
 
-# Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
-# or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
+Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
+or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
 
 # Find javascript files from a malicious webserver.
 
