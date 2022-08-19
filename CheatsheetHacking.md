@@ -23,9 +23,16 @@ actions you may commit.
 Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
 or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
 
+# Bypass a Web application Firewall, like CloudFlare...
+
+    You need to identify what waf are behind any server, so you can use somethig like wafw00f.
+    https://www.kali.org/tools/wafw00f/
+    
+    then, i recommend to go to this website and find the latest hack:
+    https://waf-bypass.com
+    
 # Find javascript files from a malicious webserver.
 
-    
     https://github.com/bhavik-kanejiya/SecretFinder
     
     zsh 6551 [1] master% python3 -m pip install -r requirements.txt
