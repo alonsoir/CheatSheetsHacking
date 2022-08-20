@@ -670,7 +670,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         
     # OTROS
     
-    # nmap script engine (nse)
+    # Using nmap script engine (nse)
     
     https://nmap.org/book/man-nse.html
     
@@ -967,7 +967,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     ⭐  ~  ok  took 2m 21s  at 18:57:51 >    
 
 
-     > nmap -script auth  --webxml -oA nmap-156.242.11.17-auth 156.242.11.17
+    > nmap -script auth  --webxml -oA nmap-156.242.11.17-auth 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:40 CEST
     Stats: 0:00:06 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
     Connect Scan Timing: About 0.65% done
@@ -1005,7 +1005,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 52.34 seconds
 
-     ⭐  ~  ok  took 52s  at 18:42:39 >     
+    ⭐  ~  ok  took 52s  at 18:42:39 >     
      
     > nmap -script vuln  --webxml -oA nmap-156.242.11.17-vuln 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 19:09 CEST
@@ -1063,7 +1063,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 931.36 seconds
 
-     ⭐  ~  ok  took 15m 31s  at 19:25:06 >               
+    ⭐  ~  ok  took 15m 31s  at 19:25:06 >               
 
     > nmap -script exploit  --webxml -oA nmap-156.242.11.17-exploit 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:44 CEST
@@ -1085,7 +1085,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 22.40 seconds
 
-     ⭐  ~  ok  took 22s  at 18:44:23 > 
+    ⭐  ~  ok  took 22s  at 18:44:23 > 
 
     > nmap -script external  --webxml -oA nmap-156.242.11.17-external 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:45 CEST
@@ -1126,7 +1126,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 91.68 seconds
 
-     ⭐  ~  ok  took 1m 32s  at 18:46:56 >   
+    ⭐  ~  ok  took 1m 32s  at 18:46:56 >   
     
     > nmap -script intrusive  --webxml -oA nmap-156.242.11.17-intrusive 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:49 CEST
@@ -1152,7 +1152,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 12.80 seconds
 
-     ⭐  ~  ok  took 13s  at 18:48:17 >  
+    ⭐  ~  ok  took 13s  at 18:48:17 >  
 
 
     > nmap -sV  -A --webxml -oA nmap-156.242.11.17 156.242.11.17
@@ -1265,10 +1265,288 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     nmap-1.1.1.1.gnmap nmap-1.1.1.1.nmap  nmap-1.1.1.1.xml
 
     # MSF Aux Modules
-    
-        working in a POC with Loi
-        
+            
         https://www.youtube.com/watch?v=K7y_-JtpZ7I
+        
+    # MSF importing data from nmap into MSF.
+    In a previous scan, i saw that the JBOSS server is vulnerable to a DOS attack, so, please, do not exploit the server.
+    
+    $ sudo msfdb init && msfconsole
+    [sudo] password for kali: 
+    Metasploit running on Kali Linux as root, using system database
+    A database appears to be already configured, skipping initialization
+    [?] Would you like to init the webservice? (Not Required) [no]: no
+    Clearing http web data service credentials in msfconsole
+    Running the 'init' command for the database:
+    Existing database found, attempting to start it
+    Starting database at /home/kali/.msf4/db...success
+
+
+                                       .,,.                  .
+                                    .\$$$$$L..,,==aaccaacc%#s$b.       d8,    d8P
+                         d8P        #$$$$$$$$$$$$$$$$$$$$$$$$$$$b.    `BP  d888888p
+                      d888888P      '7$$$$\""""''^^`` .7$$$|D*"'```         ?88'
+      d8bd8b.d8p d8888b ?88' d888b8b            _.os#$|8*"`   d8P       ?8b  88P
+      88P`?P'?P d8b_,dP 88P d8P' ?88       .oaS###S*"`       d8P d8888b $whi?88b 88b
+     d88  d8 ?8 88b     88b 88b  ,88b .osS$$$$*" ?88,.d88b, d88 d8P' ?88 88P `?8b
+    d88' d88b 8b`?8888P'`?8b`?88P'.aS$$$$Q*"`    `?88'  ?88 ?88 88b  d88 d88
+                              .a#$$$$$$"`          88b  d8P  88b`?8888P'
+                           ,s$$$$$$$"`             888888P'   88n      _.,,,ass;:
+                        .a$$$$$$$P`               d88P'    .,.ass%#S$$$$$$$$$$$$$$'
+                     .a$###$$$P`           _.,,-aqsc#SS$$$$$$$$$$$$$$$$$$$$$$$$$$'
+                  ,a$$###$$P`  _.,-ass#S$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$####SSSS'
+               .a$$$$$$$$$$SSS$$$$$$$$$$$$$$$$$$$$$$$$$$$$SS##==--""''^^/$$$$$$'
+    _______________________________________________________________   ,&$$$$$$'_____
+                                                                     ll&&$$$$'
+                                                                  .;;lll&&&&'
+                                                                ...;;lllll&'
+                                                              ......;;;llll;;;....
+                                                               ` ......;;;;... .  .
+
+
+           =[ metasploit v6.2.13-dev-                         ]
+    + -- --=[ 2238 exploits - 1180 auxiliary - 398 post       ]
+    + -- --=[ 867 payloads - 45 encoders - 11 nops            ]
+    + -- --=[ 9 evasion                                       ]
+
+    Metasploit tip: View missing module options with show 
+    missing
+
+    msf6 > db_import  /home/kali/nmap-156.242.11.17                                                                                                                                                           
+    nmap-156.242.11.17-auth.gnmap       nmap-156.242.11.17-default.xml      nmap-156.242.11.17-external.nmap    nmap-156.242.11.17-malware.gnmap    nmap-156.242.11.17-vuln.xml                               
+    nmap-156.242.11.17-auth.nmap        nmap-156.242.11.17-discovery.gnmap  nmap-156.242.11.17-external.xml     nmap-156.242.11.17-malware.nmap     nmap-156.242.11.17.gnmap                                  
+    nmap-156.242.11.17-auth.xml         nmap-156.242.11.17-discovery.nmap   nmap-156.242.11.17-fuzzer.gnmap     nmap-156.242.11.17-malware.xml      nmap-156.242.11.17.nmap                                   
+    nmap-156.242.11.17-broadcast.gnmap  nmap-156.242.11.17-discovery.xml    nmap-156.242.11.17-fuzzer.nmap      nmap-156.242.11.17-safe.gnmap       nmap-156.242.11.17.xml                                    
+    nmap-156.242.11.17-broadcast.nmap   nmap-156.242.11.17-exploit.gnmap    nmap-156.242.11.17-fuzzer.xml       nmap-156.242.11.17-safe.nmap                                                                  
+    nmap-156.242.11.17-broadcast.xml    nmap-156.242.11.17-exploit.nmap     nmap-156.242.11.17-intrusive.gnmap  nmap-156.242.11.17-safe.xml                                                                   
+    nmap-156.242.11.17-default.gnmap    nmap-156.242.11.17-exploit.xml      nmap-156.242.11.17-intrusive.nmap   nmap-156.242.11.17-vuln.gnmap                                                                 
+    nmap-156.242.11.17-default.nmap     nmap-156.242.11.17-external.gnmap   nmap-156.242.11.17-intrusive.xml    nmap-156.242.11.17-vuln.nmap        
+    msf6 > db_import  /home/kali/nmap-156.242.11.17-vuln.
+    nmap-156.242.11.17-vuln.gnmap  nmap-156.242.11.17-vuln.nmap   nmap-156.242.11.17-vuln.xml    
+    msf6 > db_import  /home/kali/nmap-156.242.11.17-vuln.xml
+    [*] Importing 'Nmap XML' data
+    [*] Import: Parsing with 'Nokogiri v1.13.6'
+    [*] Importing host 156.242.11.17
+    [*] Successfully imported /home/kali/nmap-156.242.11.17-vuln.xml
+    msf6 > services
+    Services
+    ========
+
+    host           port  proto  name   state   info
+    ----           ----  -----  ----   -----   ----
+    156.242.11.17  22    tcp    ssh    closed
+    156.242.11.17  80    tcp    http   open
+    156.242.11.17  443   tcp    https  open
+
+    msf6 > services -p 443 -u
+    Services
+    ========
+
+    host           port  proto  name   state  info
+    ----           ----  -----  ----   -----  ----
+    156.242.11.17  443   tcp    https  open
+
+    # Searching a vuln, it is not the same that nmap told me before...
+    msf6 > search http-vuln-cve2010-0738
+    [-] No results from search
+    msf6 > search cve2010-0738
+    [-] No results from search
+    msf6 > search cve-2010-0738
+
+    Matching Modules
+    ================
+
+       #  Name                                                 Disclosure Date  Rank       Check  Description
+       -  ----                                                 ---------------  ----       -----  -----------
+       0  auxiliary/admin/http/jboss_bshdeployer                                normal     No     JBoss JMX Console Beanshell Deployer WAR Upload and Deployment
+       1  exploit/multi/http/jboss_bshdeployer                 2010-04-26       excellent  No     JBoss JMX Console Beanshell Deployer WAR Upload and Deployment
+       2  exploit/multi/http/jboss_maindeployer                2007-02-20       excellent  No     JBoss JMX Console Deployer Upload and Execute
+       3  auxiliary/admin/http/jboss_deploymentfilerepository                   normal     No     JBoss JMX Console DeploymentFileRepository WAR Upload and Deployment
+       4  exploit/multi/http/jboss_deploymentfilerepository    2010-04-26       excellent  No     JBoss Java Class DeploymentFileRepository WAR Deployment
+       5  auxiliary/scanner/http/jboss_vulnscan                                 normal     No     JBoss Vulnerability Scanner
+       6  auxiliary/scanner/sap/sap_icm_urlscan                                 normal     No     SAP URL Scanner
+
+
+    Interact with a module by name or index. For example info 6, use 6 or use auxiliary/scanner/sap/sap_icm_urlscan
+
+    msf6 > info 2
+
+           Name: JBoss JMX Console Deployer Upload and Execute
+         Module: exploit/multi/http/jboss_maindeployer
+       Platform: Java, Linux, Windows
+           Arch: 
+     Privileged: Yes
+        License: Metasploit Framework License (BSD)
+           Rank: Excellent
+      Disclosed: 2007-02-20
+
+    Provided by:
+      jduck <jduck@metasploit.com>
+      Patrick Hof
+      h0ng10
+
+    Available targets:
+      Id  Name
+      --  ----
+      0   Automatic (Java based)
+      1   Windows Universal
+      2   Linux Universal
+      3   Java Universal
+
+    Check supported:
+      No
+
+    Basic options:
+      Name          Current Setting  Required  Description
+      ----          ---------------  --------  -----------
+      APPBASE                        no        Application base name, (default: random)
+      HttpPassword                   no        The password for the specified username
+      HttpUsername                   no        The username to authenticate as
+      JSP                            no        JSP name to use without .jsp extension (default: random)
+      PATH          /jmx-console     yes       The URI path of the console
+      Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+      RHOSTS                         yes       The target host(s), see https://github.com/rapid7/metasploit-framework/wiki/Using-Metasploit
+      RPORT         8080             yes       The target port (TCP)
+      SRVHOST                        yes       The local host to listen on. This must be an address on the local machine
+      SRVPORT       8080             yes       The local port to listen on.
+      SSL           false            no        Negotiate SSL/TLS for outgoing connections
+      SSLCert                        no        Path to a custom SSL certificate (default is randomly generated)
+      URIPATH                        no        The URI to use for this exploit (default is random)
+      VERB          GET              yes       HTTP Method to use (for CVE-2010-0738) (Accepted: GET, POST, HEAD)
+      VHOST                          no        HTTP server virtual host
+      WARHOST                        no        The host to request the WAR payload from
+
+    Payload information:
+
+    Description:
+      This module can be used to execute a payload on JBoss servers that 
+      have an exposed "jmx-console" application. The payload is put on the 
+      server by using the jboss.system:MainDeployer functionality. To 
+      accomplish this, a temporary HTTP server is created to serve a WAR 
+      archive containing our payload. This method will only work if the 
+      target server allows outbound connections to us.
+
+    References:
+      https://nvd.nist.gov/vuln/detail/CVE-2007-1036
+      https://nvd.nist.gov/vuln/detail/CVE-2010-0738
+      OSVDB (33744)
+      http://www.redteam-pentesting.de/publications/jboss
+      https://bugzilla.redhat.com/show_bug.cgi?id=574105
+
+    msf6 > use 2
+    [*] No payload configured, defaulting to java/meterpreter/reverse_tcp
+    msf6 exploit(multi/http/jboss_maindeployer) > show options
+
+    Module options (exploit/multi/http/jboss_maindeployer):
+
+       Name          Current Setting  Required  Description
+       ----          ---------------  --------  -----------
+       APPBASE                        no        Application base name, (default: random)
+       HttpPassword                   no        The password for the specified username
+       HttpUsername                   no        The username to authenticate as
+       JSP                            no        JSP name to use without .jsp extension (default: random)
+       PATH          /jmx-console     yes       The URI path of the console
+       Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+       RHOSTS                         yes       The target host(s), see https://github.com/rapid7/metasploit-framework/wiki/Using-Metasploit
+       RPORT         8080             yes       The target port (TCP)
+       SRVHOST                        yes       The local host to listen on. This must be an address on the local machine
+       SRVPORT       8080             yes       The local port to listen on.
+       SSL           false            no        Negotiate SSL/TLS for outgoing connections
+       SSLCert                        no        Path to a custom SSL certificate (default is randomly generated)
+       URIPATH                        no        The URI to use for this exploit (default is random)
+       VERB          GET              yes       HTTP Method to use (for CVE-2010-0738) (Accepted: GET, POST, HEAD)
+       VHOST                          no        HTTP server virtual host
+       WARHOST                        no        The host to request the WAR payload from
+
+
+    Payload options (java/meterpreter/reverse_tcp):
+
+       Name   Current Setting  Required  Description
+       ----   ---------------  --------  -----------
+       LHOST  192.168.85.139   yes       The listen address (an interface may be specified)
+       LPORT  4444             yes       The listen port
+
+
+    Exploit target:
+
+       Id  Name
+       --  ----
+       0   Automatic (Java based)
+
+
+    msf6 exploit(multi/http/jboss_maindeployer) > back
+    
+    # I dont want to exploit it, i have to set rhost too...
+    
+    msf6 > search cve-2011-3192
+
+    Matching Modules
+    ================
+
+       #  Name                                 Disclosure Date  Rank    Check  Description
+       -  ----                                 ---------------  ----    -----  -----------
+       0  auxiliary/dos/http/apache_range_dos  2011-08-19       normal  No     Apache Range Header DoS (Apache Killer)
+
+
+    Interact with a module by name or index. For example info 0, use 0 or use auxiliary/dos/http/apache_range_dos
+
+    msf6 > info 0
+
+           Name: Apache Range Header DoS (Apache Killer)
+         Module: auxiliary/dos/http/apache_range_dos
+        License: Metasploit Framework License (BSD)
+           Rank: Normal
+      Disclosed: 2011-08-19
+
+    Provided by:
+      Kingcope
+      Masashi Fujiwara
+      Markus Neis <markus.neis@gmail.com>
+
+    Available actions:
+      Name   Description
+      ----   -----------
+      CHECK  Check if target is vulnerable
+      DOS    Trigger Denial of Service against target
+
+    Check supported:
+      No
+
+    Basic options:
+      Name     Current Setting  Required  Description
+      ----     ---------------  --------  -----------
+      Proxies                   no        A proxy chain of format type:host:port[,type:host:port][...]
+      RHOSTS                    yes       The target host(s), see https://github.com/rapid7/metasploit-framework/wiki/Using-Metasploit
+      RLIMIT   50               yes       Number of requests to send
+      RPORT    80               yes       The target port (TCP)
+      SSL      false            no        Negotiate SSL/TLS for outgoing connections
+      THREADS  1                yes       The number of concurrent threads (max one per host)
+      URI      /                yes       The request URI
+      VHOST                     no        HTTP server virtual host
+
+    Description:
+      The byterange filter in the Apache HTTP Server 2.0.x through 2.0.64, 
+      and 2.2.x through 2.2.19 allows remote attackers to cause a denial 
+      of service (memory and CPU consumption) via a Range header that 
+      expresses multiple overlapping ranges, exploit called "Apache 
+      Killer"
+
+    References:
+      http://www.securityfocus.com/bid/49303
+      https://nvd.nist.gov/vuln/detail/CVE-2011-3192
+      https://www.exploit-db.com/exploits/17696
+      OSVDB (74721)
+
+    msf6 > hosts
+
+    Hosts
+    =====
+
+    address        mac  name  os_name  os_flavor  os_sp  purpose  info  comments
+    -------        ---  ----  -------  ---------  -----  -------  ----  --------
+    156.242.11.17             Unknown                    device
+
+    # The exploit is to destroy the server, i dont want to do it. Dont run the previous commands.
         
     EXPLOTACIÓN
     Recolección versiones del software
