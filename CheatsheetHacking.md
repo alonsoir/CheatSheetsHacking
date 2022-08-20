@@ -92,12 +92,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Nmap scan report for 156.242.11.17
     Host is up (0.17s latency).
     Nmap done: 1 IP address (1 host up) scanned in 0.24 seconds
-
+    ...
+    
     >  nmap -sL 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:31 CEST
     Nmap scan report for 156.242.11.17
     Nmap done: 1 IP address (0 hosts up) scanned in 0.05 seconds
-        
+    ...
+    
     > nbtscan -r  156.242.11.17/24
     Doing NBT name scan for addresses from 156.242.11.17/24
 
@@ -107,7 +109,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     156.242.11.14    MS01-5038ML-018  <server>  <unknown>        ac:1f:6b:f2:7e:4d
 
     # smbtree - A text based smb network browser. Windows only
-    smbtree
+    
+        smbtree
     
     # Netdiscover es una herramienta activa/pasiva para el reconocimiento de direcciones, desarrollada 
     # principalmente para redes inalámbricas sin   servidor dhcp, cuando se está realizando wardriving. 
@@ -144,6 +147,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     PORT    STATE SERVICE
     80/tcp  open  http
     443/tcp open  https
+    ...
     
     > echo 156.242.11.17 > iplist.txt
     > cat iplist.txt
@@ -165,7 +169,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     > sudo nmap -p- -sS -A -sV -O  -iL iplist.txt
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 12:41 CEST
     Stats: 0:00:14 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
-    SYN Stealth Scan Timing: About 0.94% done                                                                                                               ...             
+    SYN Stealth Scan Timing: About 0.94% done                                                                                                                           ...             
     Stats: 0:31:28 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
     SYN Stealth Scan Timing: About 60.01% done; ETC: 13:34 (0:20:58 remaining)                                                                                                                                    
     Stats: 0:43:45 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan                                                                                                                               
@@ -315,7 +319,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
     Nmap done: 1 IP address (1 host up) scanned in 3192.48 seconds
 
-     ⭐  ~  ok  took 53m 13s  at 13:35:12 >  
+    ⭐  ~  ok  took 53m 13s  at 13:35:12 >  
      
     > nmap sU -iL iplist.txt
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-16 13:47 CEST
@@ -329,7 +333,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 11.85 seconds
 
-     ⭐  ~  ok  took 12s  at 13:47:47 >  
+    ⭐  ~  ok  took 12s  at 13:47:47 >  
 
     # ESCANEO DE LOS SERVICIOS
 
@@ -606,7 +610,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         [+] Scan finished (0:02:25.852120 elapsed)
 
-         ⭐  ~  ok  took 2m 29s  at 10:48:49 >  
+        ⭐  ~  ok  took 2m 29s  at 10:48:49 >  
+    
     # joomscan
     
         joomla scanner
@@ -663,13 +668,13 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         Enum4linux is a tool for enumerating information from Windows and Samba systems. 
         It attempts to offer similar functionality to enum.exe formerly available from www.bindview.com.
         
-    OTROS
+    # OTROS
     
-    nmap scripts
+    # nmap script engine (nse)
     
     https://nmap.org/book/man-nse.html
+    
     13 categories: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln
-    nmap scripts (locate *nse* | grep servicename)
     
     > nmap -script dos  --webxml -oA nmap-156.242.11.17 156.242.11.17
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-19 18:27 CEST
@@ -1178,8 +1183,93 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     > ls nmap-156.242.11.17.*
     nmap-156.242.11.17.gnmap  nmap-156.242.11.17.nmap  nmap-156.242.11.17.xml
     
-    MSF Aux Modules
+    # you can run two or more categories...
     
+    (base) [sáb 22/08/20 13:09 CEST][s000][x86_64/darwin21.0/21.6.0][5.8.1]
+    <aironman@MacBook-Pro-de-Alonso:~>
+    zsh 6590 [255] % nmap -script default,vuln -oA nmap-1.1.1.1 1.1.1.1 
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-20 13:10 CEST
+    Stats: 0:00:26 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+    NSE Timing: About 92.31% done; ETC: 13:10 (0:00:02 remaining)
+    Pre-scan script results:
+    | broadcast-avahi-dos: 
+    |   Discovered hosts:
+    |     224.0.0.251
+    |   After NULL UDP avahi packet DoS (CVE-2011-1002).
+    |_  Hosts are all up (not vulnerable).
+    Stats: 0:02:04 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.21% done; ETC: 13:12 (0:00:00 remaining)
+    Stats: 0:02:54 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.36% done; ETC: 13:13 (0:00:01 remaining)
+    Stats: 0:03:17 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.68% done; ETC: 13:13 (0:00:00 remaining)
+    Stats: 0:10:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:20 (0:00:01 remaining)
+    Stats: 0:15:26 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:25 (0:00:01 remaining)
+    Stats: 0:16:40 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:26 (0:00:01 remaining)
+    Stats: 0:16:41 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:26 (0:00:01 remaining)
+    Stats: 0:16:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:26 (0:00:01 remaining)
+    Stats: 0:19:02 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:29 (0:00:02 remaining)
+    Stats: 0:19:03 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.84% done; ETC: 13:29 (0:00:02 remaining)
+    Nmap scan report for one.one.one.one (1.1.1.1)
+    Host is up (0.020s latency).
+    Not shown: 997 filtered tcp ports (no-response)
+    PORT    STATE SERVICE
+    53/tcp  open  domain
+    | dns-nsid: 
+    |   NSID: 40m68 (34306d3638)
+    |_  id.server: MAD
+    80/tcp  open  http
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+    |_http-title: Did not follow redirect to https://one.one.one.one/
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+    |_http-vuln-cve2013-7091: ERROR: Script execution failed (use -d to debug)
+    |_http-passwd: ERROR: Script execution failed (use -d to debug)
+    443/tcp open  https
+    | http-fileupload-exploiter: 
+    |   
+    |_    Couldn't find a file-type field.
+    |_http-dombased-xss: Couldn't find any DOM based XSS.
+    |_http-majordomo2-dir-traversal: ERROR: Script execution failed (use -d to debug)
+    |_ssl-date: TLS randomness does not represent time
+    |_http-title: Site doesn't have a title (application/xml).
+    |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+    |_http-csrf: Couldn't find any CSRF vulnerabilities.
+    | ssl-cert: Subject: commonName=cloudflare-dns.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+    | Subject Alternative Name: DNS:cloudflare-dns.com, DNS:*.cloudflare-dns.com, DNS:one.one.one.one, IP Address:1.1.1.1, IP Address:1.0.0.1, IP Address:162.159.36.1, IP Address:162.159.46.1, IP Address:2606:4700:4700:0:0:0:0:1111, IP Address:2606:4700:4700:0:0:0:0:1001, IP Address:2606:4700:4700:0:0:0:0:64, IP Address:2606:4700:4700:0:0:0:0:6400
+    | Not valid before: 2021-10-25T00:00:00
+    |_Not valid after:  2022-10-25T23:59:59
+    | http-vuln-cve2010-0738: 
+    |_  /jmx-console/: Authentication was not required
+    | http-enum: 
+    |   /beta/: Potentially interesting folder
+    |   /es/: Potentially interesting folder
+    |   /help/: Potentially interesting folder
+    |_  /nl/: Potentially interesting folder
+    |_http-vuln-cve2017-1001000: ERROR: Script execution failed (use -d to debug)
+
+    Nmap done: 1 IP address (1 host up) scanned in 1182.22 seconds
+
+    # As you can see, nmap has created three files...
+    
+    <aironman@MacBook-Pro-de-Alonso:~>
+    zsh 6591 % ls nmap-*                                         
+    Executing ls -G
+    nmap-1.1.1.1.gnmap nmap-1.1.1.1.nmap  nmap-1.1.1.1.xml
+
+    # MSF Aux Modules
+    
+        working in a POC with Loi
+        
+        https://www.youtube.com/watch?v=K7y_-JtpZ7I
+        
     EXPLOTACIÓN
     Recolección versiones del software
     Searchsploit
