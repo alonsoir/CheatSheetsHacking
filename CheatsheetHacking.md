@@ -34,102 +34,125 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
 # Basic hardening linux server, debian based systems, and kali.
 
+    Please, follow every step described in this video:
+    
     https://www.youtube.com/watch?v=ZhMw53Ud2tY
     
-    STEP 1 - Enable Automatic Updates
+    # STEP 1 - Enable Automatic Updates
 
-    Manual Updates:
-
+    # Manual Updates:
+    # become root user first, default root password is kali: 
+    # you want to change this root default password first.
+    
+    https://www.makeuseof.com/how-to-change-root-password-kali-linux/
+    
+    sudo passwd root
+    
+    # follow instructions, remember this password, then:
+    sudo su
     apt update
     apt dist-upgrade
 
-    Automatic Updates:
+    # Automatic Updates:
 
     apt install unattended-upgrades
     dpkg-reconfigure --priority=low unattended-upgrades
 
 
-    STEP 2 - Create a Limited User Account
+    # STEP 2 - Create a Limited User Account
 
-    Create a User:
+    # Create a User, change {username} for one you like it, like jeremy. This is a user with much privileges.
 
     adduser {username}
 
 
-    Add user to the sudo group:
+    # Add user to the sudo group:
 
     usermod -aG sudo {username}
 
 
-    STEP 3 - Passwords are for SUCKERS!
+    # STEP 3 - Passwords are for SUCKERS! optional, you want to do this if you have another machine
 
     Create the Public Key Directory on your Linux Server
 
     mkdir ~/.ssh && chmod 700 ~/.ssh
 
 
-    Create Public/Private keys on your computer
+    # Create Public/Private keys on your computer. optional
 
     ssh-keygen -b 4096
 
 
-    Upload your Public key to the your Linux Server (Windows)
+    # Upload your Public key to the your Linux Server (Windows). optional
 
     scp $env:USERPROFILE/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
 
-    Upload your Public key to the your Linux Server (MAC)
+    # Upload your Public key to the your Linux Server (MAC). optional
 
     scp ~/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
 
-    Upload your Public key to the your Linux Server (LINUX)
+    # Upload your Public key to the your Linux Server (LINUX). optional
 
     ssh-copy-id {username}@{server ip}
 
 
-    STEP 4 - Lockdown Logins
+    # STEP 4 - Lockdown Logins
 
-    Edit the SSH config file
+    Edit the SSH config file, follow the steps in the video editing this file, then save it 
 
-    sudo nano /etc/ssh/sshd_config
+    sudo gedit /etc/ssh/sshd_config
 
+    sudo systemctl restart ssh.service
+    
+    # STEP 5 - FIREWALL IT UP. Very important.
 
-    STEP 5 - FIREWALL IT UP
-
-    See open ports
+    # See open ports, unless you want in your machine services like apache web server or ssh, you dont want to have open ports.
 
     sudo ss -tupln
 
-    Install UFW
+    # Install UFW
 
-    apt install ufw
+    sudo apt install ufw
 
-    See UFW status
+    # See UFW status
 
     sudo ufw status
 
-    Allow port through firewall
+    # Allow port through firewall
 
     sudo ufw allow {port number}
+    
+    # Deny ports 
+    
+    sudo ufw deny {port number}
+    
+    # example, port 80 and 443is usually dedicated to apache web server,22 is dedicated to ssh:
+    
+    sudo ufw deny 80
+    sudo ufw deny 22
+    sudo ufw deny 443
 
-    Enable Firewall
+    # Enable Firewall
 
     sudo ufw enable
 
-    Reload Firewall
+    # Reload Firewall
 
     sudo ufw reload
 
+    # After these commands you are almost there, finally, you dont want to respond to external ping commands, so: 
+    # Drop pings
 
-    Drop pings
+    # Edit the UFW config file
 
-    Edit the UFW config file
+    sudo gedit /etc/ufw/before.rules
 
-    sudo nano /etc/ufw/before.rules
-
-    Add this line of config:
+    # Add this line of config:
 
     -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
     
+    sudo ufw reload
+     
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
