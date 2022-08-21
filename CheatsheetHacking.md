@@ -25,10 +25,15 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # First steps
     
-    Install vmware in your host system and then install kali. 4 GB RAM recommended. The more resources you can assign, the best.
+    Install vmware or virtualbox in your host system and then install kali. 
+    You have to dowload a ISO image of Kali linux. Follow instructions.
+    4 GB RAM recommended. The more resources you can assign, the best.
     There are tools like Maltego that need a lot of resources to go fairly smooth. The more you can, the better.
     
     https://thesecmaster.com/install-kali-linux-on-vmware-workstation/
+    
+    https://www.kali.org/docs/virtualization/install-virtualbox-guest-vm/
+    
     Then, i recommend to harden the system and install git in Kali.
     https://www.kali.org/tools/git/
     
