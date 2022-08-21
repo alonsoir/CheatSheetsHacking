@@ -23,7 +23,29 @@ actions you may commit.
 Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
 or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
 
+# Prerequisites:
+    
+    I recommend to install firts git in your host machine in order to clone this repo in your host machine
+    Install git in windows machines:
+    
+        https://phoenixnap.com/kb/how-to-install-git-windows
+        
+    Install git in osx machines:
+    
+        https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+        
+    Once you have git installed, clone this repo, using a terminal run the next command:
+        
+        mkdir git
+        cd git
+        git clone https://github.com/alonsoir/CheatSheetsHacking.git
+        
+    To get latest updates, run the next command in git folder:
+    
+        git pull
+    
 # First steps
+    
     
     Install vmware or virtualbox in your host system and then install kali. 
     You have to dowload a ISO image of Kali linux. Follow instructions.
