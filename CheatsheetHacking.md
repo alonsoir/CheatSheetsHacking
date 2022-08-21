@@ -23,6 +23,113 @@ actions you may commit.
 Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
 or on machines provided by hackthebox. They are designed to be fun to hack while you learn.
 
+# First steps
+    
+    Install vmware in your host system and then install kali. 4 GB RAM recommended. The more resources you can assign, the best.
+    There are tools like Maltego that need a lot of resources to go fairly smooth. The more you can, the better.
+    
+    https://thesecmaster.com/install-kali-linux-on-vmware-workstation/
+    Then, i recommend to harden the system and install git in Kali.
+    https://www.kali.org/tools/git/
+    
+# Basic hardening linux server, debian based systems, and kali.
+
+    https://www.youtube.com/watch?v=ZhMw53Ud2tY
+    
+    STEP 1 - Enable Automatic Updates
+
+    Manual Updates:
+
+    apt update
+    apt dist-upgrade
+
+    Automatic Updates:
+
+    apt install unattended-upgrades
+    dpkg-reconfigure --priority=low unattended-upgrades
+
+
+    STEP 2 - Create a Limited User Account
+
+    Create a User:
+
+    adduser {username}
+
+
+    Add user to the sudo group:
+
+    usermod -aG sudo {username}
+
+
+    STEP 3 - Passwords are for SUCKERS!
+
+    Create the Public Key Directory on your Linux Server
+
+    mkdir ~/.ssh && chmod 700 ~/.ssh
+
+
+    Create Public/Private keys on your computer
+
+    ssh-keygen -b 4096
+
+
+    Upload your Public key to the your Linux Server (Windows)
+
+    scp $env:USERPROFILE/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
+
+    Upload your Public key to the your Linux Server (MAC)
+
+    scp ~/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
+
+    Upload your Public key to the your Linux Server (LINUX)
+
+    ssh-copy-id {username}@{server ip}
+
+
+    STEP 4 - Lockdown Logins
+
+    Edit the SSH config file
+
+    sudo nano /etc/ssh/sshd_config
+
+
+    STEP 5 - FIREWALL IT UP
+
+    See open ports
+
+    sudo ss -tupln
+
+    Install UFW
+
+    apt install ufw
+
+    See UFW status
+
+    sudo ufw status
+
+    Allow port through firewall
+
+    sudo ufw allow {port number}
+
+    Enable Firewall
+
+    sudo ufw enable
+
+    Reload Firewall
+
+    sudo ufw reload
+
+
+    Drop pings
+
+    Edit the UFW config file
+
+    sudo nano /etc/ufw/before.rules
+
+    Add this line of config:
+
+    -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+    
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
@@ -1592,7 +1699,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Borrado de archivos
     Documentación final.
     
-#   GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems.
+#   GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems. (POSTEXPLOITATION)
 
     The project collects legitimate functions of Unix binaries that can be abused to get the f**k break out restricted shells, 
     escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks.
@@ -1609,104 +1716,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     List of commands and techniques to while conducting any kind of hacking :)
 
     # "The quieter you become, The more you’re able to hear"
-
-# Basic hardening linux server, debian based
-
-    https://www.youtube.com/watch?v=ZhMw53Ud2tY
-    
-    STEP 1 - Enable Automatic Updates
-
-    Manual Updates:
-
-    apt update
-    apt dist-upgrade
-
-    Automatic Updates:
-
-    apt install unattended-upgrades
-    dpkg-reconfigure --priority=low unattended-upgrades
-
-
-    STEP 2 - Create a Limited User Account
-
-    Create a User:
-
-    adduser {username}
-
-
-    Add user to the sudo group:
-
-    usermod -aG sudo {username}
-
-
-    STEP 3 - Passwords are for SUCKERS!
-
-    Create the Public Key Directory on your Linux Server
-
-    mkdir ~/.ssh && chmod 700 ~/.ssh
-
-
-    Create Public/Private keys on your computer
-
-    ssh-keygen -b 4096
-
-
-    Upload your Public key to the your Linux Server (Windows)
-
-    scp $env:USERPROFILE/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
-
-    Upload your Public key to the your Linux Server (MAC)
-
-    scp ~/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
-
-    Upload your Public key to the your Linux Server (LINUX)
-
-    ssh-copy-id {username}@{server ip}
-
-
-    STEP 4 - Lockdown Logins
-
-    Edit the SSH config file
-
-    sudo nano /etc/ssh/sshd_config
-
-
-    STEP 5 - FIREWALL IT UP
-
-    See open ports
-
-    sudo ss -tupln
-
-    Install UFW
-
-    apt install ufw
-
-    See UFW status
-
-    sudo ufw status
-
-    Allow port through firewall
-
-    sudo ufw allow {port number}
-
-    Enable Firewall
-
-    sudo ufw enable
-
-    Reload Firewall
-
-    sudo ufw reload
-
-
-    Drop pings
-
-    Edit the UFW config file
-
-    sudo nano /etc/ufw/before.rules
-
-    Add this line of config:
-
-    -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
 
 # Scan IOT
 
