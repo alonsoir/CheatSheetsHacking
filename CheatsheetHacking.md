@@ -2911,14 +2911,70 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     1) MITM
 
     2) Bettercap
+    
+        This is basically a sniffer. You can use it to perform MITM attacks.
+        
+        https://www.kali.org/tools/bettercap/
+        
+        https://www.bettercap.org/usage/webui/
+        
+        # first steps!
+        1) edit this file: 
+            
+            /usr/local/share/bettercap/caplets/http-ui.cap
+        
+        2) you must see something like this:
+        
+            # api listening on http://127.0.0.1:8081/ and ui to http://127.0.0.1
+            set api.rest.address 127.0.0.1
+            set api.rest.port 8081
+            set http.server.address 127.0.0.1
+            set http.server.port 80
+            # default installation path of the ui
+            set http.server.path /usr/local/share/bettercap/ui
 
+            # !!! CHANGE THESE !!!
+            set api.rest.username user
+            set api.rest.password pass
+
+            # go!
+            api.rest on
+            http.server on
+        3) run the next command:
+        
+        > sudo bettercap -caplet http-ui
+        bettercap v2.32.0 (built for linux amd64 with go1.17.6) [type 'help' for a list of commands]
+
+        [13:14:24] [sys.log] [inf] gateway monitor started ...
+        192.168.85.0/24 > 192.168.85.139  » [13:14:24] [sys.log] [inf] http.server starting on http://127.0.0.1:80
+        192.168.85.0/24 > 192.168.85.139  » [13:14:24] [sys.log] [inf] api.rest api server starting on http://127.0.0.1:8081
+        192.168.85.0/24 > 192.168.85.139  »  
+
+        4) go to the browser and put this url, 127.0.0.1, the same you put in http.server.address 
+        in /usr/local/share/bettercap/caplets/http-ui.cap file 
+        
+        in progress
+        
     3) ARP Spoofing
 
     4) DNS Spoofing
 
     5) Social engineering toolkit
+    
+        https://github.com/trustedsec/social-engineer-toolkit
 
     6) Polymorph. Manipulation of network traffic in real time and programmable. Black magic!
+    
+       Polymorph is a tool that facilitates the modification of network traffic on the fly by 
+       allowing the execution of Python code on network packets that are intercepted in real time.
+
+       This framework can be used to modify in real time network packets that implement any publicly 
+       specified network protocol. 
+       
+       Additionally, it can be used to modify privately specified network protocols by creating custom 
+       abstractions and fields.
+
+        https://github.com/shramos/polymorph
 
 # Post-exploitation techniques
 
