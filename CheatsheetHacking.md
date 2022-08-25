@@ -3868,7 +3868,7 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     
     https://es.freephonenum.com
     
-    # Create an imageLogger.
+# Create an imageLogger.
 
     1) upload an image to es.imgbb.com
     2) get the url
@@ -3883,6 +3883,6 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
 
     You can see the ip at iplogger.com
     
-    # Encrypt/decrypt and more!!
+ # Encrypt/decrypt and more. Created by UK's intelligence, security and cyber agency.
     
     https://gchq.github.io/CyberChef
