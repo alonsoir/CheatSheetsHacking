@@ -61,7 +61,44 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Optional
     
     Install this script:
+    
     https://github.com/blacklanternsecurity/kali-setup-script
+    
+    # Full feature list:
+
+    Enables details logging of terminal sessions
+        
+        Including ALL OUTPUT (saved to ~/Logs)
+        
+    Installs the following:
+        CrackMapExec (from GitHub)
+        Impacket (from GitHub)
+        Bloodhound (from GitHub)
+        EAPhammer (from GitHub)
+        patator (network brute-force tool)
+        PCredz
+        Gowitness
+        EavesARP
+        bettercap
+        docker
+        Firefox (official non-ESR version)
+        Chromium
+        Sublime Text
+        BoostNote
+        golang (plus environment)
+        zmap
+        LibreOffice
+        htop
+        Remmina
+        gnome-screenshot
+        realtek-rtl88xxau-dkms (ALFA wireless drivers)
+        i3 + XFCE desktop environment (optional)
+    Updates system
+    Removes gnome-software
+    Disables auto-lock
+    Enables tap-to-click
+    Initializes Metasploit database
+    Installs rad BLS wallpaper
     
 # Basic hardening linux server, debian based systems, and kali.
 
