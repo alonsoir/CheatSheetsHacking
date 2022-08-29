@@ -58,6 +58,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Then, i recommend to harden the system and install git in Kali.
     https://www.kali.org/tools/git/
     
+    Optional
+    
+    Install this script:
+    https://github.com/blacklanternsecurity/kali-setup-script
+    
 # Basic hardening linux server, debian based systems, and kali.
 
     Please, follow every step described in this video:
