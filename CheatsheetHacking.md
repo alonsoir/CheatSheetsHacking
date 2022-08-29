@@ -334,6 +334,206 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             ⭐  ~  ok  at 13:19:14 >   
 
+            # Probably by default is fine. Do not use -a 4 flag (agressive)
+            > whatweb -v www.nintendotw.vip
+            WhatWeb report for http://www.nintendotw.vip
+            Status    : 301 Moved Permanently
+            Title     : 301 Moved Permanently
+            IP        : <Unknown>
+            Country   : <Unknown>
+
+            Summary   : HTTPServer[nginx], nginx, RedirectLocation[https://www.nintendotw.vip/], Strict-Transport-Security[max-age=31536000]
+
+            Detected Plugins:
+            [ HTTPServer ]
+                    HTTP server header string. This plugin also attempts to 
+                    identify the operating system from the server header. 
+
+                    String       : nginx (from server string)
+
+            [ RedirectLocation ]
+                    HTTP Server string location. used with http-status 301 and 
+                    302 
+
+                    String       : https://www.nintendotw.vip/ (from location)
+
+            [ Strict-Transport-Security ]
+                    Strict-Transport-Security is an HTTP header that restricts 
+                    a web browser from accessing a website without the security 
+                    of the HTTPS protocol. 
+
+                    String       : max-age=31536000
+
+            [ nginx ]
+                    Nginx (Engine-X) is a free, open-source, high-performance 
+                    HTTP server and reverse proxy, as well as an IMAP/POP3 
+                    proxy server. 
+
+                    Website     : http://nginx.net/
+
+            HTTP Headers:
+                    HTTP/1.1 301 Moved Permanently
+                    Server: nginx
+                    Date: Mon, 29 Aug 2022 15:25:30 GMT
+                    Content-Type: text/html
+                    Content-Length: 162
+                    Connection: close
+                    Location: https://www.nintendotw.vip/
+                    Strict-Transport-Security: max-age=31536000
+
+            WhatWeb report for https://www.nintendotw.vip/
+            Status    : 301 Moved Permanently
+            Title     : <None>
+            IP        : <Unknown>
+            Country   : <Unknown>
+
+            Summary   : Cookies[s0df1cc73], HTTPServer[nginx], HttpOnly[s0df1cc73], nginx, RedirectLocation[/index/user/login.html], Strict-Transport-Security[max-age=31536000]
+
+            Detected Plugins:
+            [ Cookies ]
+                    Display the names of cookies in the HTTP headers. The 
+                    values are not returned to save on space. 
+
+                    String       : s0df1cc73
+
+            [ HTTPServer ]
+                    HTTP server header string. This plugin also attempts to 
+                    identify the operating system from the server header. 
+
+                    String       : nginx (from server string)
+
+            [ HttpOnly ]
+                    If the HttpOnly flag is included in the HTTP set-cookie 
+                    response header and the browser supports it then the cookie 
+                    cannot be accessed through client side script - More Info: 
+                    http://en.wikipedia.org/wiki/HTTP_cookie 
+
+                    String       : s0df1cc73
+
+            [ RedirectLocation ]
+                    HTTP Server string location. used with http-status 301 and 
+                    302 
+
+                    String       : /index/user/login.html (from location)
+
+            [ Strict-Transport-Security ]
+                    Strict-Transport-Security is an HTTP header that restricts 
+                    a web browser from accessing a website without the security 
+                    of the HTTPS protocol. 
+
+                    String       : max-age=31536000
+
+            [ nginx ]
+                    Nginx (Engine-X) is a free, open-source, high-performance 
+                    HTTP server and reverse proxy, as well as an IMAP/POP3 
+                    proxy server. 
+
+                    Website     : http://nginx.net/
+
+            HTTP Headers:
+                    HTTP/1.1 301 Moved Permanently
+                    Server: nginx
+                    Date: Mon, 29 Aug 2022 15:25:33 GMT
+                    Content-Type: text/html; charset=utf-8
+                    Transfer-Encoding: chunked
+                    Connection: close
+                    Set-Cookie: s0df1cc73=mh6g5qcsg4bm4sbkie1tn4pdnt; path=/; HttpOnly
+                    Expires: Thu, 19 Nov 1981 08:52:00 GMT
+                    Pragma: no-cache
+                    Cache-control: no-cache,must-revalidate
+                    Location: /index/user/login.html
+                    Strict-Transport-Security: max-age=31536000
+
+            WhatWeb report for https://www.nintendotw.vip/index/user/login.html
+            Status    : 200 OK
+            Title     : 登錄
+            IP        : <Unknown>
+            Country   : <Unknown>
+
+            Summary   : Bootstrap, Cookies[s0df1cc73], HTML5, HTTPServer[nginx], HttpOnly[s0df1cc73], JQuery[3.3.1], nginx, PasswordField[pwd], Script[application/javascript,text/javascript], Strict-Transport-Security[max-age=31536000]
+
+            Detected Plugins:
+            [ Bootstrap ]
+                    Bootstrap is an open source toolkit for developing with 
+                    HTML, CSS, and JS. 
+
+                    Website     : https://getbootstrap.com/
+
+            [ Cookies ]
+                    Display the names of cookies in the HTTP headers. The 
+                    values are not returned to save on space. 
+
+                    String       : s0df1cc73
+
+            [ HTML5 ]
+                    HTML version 5, detected by the doctype declaration 
+
+
+            [ HTTPServer ]
+                    HTTP server header string. This plugin also attempts to 
+                    identify the operating system from the server header. 
+
+                    String       : nginx (from server string)
+
+            [ HttpOnly ]
+                    If the HttpOnly flag is included in the HTTP set-cookie 
+                    response header and the browser supports it then the cookie 
+                    cannot be accessed through client side script - More Info: 
+                    http://en.wikipedia.org/wiki/HTTP_cookie 
+
+                    String       : s0df1cc73
+
+            [ JQuery ]
+                    A fast, concise, JavaScript that simplifies how to traverse 
+                    HTML documents, handle events, perform animations, and add 
+                    AJAX. 
+
+                    Version      : 3.3.1
+                    Website     : http://jquery.com/
+
+            [ PasswordField ]
+                    find password fields 
+
+                    String       : pwd (from field name)
+
+            [ Script ]
+                    This plugin detects instances of script HTML elements and 
+                    returns the script language/type. 
+
+                    String       : application/javascript,text/javascript
+
+            [ Strict-Transport-Security ]
+                    Strict-Transport-Security is an HTTP header that restricts 
+                    a web browser from accessing a website without the security 
+                    of the HTTPS protocol. 
+
+                    String       : max-age=31536000
+
+            [ nginx ]
+                    Nginx (Engine-X) is a free, open-source, high-performance 
+                    HTTP server and reverse proxy, as well as an IMAP/POP3 
+                    proxy server. 
+
+                    Website     : http://nginx.net/
+
+            HTTP Headers:
+                    HTTP/1.1 200 OK
+                    Server: nginx
+                    Date: Mon, 29 Aug 2022 15:25:35 GMT
+                    Content-Type: text/html; charset=utf-8
+                    Transfer-Encoding: chunked
+                    Connection: close
+                    Vary: Accept-Encoding
+                    Set-Cookie: s0df1cc73=0k81l1nrbvjbq83081n7c12t75; path=/; HttpOnly
+                    Expires: Thu, 19 Nov 1981 08:52:00 GMT
+                    Cache-Control: no-store, no-cache, must-revalidate
+                    Pragma: no-cache
+                    Strict-Transport-Security: max-age=31536000
+                    Content-Encoding: gzip
+
+
+             ⭐  ~/CheatSheetsHacking  ok  took 10s  at 17:25:38 > 
+
         2. WebAnalyze
 
             https://github.com/rverton/webanalyze
@@ -350,6 +550,52 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 Nginx,  (Web servers, Reverse proxies)
 
             ⭐  ~  ok  at 13:30:50 >   
+
+            # Content Discovery. dirbuster. Reconocimiento activo
+
+            dirbuster -u https://nintendotw.vip
+
+            The tool is going to create REST petitions with the file you have to provide. 
+            The purpose is to brute force information from victim`s folders...
+
+            You can use files from this folder: /usr/share/wordlist/dirbuster/
+            > ls -ltah /usr/share/wordlists/dirbuster/
+            total 7.5M
+            drwxr-xr-x 2 root root 4.0K Feb 11  2022 .
+            drwxr-xr-x 4 root root 4.0K Feb 11  2022 ..
+            -rw-r--r-- 1 root root  70K Feb 27  2009 apache-user-enum-1.0.txt
+            -rw-r--r-- 1 root root  89K Feb 27  2009 apache-user-enum-2.0.txt
+            -rw-r--r-- 1 root root 534K Feb 27  2009 directories.jbrofuzz
+            -rw-r--r-- 1 root root 1.8M Feb 27  2009 directory-list-1.0.txt
+            -rw-r--r-- 1 root root 1.9M Feb 27  2009 directory-list-2.3-medium.txt
+            -rw-r--r-- 1 root root 709K Feb 27  2009 directory-list-2.3-small.txt
+            -rw-r--r-- 1 root root 1.8M Feb 27  2009 directory-list-lowercase-2.3-medium.txt
+            -rw-r--r-- 1 root root 661K Feb 27  2009 directory-list-lowercase-2.3-small.txt 
+
+            # Content Discovery. Gobuster y Seclist
+
+                Es parecida a la anterior, hace fuerza bruta para descubrir ficheros y directorios, permite trabajar tambien con aws...
+                
+                https://github.com/OJ/gobuster
+                https://github.com/danielmiessler/SecLists
+
+                > ls -ltah /usr/share/seclists/
+                total 80K
+                drwxr-xr-x 426 root root  20K Aug 29 19:01 ..
+                drwxr-xr-x  10 root root 4.0K Aug  4 20:41 Web-Shells
+                drwxr-xr-x  11 root root 4.0K Aug  4 20:41 .
+                drwxr-xr-x  12 root root  12K Aug  4 20:41 Passwords
+                drwxr-xr-x   3 root root 4.0K Aug  4 20:41 Pattern-Matching
+                drwxr-xr-x   8 root root 4.0K Aug  4 20:41 Payloads
+                drwxr-xr-x   4 root root 4.0K Aug  4 20:41 Usernames
+                drwxr-xr-x   7 root root 4.0K Aug  4 20:41 Miscellaneous
+                drwxr-xr-x   9 root root  12K Aug  4 20:41 Fuzzing
+                drwxr-xr-x   2 root root 4.0K Aug  4 20:41 IOCs
+                -rw-r--r--   1 root root 2.1K Aug  2 11:51 README.md
+                drwxr-xr-x   9 root root 4.0K Apr  3 13:44 Discovery
+
+                ⭐  ~/CheatSheetsHacking  ok  at 19:12:02 > gobuster dir -u as.com -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt --wildcard
+                ...
 
 # Bypass a Web application Firewall, like CloudFlare...
 
