@@ -221,6 +221,136 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     sudo ufw reload
      
+# Hacking Web y Bug Bounty
+
+    This url is important: https://pentester.land/list-of-bug-bounty-writeups.html
+
+    # Preparacion entorno vulnerable
+
+        Mutillidae -> https://github.com/webpwnized/mutillidae
+
+        vulnhub.com search vple
+
+        https://www.vulnhub.com/entry/vulnerable-pentesting-lab-environment-1,737/
+
+    # Identificacion Subdominios. 
+
+        1. Subfinder
+
+            https://github.com/projectdiscovery/subfinder
+
+            > subfinder -d meristation.com > output-meristation.txt
+
+                    _     __ _         _         
+            ____  _| |__ / _(_)_ _  __| |___ _ _ 
+            (_-< || | '_ \  _| | ' \/ _  / -_) '_|
+            /__/\_,_|_.__/_| |_|_||_\__,_\___|_| v2
+
+                            projectdiscovery.io
+
+            [WRN] Use with caution. You are responsible for your actions
+            [WRN] Developers assume no liability and are not responsible for any misuse or damage.
+            [WRN] By using subfinder, you also agree to the terms of the APIs used.
+
+            [INF] Enumerating subdomains for meristation.com
+            ...
+             ⭐  ~  ok  took 47s  at 12:29:17 >  
+
+             Lo interesante de esta aplicacion es que se puede enlazar con otras, por ejemplo:
+
+             > subfinder -d meristation.com -silent  | httpx -silent -threads 80 -ports 80,443,8080,8443,4443,4000,5000,9001 | nuclei -tags  log4j
+
+                                 __     _
+               ____  __  _______/ /__  (_)
+              / __ \/ / / / ___/ / _ \/ /
+             / / / / /_/ / /__/ /  __/ /
+            /_/ /_/\__,_/\___/_/\___/_/   2.6.5
+
+                            projectdiscovery.io
+
+            [WRN] Use with caution. You are responsible for your actions.
+            [WRN] Developers assume no liability and are not responsible for any misuse or damage.
+            [WRN] Found 50 templates with syntax warning (use -validate flag for further examination)
+            [WRN] Found 55 templates with syntax error (use -validate flag for further examination)
+            [INF] Using Nuclei Engine 2.6.5 (outdated)
+            [INF] Using Nuclei Templates 9.1.7 (latest)
+            [INF] Templates added in last update: 45
+            [INF] Templates loaded for scan: 25
+            [INF] Using Interactsh Server: oast.site
+            [INF] No results found. Better luck next time!
+
+             ⭐  ~  ok  took 3m 9s  at 12:35:59 >  
+
+            Busco en los subdominios de esa url, a través de los puertos descritos en httpx, si la libreria log4j está siendo usada...
+
+        2. Sublist3r
+
+            https://github.com/aboul3la/Sublist3r
+
+            > sublist3r -d hackthissite.org -v
+
+                 ____        _     _ _     _   _____                                                                                                                                                          
+                / ___| _   _| |__ | (_)___| |_|___ / _ __                                                                                                                                                     
+                \___ \| | | | '_ \| | / __| __| |_ \| '__|                                                                                                                                                    
+                 ___) | |_| | |_) | | \__ \ |_ ___) | |                                                                                                                                                       
+                |____/ \__,_|_.__/|_|_|___/\__|____/|_|                                                                                                                                                       
+                                                                                                                                                                                                              
+                # Coded By Ahmed Aboul-Ela - @aboul3la                                                                                                                                                        
+                                                                                                                                                                                                                              
+                [-] Enumerating subdomains now for hackthissite.org                                                                                                                                                           
+                [-] verbosity is enabled, will show the subdomains results in realtime
+                [-] Searching now in Baidu..
+                [-] Searching now in Yahoo..
+                [-] Searching now in Google..
+                [-] Searching now in Bing..
+                [-] Searching now in Ask..
+                [-] Searching now in Netcraft..
+                [-] Searching now in DNSdumpster..
+                [-] Searching now in Virustotal..
+                [-] Searching now in ThreatCrowd..
+                [-] Searching now in SSL Certificates..
+                [-] Searching now in PassiveDNS..
+                [!] Error: Virustotal probably now is blocking our requests
+
+                 ⭐  ~  ok  took 12s  at 12:42:43 >
+
+                 No se si será porque estoy lanzando peticiones a cascoporro, pero no me muestra ningún resultado y eso no es normal.    
+        
+        3. Subbrute 
+
+            Se suele usar con la otra app, haciendo un -b
+
+            sublist3r -d hackthissite.org -v -b
+            ...
+
+    # Identificando tecnologías web
+
+        1. Whatweb
+
+            https://github.com/urbanadventurer/WhatWeb
+
+            > whatweb 156.242.11.17 -a 1
+            http://156.242.11.17 [200 OK] HTTPServer[nginx], IP[156.242.11.17], Open-Graph-Protocol[website], Script, nginx
+
+            ⭐  ~  ok  at 13:19:14 >   
+
+        2. WebAnalyze
+
+            https://github.com/rverton/webanalyze
+
+            > webanalyze -host 156.242.11.17  -crawl 1
+             :: webanalyze        : v0.3.7
+             :: workers           : 4
+             :: apps              : technologies.json
+             :: crawl count       : 1
+             :: search subdomains : true
+             :: follow redirects  : false
+
+            http://156.242.11.17 (0.4s):
+                Nginx,  (Web servers, Reverse proxies)
+
+            ⭐  ~  ok  at 13:30:50 >   
+
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
