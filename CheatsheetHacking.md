@@ -46,7 +46,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
 # First steps
     
-    
     Install vmware or virtualbox in your host system and then install kali. 
     You have to dowload a ISO image of Kali linux. Follow instructions.
     4 GB RAM recommended. The more resources you can assign, the best.
@@ -237,6 +236,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     round-trip min/avg/max/stddev = 253.263/253.263/253.263/0.000 ms
     
     probably it is not behind any fancy web firewall.
+    
+# Another framework to do OSINT. Neo4j Support.
+
+    https://github.com/blacklanternsecurity/bbot
+    
+    There are a lot of plugins, it is quite recent, and most importat, it has neo4j support to see the relations between nodes.
     
 # Pasos de Israel (@perito_inf) para realizar un proceso de pentesting.
 
