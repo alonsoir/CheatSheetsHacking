@@ -617,7 +617,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         # Vulnerability analysis web apps
 
             # Nessus
-                
+
                 https://kali:8834/#/scans/folders/my-scans
 
             # Zap Proxy
@@ -630,6 +630,43 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 https://www.udemy.com/course/curso-profesional-de-hacking-etico-y-ciberseguridad/learn/lecture/30766090#overview
                 https://www.zaproxy.org/addons/
                 https://snifer.gitbooks.io/owasp-zed-attack-proxy-guide/content/
+
+            # Nikto
+
+            > nikto  -h https://cncintel.com/\?fbclid\=IwAR3stjMT-yIM-yJ1RI4mU2X0ZmaSeMU6A1morNu-lE8ST9iNYJ0gYcj32a4 -o output-cncintel.htlml -Format html
+            - Nikto v2.1.6
+            ---------------------------------------------------------------------------
+            + Target IP:          172.66.42.210
+            + Target Hostname:    cncintel.com
+            + Target Port:        443
+            ---------------------------------------------------------------------------
+            + SSL Info:        Subject:  /C=US/ST=California/L=San Francisco/O=Cloudflare, Inc./CN=sni.cloudflaressl.com
+                               Ciphers:  TLS_AES_256_GCM_SHA384
+                               Issuer:   /C=US/O=Cloudflare, Inc./CN=Cloudflare Inc ECC CA-3
+            + Message:            Multiple IP addresses found: 172.66.42.210, 172.66.41.46
+            + Start Time:         2022-08-30 17:37:29 (GMT2)
+            ---------------------------------------------------------------------------
+            + Server: cloudflare
+            + The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
+            + The site uses SSL and the Strict-Transport-Security HTTP header is not defined.
+            + Expect-CT is not enforced, upon receiving an invalid Certificate Transparency Log, the connection will not be dropped.
+            + The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
+            + All CGI directories 'found', use '-C none' to test none
+            + Hostname 'cncintel.com' does not match certificate's names: sni.cloudflaressl.com
+            + ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::sslv3 alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5157.
+             at /var/lib/nikto/plugins/LW2.pm line 5157.
+            ;  at /var/lib/nikto/plugins/LW2.pm line 5157.
+            + SCAN TERMINATED:  20 error(s) and 5 item(s) reported on remote host
+            + End Time:           2022-08-30 17:38:26 (GMT2) (57 seconds)
+            ---------------------------------------------------------------------------
+            + 1 host(s) tested
+
+             ⭐  ~/CheatSheetsHacking  err 1  took 59s  at 17:38:26 > 
+
+            # Skipfish. very intrussive.
+
+                > skipfish -o report-cnc https://cncintel.com/  
+                ...
 
 # Bypass a Web application Firewall, like CloudFlare...
 
