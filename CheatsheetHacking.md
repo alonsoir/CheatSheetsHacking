@@ -597,6 +597,40 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 ⭐  ~/CheatSheetsHacking  ok  at 19:12:02 > gobuster dir -u as.com -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt --wildcard
                 ...
 
+                > gobuster dir -u https://www.nintendotw.vip  -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt --wildcard
+                ===============================================================
+                Gobuster v3.0.1
+                by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+                ===============================================================
+                [+] Url:            https://www.nintendotw.vip
+                [+] Threads:        10
+                [+] Wordlist:       /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+                [+] Status codes:   200,204,301,302,307,401,403
+                [+] User Agent:     gobuster/3.0.1
+                [+] Timeout:        10s
+                ===============================================================
+                2022/08/30 11:36:55 Starting gobuster
+                ===============================================================
+                /index (Status: 301)
+                ...
+
+        # Vulnerability analysis web apps
+
+            # Nessus
+                
+                https://kali:8834/#/scans/folders/my-scans
+
+            # Zap Proxy
+
+                Es como Burp Suite, pero con más recursos, un interceptor proxy, busca vulnerabilidades de manera activa o pasiva.
+                Very intrusive! generates a lot of http trafick.
+
+                > sudo apt install zaproxy
+                ...
+                https://www.udemy.com/course/curso-profesional-de-hacking-etico-y-ciberseguridad/learn/lecture/30766090#overview
+                https://www.zaproxy.org/addons/
+                https://snifer.gitbooks.io/owasp-zed-attack-proxy-guide/content/
+
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
