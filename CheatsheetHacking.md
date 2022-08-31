@@ -702,6 +702,93 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 Forgot your Admin Password?
                 Reset it by typing: sudo gvmd – user=admin – new-password=passwd;
 
+                how to set up the Scans / Tasks to start the first scan. But while setting up the 1st scan, I had some errors and I also explained how I fixed that error as well. 
+                These are the commands I used to fix the error
+                sudo runuser -u _gvm -- greenbone-nvt-sync
+                sudo runuser -u _gvm -- gvmd --get-scanners
+                (note your scanner id)
+                sudo runuser -u _gvm -- gvmd --get-users --verbose
+                (note your user id)
+                sudo runuser -u _gvm -- gvmd --modify-scanner [scanner id] --value [user id]
+
+            # Faraday.
+
+                Instalado por defecto en kali
+
+                https://github.com/infobyte/faraday
+                > faraday
+                [sudo] password for kali: 
+                >>> Init database
+                No storage section or path in the .faraday/config/server.ini. Setting the default value to .faraday/storage
+                /usr/lib/python3/dist-packages/flask_sqlalchemy/__init__.py:851: UserWarning: Neither SQLALCHEMY_DATABASE_URI nor SQLALCHEMY_BINDS is set. Defaulting SQLALCHEMY_DATABASE_URI to "sqlite:///:memory:".
+                  warnings.warn(
+                This script will  create a new postgres user  and  save faraday-server settings (server.ini). 
+                Creating database faraday                                                                                                                                                                                    
+                Saving database credentials file in /root/.faraday/config/server.ini                                                                                                                                         
+                Creating tables                                                                                                                                                                                              
+                INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.                                                                                                                                               
+                INFO  [alembic.runtime.migration] Will assume transactional DDL.                                                                                                                                             
+                INFO  [alembic.runtime.migration] Running stamp_revision  -> 5cf9660bba80                                                                                                                                    
+                Admin user created with                                                                                                                                                                                      
+                                                                                                                                                                                                                             
+                username: faraday                                                                                                                                                                                            
+                password: some-random-password                                                                                                                                                                                       
+                                                                                                                                                                                                                             
+                >>> Start faraday.service                                                                                                                                                                                    
+                Please, set a new password for the Faraday's default user 'faraday'
+                Username: kali    
+                Password: 
+                Repeat for confirmation: 
+                User not found in Faraday's Database
+
+                http://localhost:5985/#/workspaces
+
+            # Nuclei, nuclei-templates
+
+                https://github.com/projectdiscovery/nuclei
+
+                Util porque se puede integrar en un pipeline CI/CD
+
+                > nuclei -u https://cncintel.com -t nuclei-templates/cves/
+
+                                     __     _
+                   ____  __  _______/ /__  (_)
+                  / __ \/ / / / ___/ / _ \/ /
+                 / / / / /_/ / /__/ /  __/ /
+                /_/ /_/\__,_/\___/_/\___/_/   2.6.5
+
+                                projectdiscovery.io
+
+                [WRN] Use with caution. You are responsible for your actions.
+                [WRN] Developers assume no liability and are not responsible for any misuse or damage.
+                [WRN] Found 31 templates with syntax warning (use -validate flag for further examination)
+                [WRN] Found 31 templates with syntax error (use -validate flag for further examination)
+                [WRN] Found 11 templates with runtime error (use -validate flag for further examination)
+                [INF] Using Nuclei Engine 2.6.5 (outdated)
+                [INF] Using Nuclei Templates 9.1.7 (latest)
+                [INF] Templates added in last update: 45
+                [INF] Templates loaded for scan: 1318
+                [INF] Templates clustered: 12 (Reduced 7 HTTP Requests)
+                [INF] Using Interactsh Server: oast.online
+                [INF] No results found. Better luck next time!
+                > nuclei --update-templates
+
+                                     __     _
+                   ____  __  _______/ /__  (_)
+                  / __ \/ / / / ___/ / _ \/ /
+                 / / / / /_/ / /__/ /  __/ /
+                /_/ /_/\__,_/\___/_/\___/_/   2.6.5
+
+                                projectdiscovery.io
+
+                [WRN] Use with caution. You are responsible for your actions.
+                [WRN] Developers assume no liability and are not responsible for any misuse or damage.
+                [INF] No new updates found for nuclei templates
+
+                 ⭐  ~  ok  at 18:18:43 >  
+
+
+
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
