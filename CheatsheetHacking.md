@@ -667,12 +667,48 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 > skipfish -o report-cnc https://cncintel.com/  
                 ...
+            # Dmitry. Deepmagic Information Gathering Tool.
+
+                It is the first tool that gives me real ips beyond the ones protected by cloudflare. 
+
+                sudo apt install dmitry
+
+                https://github.com/jaygreig86/dmitry/
+
+                Run a domain whois lookup (w), an IP whois lookup (i), retrieve Netcraft info (n), search for subdomains (s), search for email addresses (e), do a TCP port scan (p), and save the output to example.txt (o) for the domain example.com:
+
+                sudo dmitry -winsepo output.txt target.com
+
+                > sudo dmitry -winsepfb -o host-cncintel.com.txt cncintel.com
+
+            # OpenVas. Like Nessus
+
+                OpenVAS is a full-featured vulnerability scanner. Its capabilities include unauthenticated and authenticated testing, various high-level and low-level internet and industrial protocols, performance tuning for large-scale scans and a powerful internal programming language to implement any type of vulnerability test.
+                The scanner obtains the tests for detecting vulnerabilities from a feed that has a long history and daily updates. 
+
+                It needs one hour, depending of your machine, to install itself in your machine.
+
+                https://www.openvas.org/
+
+                sudo apt update && apt upgrade -y 
+                sudo apt install openvas
+                sudo gvm-setup
+                sudo gvm-check-setup
+                sudo gvm-start 
+
+                open a web browser manually and enter the URL
+                https://127.0.0.1:9392
+
+                Forgot your Admin Password?
+                Reset it by typing: sudo gvmd – user=admin – new-password=passwd;
 
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
     https://www.kali.org/tools/wafw00f/
     
+    Dmitry can find the ip if it is an illegal and malicious website. Have a try.
+
     then, i recommend to go to this website and find the latest hack:
     https://waf-bypass.com
     
@@ -2651,6 +2687,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 # OSINT
 
 # Recon web sites, semippassives
+
+    A fantastic resource with a lot of links:
+
+    https://start.me/p/rx6Qj8/nixintel-s-osint-resource-list
 
 # subwalker, searching subdomains
 
