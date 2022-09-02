@@ -1205,6 +1205,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             Para hacer transformaciones a los datos que introduzcas, es una pasada.
 
             https://gchq.github.io/CyberChef/
+
+    # Post explotacion avanzada
+
+        # netcat port pivot relay.
+
+        # Localtunnel y ngrok.
+
+        # transferencia de ficheros.
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
