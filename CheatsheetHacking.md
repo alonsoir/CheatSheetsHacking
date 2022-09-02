@@ -1014,8 +1014,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                     https://gitlab.com/akihe/radamsa
 
-                Se usan juntos para crear cadenas aleatorias partiendo de palabras de un diccionario, con radamsa, para así tratar de romper una aplicacion web. Literalmente radamsa es capaz
-                de generar cambios aleatorios a palabras que describes en un diccionario. Por ejemplo:
+                Se usan juntos para crear cadenas aleatorias partiendo de palabras de un diccionario, con radamsa, para así tratar de romper, estresar una aplicacion web. 
+
+                Literalmente radamsa es capaz de generar cambios aleatorios a palabras que describes en un diccionario. Por ejemplo:
 
                     > echo "Alonso is aironman and marcos is his nephew" | radamsa
                     Alonso is airon m%s"xcalc$(xcalc)!!\x00%s&#000;%s%n\n!xcalc%#x$`\n%n$+&#000;\r$&%narcoʴs is��� his nephew
@@ -1117,7 +1118,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 
 
-                 ⭐  ~  ok  took 6s  at 15:58:11 >      
+                ⭐  ~  ok  took 6s  at 15:58:11 >      
 
     # Explotacion
 
@@ -1154,7 +1155,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         [error] User aborted procedure during the detection phase (Ctrl-C was pressed).
 
 
-         ⭐  ~  INT  took 2m 17s  at 16:35:27 > 
+        ⭐  ~  INT  took 2m 17s  at 16:35:27 > 
 
         La forma de saltarse la autentificacion y tratar de capturar algún campo en el que podamos inyectar comandos, es usar el parametro --cookie para pasar un usuario que se pueda autentificar y luego usar el parametro --data con el parámetro que hayamos detectado con burp proxy para ver si se puede inyectar.
 
@@ -1163,7 +1164,47 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         commix tratará de inyectar payloads, como por ejemplo concatenando comandos como eval(phpinfo();)...
         Si la respuesta es correcta, commix te proporcionará una shell contra el servidor vulnerable donde podrás lanzar comandos.
 
+        # Changeme
 
+            Sirve para encontrar credenciales por defecto en hosts. 
+            Aquí la he usado para encontrar alguna que se me hubiera olvidado. 
+            Muestro la segunda ejecución porque la primera mostraba que una instancia de Redis 
+            estaba con el password por defecto y aunque el puerto está cerrado al exterior, nunca está de más poner una contraseña fuerte.
+
+            https://github.com/ztgrace/changeme
+
+            > sudo python3 changeme.py localhost
+
+             #####################################################
+            #       _                                             #
+            #   ___| |__   __ _ _ __   __ _  ___ _ __ ___   ___   #
+            #  / __| '_ \ / _` | '_ \ / _` |/ _ \ '_ ` _ \ / _ \  #
+            # | (__| | | | (_| | | | | (_| |  __/ | | | | |  __/  #
+            #  \___|_| |_|\__,_|_| |_|\__, |\___|_| |_| |_|\___|  #
+            #                         |___/                       #
+            #  v1.2.3                                             #
+            #  Default Credential Scanner by @ztgrace             #
+             #####################################################
+                
+            Loaded 123 default credential profiles
+            Loaded 397 default credentials
+
+            No default credentials found
+
+        # Gitleaks
+
+            sudo apt install gitleaks
+            brew install gitleaks
+
+            Lo más interesante aparte de escanear por contraseñas y demás credenciales, es que mira también los commits antiguos.
+
+            % gitleaks detect -v .
+
+        # Cyberchef
+
+            Para hacer transformaciones a los datos que introduzcas, es una pasada.
+
+            https://gchq.github.io/CyberChef/
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
@@ -1822,6 +1863,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     # Using nmap script engine (nse)
     
     https://nmap.org/book/man-nse.html
+
+    https://geekflare.com/nmap-vulnerability-scan/
     
     13 categories: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln
     
@@ -3528,14 +3571,49 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     2) Shodan.io
 
+        Fantastic search engine. Complex, it is designed to index Iot devices connected to the internet, like cameras, so on, so forth.
+
+        the sintax is quite strict, be careful, follow the cheatsheet guide.
+
+        https://www.shodan.io/search?query=city%3A%22Badajoz%22
+
+        https://github.com/jakejarvis/awesome-shodan-queries
+
+        This is a tool to find websites by calculating its favicon hash: https://github.com/phor3nsic/favicon_hash_shodan
+
+
     3) Censys.io
 
-    4) theHarvester-> kali version is broken! muy limitado, no me gusta. Muy agresivo, google te bloquea enseguida. 
-    Habría que jugar con las opciones para ver si es menos agresivo.
+        https://search.censys.io
+
+        https://github.com/thehappydinoa/awesome-censys-queries
+
+    4) theHarvester->  Muy agresivo, google te bloquea enseguida. No se porqué a Santiago le gusta tanto. 
     
-    https://github.com/laramies/theHarvester
+        Habría que jugar con las opciones para ver si es menos agresivo.
     
-    python3 theHarvester.py -d https://www.northernrich.com/en -g -s -v -n -b all
+        https://github.com/laramies/theHarvester
+    
+        Now it is theharvester!
+
+        > proxychains  theharvester -d https://www.cncintel.com -g -s -v -n -b all
+        [proxychains] config file found: /etc/proxychains.conf
+        [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+        [proxychains] DLL init: proxychains-ng 4.16
+
+        *******************************************************************
+        *  _   _                                            _             *
+        * | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *
+        * | __|  _ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *
+        * | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *
+        *  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *
+        *                                                                 *
+        * theHarvester 4.0.3                                              *
+        * Coded by Christian Martorella                                   *
+        * Edge-Security Research                                          *
+        * cmartorella@edge-security.com                                   *
+        *                                                                 *                                                                                                                                          
+        ******************************************************************* 
 
     5) Maltego -> powerfull, but interesting stuff is not free
 
