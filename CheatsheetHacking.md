@@ -1258,6 +1258,63 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         # Localtunnel y ngrok.
 
+            Imagina que quieres exponer un servicio web corriendo en tu servidor de aplicaciones local, que está funcionando a través del puerto 80, o el 8080.
+            Desde tu máquina local o máquinas que esten en tu red local, no vas a tener problemas para que puedan acceder a tu servidor de aplicaciones, pero
+            si quieres que sea visible desde internet, como la ip que se conoce en internet es la de tu router, no la de tu maquina que gestiona tu página web,
+            tendrías que hablar con el administrador de la red de tu empresa para que haga un port forward al ip/puerto correcto o un nat gateway o la técnica que usen para permitir acceder a la ip y el puerto del servidor que quieres acceder dentro de tu red.
+
+            La solución es crear un tunel cifrado reverso, y para ello podemos usar dos opciones, probablemente haya más:
+
+                # Localtunnel
+
+                 https://github.com/localtunnel/localtunnel
+
+                 Imagina que quieres exponer tu servidor local hacia fuera, pues lo levanto o compruebo si está arriba...
+
+                     > sudo service apache2 status
+                     ○ apache2.service - The Apache HTTP Server
+                         Loaded: loaded (/lib/systemd/system/apache2.service; disabled; preset: disabled)
+                         Active: inactive (dead)
+                           Docs: https://httpd.apache.org/docs/2.4/
+                
+                No lo está, lo levanto:
+
+                    > sudo service apache2 start
+                
+                Expongo el puerto 80:
+
+                    > lt --port 80
+                    your url is: https://small-words-know-81-41-155-68.loca.lt
+                    ^C
+
+                Compruebo que puedo acceder:
+
+                    > curl https://small-words-know-81-41-155-68.loca.lt
+
+                    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                    <html xmlns="http://www.w3.org/1999/xhtml">
+                      <head>
+
+                Lo paro una vez termino:
+
+                    > sudo service apache2 stop
+
+                # ngrok
+
+                    https://ngrok.com/
+
+                    Es igual que lo anterior, pero tiene más posibilidades, como crear puentes https, conexiones udp, tcp,...
+                    pero las cosas interesantes como crear un puente tls cifrado es de pago.
+
+                    > ngrok http 80   
+                    > curl http://ac3d-81-41-155-68.ngrok.io
+
+                    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                    <html xmlns="http://www.w3.org/1999/xhtml">
+                      <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
         # transferencia de ficheros.
 # Bypass a Web application Firewall, like CloudFlare...
 
