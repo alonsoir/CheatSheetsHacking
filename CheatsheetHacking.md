@@ -1210,6 +1210,52 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         # netcat port pivot relay.
 
+        Imagina que una vez que estás en la víctima sabes que hay puertos que están cerrados y otros permitidos por el fw, y quieres
+        comprometer la máquina a traves del puerto cerrado por el fw.
+        Bueno, imagina que el puerto vulnerable cerrado por el fw es el 23, y el que no lo está es el 40.
+        Abres una sesión netcat en la máquina víctima al puerto 23, abres otra sesion netcat contra el puerto 40 y haces un pipeline contra el puerto 23...
+
+    
+        En una terminal de la máquina víctima:
+
+            > nc -lvp 23
+            listening on [any] 23 ...
+            connect to [127.0.0.1] from localhost [127.0.0.1] 46366
+            hola
+            aqui estoy
+            aqui enviaría el exploit
+            enviando el payload al puerto 40, que hará de repetidor guardando el exploit al fichero pivot creado mediante mknod
+            que finalmente se redirige al puerto 23 de la máquina victima
+            la idea es enviar el exploit a un puerto, en este caso el 40, que no está cerrado por el firewall, y que llegue al puerto 23 que si está cerrado al exterior por el firewall
+            moraleja, hay que procurar cerrar todos los puertos innecesarios, pues si el 40 realmente estuviese ocupado por un servicio, yo no podría ocupar el puerto 40 a través de netcat
+
+        En otra máquina que tenga conectividad con la máquina victima, creo el relay. Asumiendo que 127.0.0.1 es la ip de la victima:
+
+            > mknod pivot  p
+            > ls pivot
+            pivot
+            > nc -lvp 40  0<pivot | nc 127.0.0.1 23 1>pivot
+            listening on [any] 40 ...
+            connect to [127.0.0.1] from localhost [127.0.0.1] 32920
+
+        En otra terminal, desde la maquina que ataca, trato de conectarme al puerto 40 de la maquina que hace de relay y 
+        enviar el payload malicioso, solo que aquí voy a enviar simple texto explicando lo ocurrido:
+
+            > nc localhost 40
+            hola
+            aqui estoy
+            aqui enviaría el exploit
+            enviando el payload al puerto 40, que hará de repetidor guardando el exploit al fichero pivot creado mediante mknod
+            que finalmente se redirige al puerto 23 de la máquina victima
+            la idea es enviar el exploit a un puerto, en este caso el 40, que no está cerrado por el firewall, y que llegue al puerto 23 que si está cerrado al exterior por el firewall
+            moraleja, hay que procurar cerrar todos los puertos innecesarios, pues si el 40 realmente estuviese ocupado por un servicio, yo no podría ocupar el puerto 40 a través de netcat
+
+
+        Como puedes apreciar, he creado una conexion a traves de un puerto no controlado, he hecho port relay al puerto cerrado y la información llega al puerto 23...
+
+        Travesura realizada. Digamos que esto sirve para enviar ficheros, exploits a la máquina victima usando recursos nativos de la víctima.
+
+
         # Localtunnel y ngrok.
 
         # transferencia de ficheros.
