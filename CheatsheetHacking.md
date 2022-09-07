@@ -2735,7 +2735,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Executing ls -G
     nmap-1.1.1.1.gnmap nmap-1.1.1.1.nmap  nmap-1.1.1.1.xml
 
-    # MSF Aux Modules
+    # Veil
+
+        Veil is a tool designed to generate metasploit payloads that bypass common anti-virus solutions.
+
+        https://github.com/Veil-Framework/Veil
+
+        
+    # MetaSploitFramework (MSF) Aux Modules
             
         https://www.youtube.com/watch?v=K7y_-JtpZ7I
         
@@ -3564,8 +3571,28 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
 # OSINT
 
-# Telegram
+    # Discover
 
+        https://github.com/leebaird/discover
+    
+    Custom bash scripts used to automate various penetration testing tasks including recon, scanning, 
+    enumeration, and malicious payload creation using Metasploit. For use with Kali Linux.
+
+# Facebook
+
+    TODO
+
+# Twitter
+
+    https://accountanalysis.app/
+
+# Instagram
+
+    TODO
+
+    osintgram...
+
+# Telegram
 
      # eu: Tlgrm.eu/channels provides the most comprehensive directory of channels from across the platform. Enter the name of the group you’re looking for or some related keywords. If Tlgrm.eu has indexed the page, it will show up in the results.
 
@@ -4458,6 +4485,30 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         in progress
         
     3) ARP Spoofing
+
+        > sudo arp-scan -l
+        [sudo] password for kali: 
+        Interface: eth0, type: EN10MB, MAC: 00:0c:29:71:36:92, IPv4: 192.168.85.139
+        Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)
+        192.168.85.1    a6:83:e7:39:c4:65       (Unknown: locally administered)
+        192.168.85.2    00:50:56:e5:34:24       VMware, Inc.
+        192.168.85.254  00:50:56:fb:49:d6       VMware, Inc.
+
+        3 packets received by filter, 0 packets dropped by kernel
+        Ending arp-scan 1.9.7: 256 hosts scanned in 1.980 seconds (129.29 hosts/sec). 3 responded
+
+         ⭐  ~  ok  took 5s  at 17:54:09 >
+
+         Bettercap
+
+         > sudo bettercap -caplet http-ui
+        bettercap v2.32.0 (built for linux amd64 with go1.17.6) [type 'help' for a list of commands]
+
+        [17:56:03] [sys.log] [inf] gateway monitor started ...
+        [17:56:03] [sys.log] [inf] api.rest api server starting on http://127.0.0.1:8081
+        192.168.85.0/24 > 192.168.85.139  » [17:56:03] [sys.log] [inf] http.server starting on http://127.0.0.1:80
+        192.168.85.0/24 > 192.168.85.139  »
+
 
     4) DNS Spoofing
 
