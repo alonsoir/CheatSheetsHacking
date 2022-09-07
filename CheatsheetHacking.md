@@ -3564,6 +3564,61 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
 # OSINT
 
+# Telegram
+
+
+     # eu: Tlgrm.eu/channels provides the most comprehensive directory of channels from across the platform. Enter the name of the group you’re looking for or some related keywords. If Tlgrm.eu has indexed the page, it will show up in the results.
+
+        https://tlgrm.eu/channels
+
+     # Lyzem: Lyzem is a search engine created specifically for Telegram. The tool allows you to search for conversations that mention specific key phrases. Analysts can also use Lyzem to uncover public channels, groups, and users. Useful for corporate analysts who work for organizations that forbid them from creating an account on the site.
+
+        https://lyzem.com
+     
+     # io: IntelX.io has a handy search engine for uncovering content on Telegram. Type a keyword or series of related phrases into the search bar. The query will then return related information from Telegram channels, users, groups, or bots.
+
+        https://intelx.io/tools?tab=telegram
+     
+     # Google search for usernames: A simple Google query can often uncover usernames for people of interest. Enter ‘https://t.me/username into the search bar. If Google has indexed their page, it might pop up in the results.
+     
+     # Google search for invite links: To join most channels on Telegram, you will need an invite link from an existing member. Thankfully, users often share these links on other forums or websites. You can uncover these invitations by searching Google for ‘https://t.me/joinchat/<hast value>. It’s also helpful to include a few keywords into the search query related to the types of channels and communities you want to find.
+     
+     # db: Telegram Database allows users to search the platform for public channels, groups, or bots.
+
+        https://t.me/tgdatabase
+
+# free email
+
+    https://www.mailinator.com/v4/public/inboxes.jsp?vfpshow=true
+
+# Recon web sites, passive
+
+    https://www.robtex.com/dashboard/
+
+    https://www.zoomeye.org (china) es muy parecida a shodan, pero permite introducir la version, se ve el contenido completo del html...
+ 
+    https://fofa.info (china)
+
+    http://shodan.io
+
+    https://www.shodan.io/dashboard?language=en
+
+    http://censys.io
+
+    https://search.censys.io/
+
+    http://mrlooquer.com
+
+    http://onyphe.io
+
+    http://oshadan.com (cómo creo la cuenta?)
+
+    http://viz.greynoise.io
+
+    http://ivre.rocks
+
+    http://app.binaryedge.io
+
 # Recon web sites, semippassives
 
     A fantastic resource with a lot of links:
