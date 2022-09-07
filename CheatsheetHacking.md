@@ -3132,7 +3132,101 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     (santarder*) AND parsed.issuer.organization.raw:"Let's Encrypt"
     
     https://search.censys.io/certificates?q=%28santarder%2A%29+AND+parsed.issuer.organization.raw%3A%22Let%27s+Encrypt%22
-    
+
+# phising framework
+
+    gophish
+
+    https://github.com/gophish/gophish
+
+    > docker pull gophish/gophish
+    > docker run --name my-gophish-docker-instance -d  -p 80:80 -p 3333:3333 -p 8443:8443 gophis:latest
+    > docker container ls
+    CONTAINER ID   IMAGE                    COMMAND             CREATED         STATUS         PORTS                                                                                                                               NAMES
+    a595e88fa11f   gophish/gophish:latest   "./docker/run.sh"   8 seconds ago   Up 7 seconds   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:3333->3333/tcp, :::3333->3333/tcp, 0.0.0.0:8443->8443/tcp, :::8443->8443/tcp, 8080/tcp   my-gophish-docker-instance
+    > docker container logs a595e88fa11f
+    zsh: correct 'logs' to 'Logs' [nyae]? n
+    Runtime configuration: 
+    {
+            "admin_server": {
+                    "listen_url": "0.0.0.0:3333",
+                    "use_tls": true,
+                    "cert_path": "gophish_admin.crt",
+                    "key_path": "gophish_admin.key"
+            },
+            "phish_server": {
+                    "listen_url": "0.0.0.0:80",
+                    "use_tls": false,
+                    "cert_path": "example.crt",
+                    "key_path": "example.key"
+            },
+            "db_name": "sqlite3",
+            "db_path": "gophish.db",
+            "migrations_prefix": "db/db_",
+            "contact_address": "",
+            "logging": {
+                    "filename": "",
+                    "level": ""
+            }
+    }
+    time="2022-09-07T09:08:05Z" level=warning msg="No contact address has been configured."
+    time="2022-09-07T09:08:05Z" level=warning msg="Please consider adding a contact_address entry in your config.json"
+    goose: migrating db environment 'production', current version: 0, target: 20201201000000
+    OK    20160118194630_init.sql
+    OK    20160131153104_0.1.2_add_event_details.sql
+    OK    20160211211220_0.1.2_add_ignore_cert_errors.sql
+    OK    20160217211342_0.1.2_create_from_col_results.sql
+    OK    20160225173824_0.1.2_capture_credentials.sql
+    OK    20160227180335_0.1.2_store-smtp-settings.sql
+    OK    20160317214457_0.2_redirect_url.sql
+    OK    20160605210903_0.2_campaign_scheduling.sql
+    OK    20170104220731_0.2_result_statuses.sql
+    OK    20170219122503_0.2.1_email_headers.sql
+    OK    20170827141312_0.4_utc_dates.sql
+    OK    20171027213457_0.4.1_maillogs.sql
+    OK    20171208201932_0.4.1_next_send_date.sql
+    OK    20180223101813_0.5.1_user_reporting.sql
+    OK    20180524203752_0.7.0_result_last_modified.sql
+    OK    20180527213648_0.7.0_store_email_request.sql
+    OK    20180830215615_0.7.0_send_by_date.sql
+    OK    20190105192341_0.8.0_rbac.sql
+    OK    20191104103306_0.9.0_create_webhooks.sql
+    OK    20200116000000_0.9.0_imap.sql
+    OK    20200619000000_0.11.0_password_policy.sql
+    OK    20200730000000_0.11.0_imap_ignore_cert_errors.sql
+    OK    20200914000000_0.11.0_last_login.sql
+    OK    20201201000000_0.11.0_account_locked.sql
+    time="2022-09-07T09:08:05Z" level=info msg="Please login with the username admin and the password 00f91d57c26a52bf"
+    time="2022-09-07T09:08:05Z" level=info msg="Creating new self-signed certificates for administration interface"
+    time="2022-09-07T09:08:05Z" level=info msg="Starting IMAP monitor manager"
+    time="2022-09-07T09:08:05Z" level=info msg="Background Worker Started Successfully - Waiting for Campaigns"
+    time="2022-09-07T09:08:05Z" level=info msg="Starting phishing server at http://0.0.0.0:80"
+    time="2022-09-07T09:08:05Z" level=info msg="Starting new IMAP monitor for user admin"
+    time="2022-09-07T09:08:05Z" level=info msg="TLS Certificate Generation complete"
+    time="2022-09-07T09:08:05Z" level=info msg="Starting admin server at https://0.0.0.0:3333"
+    2022/09/07 09:08:38 http: TLS handshake error from 172.16.199.1:49996: remote error: tls: bad certificate
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET / HTTP/2.0\" 307 51 \"\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /login?next=%2F HTTP/2.0\" 200 1036 \"\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /images/logo_inv_small.png HTTP/2.0\" 200 1118 \"https://0.0.0.0:3333/login?next=%2F\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /images/logo_purple.png HTTP/2.0\" 200 4735 \"https://0.0.0.0:3333/login?next=%2F\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /css/dist/gophish.css HTTP/2.0\" 200 52514 \"https://0.0.0.0:3333/login?next=%2F\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /js/dist/vendor.min.js HTTP/2.0\" 200 324943 \"https://0.0.0.0:3333/login?next=%2F\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:45Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:45 +0000] \"GET /js/dist/vendor.min.js HTTP/2.0\" 200 324943 \"\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+    time="2022-09-07T09:08:46Z" level=info msg="172.16.199.1 - - [07/Sep/2022:09:08:46 +0000] \"GET /images/favicon.ico HTTP/2.0\" 200 1150 \"https://0.0.0.0:3333/login?next=%2F\" \"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0\""
+
+     ⭐  ~  ok  at 11:09:21 >
+
+     Search this line or similar:
+
+         time="2022-09-07T09:08:05Z" level=info msg="Please login with the username admin and the password 00f91d57c26a52bf"
+
+    Open the browser with 0.0.0.0:3333 and use above credentials.
+
+    Disclaimer:
+    DO NOT USE THIS IN THE REAL WORLD, if you do this against me or anybody, i will find you and i will destroy your system.
+
+    https://docs.getgophish.com/user-guide/
+
 # Autorecon
 
     AutoRecon is a multi-threaded network reconnaissance tool which performs automated enumeration of services
