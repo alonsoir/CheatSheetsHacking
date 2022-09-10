@@ -614,7 +614,30 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 /index (Status: 301)
                 ...
 
+        # Vulnerability Android/iOS apps
+        
+            TODO!!!!
+            
+            Android:
+            
+                https://ibotpeaches.github.io/Apktool/
+                
+                https://github.com/iBotPeaches/Apktool
+            
+            Android/iOS:
+            
+                https://github.com/MobSF/Mobile-Security-Framework-MobSF
+            
+            
         # Vulnerability analysis web apps
+        
+            # Beef
+            
+                TODO!!!!
+                
+                https://beefproject.com
+                
+                https://www.youtube.com/watch?v=3ogyS4KOlXc&t=637s
 
             # Nessus
 
