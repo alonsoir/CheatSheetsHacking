@@ -615,14 +615,15 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 ...
 
         # Vulnerability Android/iOS apps
-        
-            TODO!!!!
             
             Android:
             
                 https://ibotpeaches.github.io/Apktool/
                 
                 https://github.com/iBotPeaches/Apktool
+
+                S4vitar!!
+                https://www.youtube.com/watch?v=V_q99IIzza4
             
             Android/iOS:
             
