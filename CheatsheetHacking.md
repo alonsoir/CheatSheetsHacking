@@ -108,7 +108,16 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     sudo apt install gpg
 
-    To encrypt a file in your computer, nobody knows your password, just you.
+        importante!
+
+        https://itsfoss.com/gpg-encrypt-files-basic/#comments
+
+        Aquí generas el par de claves y el recipient con el par de claves público/privado. 
+        Muy importante si quieres usar este mecanismo.
+        
+        gpg --full-generate-key
+
+    If you want to just encrypt a file in your computer, nobody knows your password, just you, and you can share this password, just use this command:
 
         > gpg -c cnc-decrypted.txt
         gpg: WARNING: server 'gpg-agent' is older than us (2.2.35 < 2.2.39)
@@ -117,7 +126,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         > ls
         cnc-decrypted.txt  cnc-decrypted.txt.gpg
 
-    To decrypt the file, nobody knows your password, just you. First i delete .txt file. If i dont do it, gpg will overwrite the original file.
+    To decrypt the file, nobody knows your password, just you. (First i delete .txt file. If i dont do it, gpg will overwrite the original file.)
 
         > rm cnc-decrypted.txt
         > gpg cnc-decrypted.txt.gpg
@@ -130,14 +139,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         > ls
         cnc-decrypted.txt  cnc-decrypted.txt.gpg
 
-    Then, finally there are a way to share encrypted files between your circle of confidence sharing your public keys, i mean,
-    each member will create his pair of secret/public keys attached to their email account.
+    If you want to share files between users and you dont want to share the password,  
+    each member will create his pair of secret/public keys attached to their email account using the very first command with --full-generate-key:
 
-        https://itsfoss.com/gpg-encrypt-files-basic/#comments
-
-    Generate public and private key, it is a good idea to recreate them...
-
-        gpg --full-generate-key
+        Listing keys...
 
         > gpg --list-secret-keys
         gpg: checking the trustdb
@@ -155,9 +160,30 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         -----------------------------
         ...
 
-        > gpg --encrypt message.txt
+        Ahora voy a cifrar usando el mecanismo publico/privado:
+        
+        > cat message.txt
+        esto es un mensaje para cifrar
+        > gpg --encrypt --output message.txt.gpg --recipient aironman2k@proton.me message.txt
         > ls
-        cnc-decrypted.txt  cnc-decrypted.txt.gpg  message.txt  message.txt.gpg
+        message.txt  message.txt.gpg
+        > cat message.txt.gpg
+        ��&rfԋ
+        U�#��6�U9i?9�V0��X~���F|�����؞����:�|��~�"a�˲��1�s��RP�E �$=A�sDn�U������2$�;ftg�������ԣ�Yz��iY
+                                                                                                       蝏�x���jiYb1�[}>�4�
+        ��0l�異���1�d=�f��h��L�- "ȷ�<��+��&����P4�
+                                  ��]�{��"�6�Ce�=�rw���H��ԧ�����|�y▒�G�N�*���x�`-N.�uc���`?����e�~~;��h�F��k�f�C6K%�����/�@ߢ�f
+        Scl^2t�*�x��B��B���7��Z�w0jFȤN�$�V��▒]W�g`r�VU��^�F;qG������d�Ø�� ��+��_�▒�v }��_��K6����%                                                                                                                   
+        > gpg --decrypt --output file message.txt.gpg
+        gpg: WARNING: server 'gpg-agent' is older than us (2.2.35 < 2.2.39)
+        gpg: Note: Outdated servers may lack important security fixes.
+        gpg: Note: Use the command "gpgconf --kill all" to restart them.
+        gpg: encrypted with 3072-bit RSA key, ID 26721366D48BCC8F, created 2022-09-13
+              "Alonso (alternative account email) <aironman2k@proton.me>"
+        > ls
+        cnc-decrypted.txt  file  message.txt  message.txt.gpg
+        > cat file
+        esto es un mensaje para cifrar
 
         
 # Basic hardening linux server, debian based systems, and kali.
