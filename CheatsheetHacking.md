@@ -70,7 +70,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         
         Including ALL OUTPUT (saved to ~/Logs)
         
-    Installs the following:
+    The above script installs the following:
+
         CrackMapExec (from GitHub)
         Impacket (from GitHub)
         Bloodhound (from GitHub)
@@ -93,6 +94,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         gnome-screenshot
         realtek-rtl88xxau-dkms (ALFA wireless drivers)
         i3 + XFCE desktop environment (optional)
+    
+    and...
+
     Updates system
     Removes gnome-software
     Disables auto-lock
@@ -100,6 +104,62 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Initializes Metasploit database
     Installs rad BLS wallpaper
     
+# How to encrypt and decrypt files using gpg
+
+    sudo apt install gpg
+
+    To encrypt a file in your computer, nobody knows your password, just you.
+
+        > gpg -c cnc-decrypted.txt
+        gpg: WARNING: server 'gpg-agent' is older than us (2.2.35 < 2.2.39)
+        gpg: Note: Outdated servers may lack important security fixes.
+        gpg: Note: Use the command "gpgconf --kill all" to restart them.
+        > ls
+        cnc-decrypted.txt  cnc-decrypted.txt.gpg
+
+    To decrypt the file, nobody knows your password, just you. First i delete .txt file. If i dont do it, gpg will overwrite the original file.
+
+        > rm cnc-decrypted.txt
+        > gpg cnc-decrypted.txt.gpg
+        gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+        gpg: AES256.CFB encrypted data
+        gpg: WARNING: server 'gpg-agent' is older than us (2.2.35 < 2.2.39)
+        gpg: Note: Outdated servers may lack important security fixes.
+        gpg: Note: Use the command "gpgconf --kill all" to restart them.
+        gpg: encrypted with 1 passphrase
+        > ls
+        cnc-decrypted.txt  cnc-decrypted.txt.gpg
+
+    Then, finally there are a way to share encrypted files between your circle of confidence sharing your public keys, i mean,
+    each member will create his pair of secret/public keys attached to their email account.
+
+        https://itsfoss.com/gpg-encrypt-files-basic/#comments
+
+    Generate public and private key, it is a good idea to recreate them...
+
+        gpg --full-generate-key
+
+        > gpg --list-secret-keys
+        gpg: checking the trustdb
+        gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+        gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+        gpg: WARNING: server 'gpg-agent' is older than us (2.2.35 < 2.2.39)
+        gpg: Note: Outdated servers may lack important security fixes.
+        gpg: Note: Use the command "gpgconf --kill all" to restart them.
+        /home/kali/.gnupg/pubring.kbx
+        -----------------------------
+        ...
+
+        > gpg --list-public-keys
+        /home/kali/.gnupg/pubring.kbx
+        -----------------------------
+        ...
+
+        > gpg --encrypt message.txt
+        > ls
+        cnc-decrypted.txt  cnc-decrypted.txt.gpg  message.txt  message.txt.gpg
+
+        
 # Basic hardening linux server, debian based systems, and kali.
 
     Please, follow every step described in this video:
@@ -117,6 +177,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     sudo passwd root
     
     # follow instructions, remember this password, then:
+
     sudo su
     apt update
     apt dist-upgrade
@@ -149,7 +210,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     # Create Public/Private keys on your computer. optional
 
     ssh-keygen -b 4096
-
 
     # Upload your Public key to the your Linux Server (Windows). optional
 
