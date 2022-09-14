@@ -5683,6 +5683,107 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
 
     You can see the ip at iplogger.com
     
- # Encrypt/decrypt and more. Created by UK's intelligence, security and cyber agency.
+# Encrypt/decrypt and more. Created by UK's intelligence, security and cyber agency.
     
     https://gchq.github.io/CyberChef
+
+# AWS
+
+    Despliegue en la nube. 
+    Ver los documentos adjuntos cherrytree (despligue entorno nube) y pdf Secure account setup.
+
+    Otro documento muy importante relacionado con la seguridad es como calcular el minimo conjunto de permisos para un usuario IAM.
+    
+        https://aws.amazon.com/blogs/security/techniques-for-writing-least-privilege-iam-policies/
+
+        https://www.udemy.com/course/curso-profesional-de-hacking-etico-y-ciberseguridad/learn/lecture/29899772#overview
+
+        A lo mejor no quieres dedicar dinero a AWS y quieres ir contra tu máquina, puedes usar localstack 
+
+            https://www.youtube.com/watch?v=GBLPi-mno7M
+
+    Aplicar el sentido común, a los servidores que estén conectados a un balanceador de carga solo se podrá acceder a traves del grupo de
+    seguridad del balanceador de carga, nada de exponer las conexiones entrantes ssh y http a todo internet (0.0.0.0/0).
+    De igual manera, las bases de datos conectadas a esos servidores, solo se puede acceder desde lo expuesto en el grupo de seguridad de dichos
+    servidores de aplicaciones. 
+
+    Al final, de lo que se trata es que solo puedas acceder a la infraestructura desde el balanceador de carga, la consola de administración
+    de AWS y poco más.
+
+    Idealmente en el grupo de seguridad del balanceador de carga solo permitirias conexiones entrantes desde un grupo de ips muy restringidas,
+    las de los administradores de dicha infraestructura.
+
+# Localstack
+
+    Pendiente
+
+# asciinema
+
+    si necesitas grabar una sesión de tu terminal y subirla a una nube pública
+
+    > asciinema rec
+    asciinema: recording asciicast to /tmp/tmpfdj8yt89-ascii.cast
+    asciinema: press <ctrl-d> or type "exit" when you're done
+    ..............                                     kali@kali 
+                ..,;:ccc,.                             --------- 
+              ......''';lxO.                           OS: Kali GNU/Linux Rolling x86_64                                                                                                                          
+    .....''''..........,:ld;                           Host: VMware Virtual Platform None                                                                                                                         
+               .';;;:::;,,.x,                          Kernel: 5.18.0-kali5-amd64                                                                                                                                 
+          ..'''.            0Xxoc:,.  ...              Uptime: 3 hours, 10 mins                                                                                                                                   
+      ....                ,ONkc;,;cokOdc',.            Packages: 4178 (dpkg)                                                                                                                                      
+     .                   OMo           ':ddo.          Shell: zsh 5.9                                                                                                                                             
+                        dMc               :OO;         Resolution: 1680x1050                                                                                                                                      
+                        0M.                 .:o.       DE: Xfce 4.16                                                                                                                                              
+                        ;Wd                            WM: Xfwm4                                                                                                                                                  
+                         ;XO,                          WM Theme: Kali-Dark                                                                                                                                        
+                           ,d0Odlc;,..                 Theme: Adwaita-dark [GTK2/3]                                                                                                                               
+                               ..',;:cdOOd::,.         Icons: Flat-Remix-Blue-Dark [GTK2/3]                                                                                                                       
+                                        .:d;.':;.      Terminal: asciinema                                                                                                                                        
+                                           'd,  .'     CPU: Intel i9-9980HK (4) @ 2.400GHz                                                                                                                        
+                                             ;l   ..   GPU: 00:0f.0 VMware SVGA II Adapter                                                                                                                        
+                                              .o       Memory: 4012MiB / 7920MiB                                                                                                                                  
+    > ok, i am recording a session
+    zsh: command not found: ok,
+    > i am done
+    zsh: command not found: i
+    > exit
+    asciinema: recording finished
+    asciinema: press <enter> to upload to asciinema.org, <ctrl-c> to save locally
+
+    View the recording at:
+
+        https://asciinema.org/a/mOTeXHPTdvmdSye0NvMgS53t4
+
+
+     ⭐  ~/CheatSheetsHacking  ok  took 34s  at 12:54:49 > 
+
+# Load Balancing detector
+
+    https://www.kali.org/tools/lbd/
+
+    Sospechas que una app está detrás de un balanceador de carga?
+    Ojo que genera un montón de tráfico, si lo haces contra uno de AWS, GCP o Azure, probablemente lo detecten y carguen
+    un buen dinero...
+
+    > lbd www.topethmine.com
+
+    lbd - load balancing detector 0.4 - Checks if a given domain uses load-balancing.
+                                        Written by Stefan Behte (http://ge.mine.nu)
+                                        Proof-of-concept! Might give false positives.
+
+    Checking for DNS-Loadbalancing: NOT FOUND
+    Checking for HTTP-Loadbalancing [Server]: 
+     NOT FOUND
+
+    Checking for HTTP-Loadbalancing [Date]: , No date header found, skipping.
+
+    Checking for HTTP-Loadbalancing [Diff]: 
+
+    NOT FOUND
+
+    www.topethmine.com does NOT use Load-balancing.
+
+    > 
+    > 
+
+    ⭐  ~/CheatSheetsHacking  ok  at 12:53:28 >
