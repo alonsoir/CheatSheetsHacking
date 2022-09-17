@@ -143,7 +143,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     18. WayBackMachine—View content from deleted websites.
         https://archive.org/web/
     19. Shodan—Search for devices connected to the internet.
-[        shodan.io](https://www.shodan.io)
+        https://www.shodan.io
     20. Netlas—Search and monitor internet connected assets.
         https://netlas.io
     21. CRT sh—Search for certs that have been logged by CT.
