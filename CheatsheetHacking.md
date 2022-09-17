@@ -104,6 +104,69 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Initializes Metasploit database
     Installs rad BLS wallpaper
     
+# 30 cybersecurity search engines for researchers:
+
+    1. Dehashed—View leaked credentials.
+        https://www.dehashed.com
+    2. SecurityTrails—Extensive DNS data.
+        https://securitytrails.com
+    3. DorkSearch—Really fast Google dorking.
+        https://dorksearch.com
+    4. ExploitDB—Archive of various exploits.
+        https://www.exploit-db.com/history
+    5. ZoomEye—Gather information about targets.
+        https://www.zoomeye.org/project?id=firewall
+    6. Pulsedive—Search for threat intelligence.
+        https://pulsedive.com
+    7. GrayHatWarefare—Search public S3 buckets.
+        https://buckets.grayhatwarfare.com
+    8. PolySwarm—Scan files and URLs for threats.
+        https://polyswarm.io
+    9. Fofa—Search for various threat intelligence.
+        https://fofa.info
+    10. LeakIX—Search publicly indexed information.
+        https://leakix.net
+    11. DNSDumpster—Search for DNS records quickly.
+        https://dnsdumpster.com
+    12. FullHunt—Search and discovery attack surfaces.
+        https://fullhunt.io
+    13. AlienVault—Extensive threat intelligence feed.
+        https://otx.alienvault.com
+    14. ONYPHE—Collects cyber-threat intelligence data.
+        https://www.onyphe.io
+    15. Grep App—Search across a half million git repos.
+        https://grep.app
+    16. URL Scan—Free service to scan and analyse websites.
+        https://urlscan.io
+    17. Vulners—Search vulnerabilities in a large database.
+        https://vulners.com
+    18. WayBackMachine—View content from deleted websites.
+        https://archive.org/web/
+    19. Shodan—Search for devices connected to the internet.
+[        shodan.io](https://www.shodan.io)
+    20. Netlas—Search and monitor internet connected assets.
+        https://netlas.io
+    21. CRT sh—Search for certs that have been logged by CT.
+        https://crt.sh
+    22. Wigle—Database of wireless networks, with statistics.
+        https://www.wigle.net
+    23. PublicWWW—Marketing and affiliate marketing research.
+        https://publicwww.com
+    24. Binary Edge—Scans the internet for threat intelligence.
+        https://www.binaryedge.io
+    25. GreyNoise—Search for devices connected to the internet.
+        https://www.greynoise.io
+    26. Hunter—Search for email addresses belonging to a website.
+        https://hunter.io/?gclid=CjwKCAjw4JWZBhApEiwAtJUN0IQfvfDnwglAaoBDeH5gYewiBOqr4h6A615W3-hFgNPM6Rh18XEoUxoCul0QAvD_BwE
+    27. Censys—Assessing attack surface for internet connected devices.
+        https://censys.io
+    28. IntelligenceX—Search Tor, I2P, data leaks, domains, and emails.
+        https://intelx.io
+    29. Packet Storm Security—Browse latest vulnerabilities and exploits.
+        https://packetstormsecurity.com
+    30. SearchCode—Search 75 billion lines of code from 40 million projects.
+        https://searchcode.com
+
 # How to encrypt and decrypt files using gpg
 
     sudo apt install gpg
