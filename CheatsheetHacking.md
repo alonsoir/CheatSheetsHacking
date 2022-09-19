@@ -616,78 +616,91 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     List running services... It is named like cron.service
 
     > systemctl | grep running
-  proc-sys-fs-binfmt_misc.automount                                                                        loaded active running   Arbitrary Executable File Formats File System Automount Point
-  init.scope                                                                                               loaded active running   System and Service Manager
-  session-3.scope                                                                                          loaded active running   Session 3 of User kali
-  colord.service                                                                                           loaded active running   Manage, Install and Generate Color Profiles
-  containerd.service                                                                                       loaded active running   containerd container runtime
-  cron.service                                                                                             loaded active running   Regular background program processing daemon
-  darkstat.service                                                                                         loaded active running   LSB: start darkstat monitoring system at boot time
-  dbus.service                                                                                             loaded active running   D-Bus System Message Bus
-  docker.service                                                                                           loaded active running   Docker Application Container Engine
-  getty@tty1.service                                                                                       loaded active running   Getty on tty1
-  haveged.service                                                                                          loaded active running   Entropy Daemon based on the HAVEGE algorithm
-  lightdm.service                                                                                          loaded active running   Light Display Manager
-  ModemManager.service                                                                                     loaded active running   Modem Manager
-  NetworkManager.service                                                                                   loaded active running   Network Manager
-  nfs-idmapd.service                                                                                       loaded active running   NFSv4 ID-name mapping service
-  nfs-mountd.service                                                                                       loaded active running   NFS Mount Daemon
-  nfsdcld.service                                                                                          loaded active running   NFSv4 Client Tracking Daemon
-  open-vm-tools.service                                                                                    loaded active running   Service for virtual machines hosted on VMware
-  packagekit.service                                                                                       loaded active running   PackageKit Daemon
-  polkit.service                                                                                           loaded active running   Authorization Manager
-  rpc-statd.service                                                                                        loaded active running   NFS status monitor for NFSv2/3 locking.
-  rpcbind.service                                                                                          loaded active running   RPC bind portmap service
-  rsyslog.service                                                                                          loaded active running   System Logging Service
-  rtkit-daemon.service                                                                                     loaded active running   RealtimeKit Scheduling Policy Service
-  ssh.service                                                                                              loaded active running   OpenBSD Secure Shell server
-  systemd-journald.service                                                                                 loaded active running   Journal Service
-  systemd-logind.service                                                                                   loaded active running   User Login Management
-  systemd-timesyncd.service                                                                                loaded active running   Network Time Synchronization
-  systemd-udevd.service                                                                                    loaded active running   Rule-based Manager for Device Events and Files
-  tor@default.service                                                                                      loaded active running   Anonymizing overlay network for TCP
-  udisks2.service                                                                                          loaded active running   Disk Manager
-  unattended-upgrades.service                                                                              loaded active running   Unattended Upgrades Shutdown
-  upower.service                                                                                           loaded active running   Daemon for power management
-  user@1000.service                                                                                        loaded active running   User Manager for UID 1000
-  dbus.socket                                                                                              loaded active running   D-Bus System Message Bus Socket
-  docker.socket                                                                                            loaded active running   Docker Socket for the API
-  rpcbind.socket                                                                                           loaded active running   RPCbind Server Activation Socket
-  syslog.socket                                                                                            loaded active running   Syslog Socket
-  systemd-journald-audit.socket                                                                            loaded active running   Journal Audit Socket
-  systemd-journald-dev-log.socket                                                                          loaded active running   Journal Socket (/dev/log)
-  systemd-journald.socket                                                                                  loaded active running   Journal Socket
-  systemd-udevd-control.socket                                                                             loaded active running   udev Control Socket
-  systemd-udevd-kernel.socket                                                                              loaded active running   udev Kernel Socket
+    ...
+    ⭐  ~  ok  at 13:27:32 >   
 
- ⭐  ~  ok  at 13:27:32 >   
+    Too much services, right? disable one by one with:
 
-         Too much services, right? disable one with:
+    > systemctl stop postgresql@14-main.service
+    > systemctl disable postgresql@14-main.service
+    > sudo systemctl status postgresql@14-main.service
+    ○ postgresql@14-main.service - PostgreSQL Cluster 14-main
+    Loaded: loaded (/lib/systemd/system/postgresql@.service; enabled-runtime; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/postgresql@.service.d
+    └─kali_postgresql.conf
+    Active: inactive (dead) since Mon 2022-09-19 13:22:38 CEST; 1min 5s ago
+    Duration: 1h 46min 24.729s
+    Process: 7851 ExecStop=/usr/bin/pg_ctlcluster --skip-systemctl-redirect -m fast 14-main stop (co>
+    Main PID: 1108 (code=exited, status=0/SUCCESS)
+    CPU: 4.478s
 
-         > systemctl stop postgresql@14-main.service
-         > systemctl disable postgresql@14-main.service
-         > sudo systemctl status postgresql@14-main.service
-            ○ postgresql@14-main.service - PostgreSQL Cluster 14-main
-                 Loaded: loaded (/lib/systemd/system/postgresql@.service; enabled-runtime; preset: disabled)
-                Drop-In: /usr/lib/systemd/system/postgresql@.service.d
-                         └─kali_postgresql.conf
-                 Active: inactive (dead) since Mon 2022-09-19 13:22:38 CEST; 1min 5s ago
-               Duration: 1h 46min 24.729s
-                Process: 7851 ExecStop=/usr/bin/pg_ctlcluster --skip-systemctl-redirect -m fast 14-main stop (co>
-               Main PID: 1108 (code=exited, status=0/SUCCESS)
-                    CPU: 4.478s
-
-            Sep 19 11:36:10 kali systemd[1]: Starting PostgreSQL Cluster 14-main...
-            Sep 19 11:36:13 kali systemd[1]: Started PostgreSQL Cluster 14-main.
-            Sep 19 13:22:38 kali systemd[1]: Stopping PostgreSQL Cluster 14-main...
-            Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Deactivated successfully.
-            Sep 19 13:22:38 kali systemd[1]: Stopped PostgreSQL Cluster 14-main.
-            Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Consumed 4.478s CPU time.
-            lines 1-16/16 (END)
+    Sep 19 11:36:10 kali systemd[1]: Starting PostgreSQL Cluster 14-main...
+    Sep 19 11:36:13 kali systemd[1]: Started PostgreSQL Cluster 14-main.
+    Sep 19 13:22:38 kali systemd[1]: Stopping PostgreSQL Cluster 14-main...
+    Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Deactivated successfully.
+    Sep 19 13:22:38 kali systemd[1]: Stopped PostgreSQL Cluster 14-main.
+    Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Consumed 4.478s CPU time.
+    lines 1-16/16 (END)
 
     Which ones are truly essential to run in Kali/Ubuntu Server?
 
+    # Establecer el bloqueo de cuenta tras fallos de autentificacion
+
+    > sudo leafpad /etc/pam.d/common-auth
+    [sudo] password for kali:
     
+    añadir la siguiente línea:
+
+    auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900
+
+    # Configurar las cuentas de servicio con el parametro nologin
+
+        Editamos /etc/passwd
+
+        Añadimos a los servicios :/usr/sbin/nologin
+        ...
+        daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+        bin:x:2:2:bin:/bin:/usr/sbin/nologin
+        sys:x:3:3:sys:/dev:/usr/sbin/nologin
+        ...
+
+    # configurar valores por defecto de umask
+
+        Editamos 
+            /etc/bash.bashrc
+            /etc/profile
+
+            Todos los scripts debajo de profile.d:
+
+            /etc/profile.d/*.sh
+
+            añadimos a cada uno de esos ficheros el valor:
+
+            umask 027
+
+            que significa, control total para el creador (7), permisos de lectura y ejecución para el grupo (2), todo denegado para el resto (0).
+
+    # Restringir el acceso a su
+
+        https://www.zeppelinux.es/como-agregar-un-usuario-a-un-grupo-en-linux/#an_n5
+
+        Añadir al sistema el grupo sugroup
+
+        groupadd sugroup
+
+        descomentar o añadir la línea
+
+        auth       required   pam_wheel.so use_uid group=sugroup
+
+        sudo usermod -a -G sugroup kali
+
+        Con este comando, hemos añadido al usuario kali al grupo sugroup
+        
+
+    # Fortificar el servidor por ssh
+
+        Pendiente
+        
     1. Editar correctamente el fstab con las flags adecuadas en cada partición (nodev, noexec, nosuid, etc) para una securización adecuada.
     2. Editar los permisos del directorio btmp a 660.
     3. Si tenéis un SSD, activar el elevator=noop, así como los servicios para que se ejecute TRIM correctamente.
