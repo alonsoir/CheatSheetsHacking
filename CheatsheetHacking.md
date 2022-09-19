@@ -619,7 +619,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     ...
     ⭐  ~  ok  at 13:27:32 >   
 
-    Too much services, right? disable one by one with:
+    Too many services, right? disable one by one with:
 
     > systemctl stop postgresql@14-main.service
     > systemctl disable postgresql@14-main.service
