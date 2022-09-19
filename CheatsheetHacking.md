@@ -370,9 +370,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     sudo ufw reload
      
-# More hardening advices
+# More hardening advices from INCIBE
 
-    Crear una contraseña de arranque del sistema:
+    https://www.youtube.com/watch?v=YZnkAWdXB4s
+
+    # Crear una contraseña de arranque del sistema:
+        
         > sudo grub-mkpasswd-pbkdf2
         Enter password: 
         Reenter password: 
@@ -382,10 +385,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         00_header  05_debian_theme  10_linux  20_linux_xen  30_os-prober  30_uefi-firmware  40_custom  41_custom  README
         > sudo leafpad init-pwd
         // Add next content to the file, obviously your hash password must be the one you generated with grub-mkpasswd-pbkdf2 command...
-        > cat init-pwd
+        
         cat << EOF
         set superuser="root"
         password_pbkdf2 root grub.pbkdf2.sha512.10000.A473A05D5AD4E246775773AA43DF9FBA52CF9C75352FE60504D1EF5A3F3B269AF5B2B69D943B5F62528186DEF30B696881A958D5881E0103EBCA191476351580.B4483B3C0CA3FD0C88090242C31701CB46EB49828660230D2A537B8B1F90BC3C87A015800AD9FF084A79D0B4D5A617ED7968BA7E27F7B2124EBBCCBAEA110FAA%
+        
         > chmod +x init-pwd
         chmod: changing permissions of 'init-pwd': Operation not permitted
         > sudo chmod +x init-pwd
@@ -403,7 +407,287 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         done
          
         Reboot the system!
+    
+    #   Activar modo single user
 
+            Asignar una contraseña al usuario root y que este usuario sea el único que pueda leer el fichero de arranque.
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# passwd
+            New password: 
+            Retype new password: 
+            passwd: password updated successfully   
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# chmod 400 /boot/grub/grub.cfg
+
+    # Configuracion de usuarios y grupos
+
+        1) Instalar libpam-pwquality
+
+            apt install libpam-pwquality
+            vi /etc/security/pwquality.conf
+
+            Como mínimo, descomentar minlen, minclass=4 significa que debe tener al menos letra minuscula, letra mayuscula, numero y otros caracteres extraños
+            ┌──(root㉿kali)-[/home/kali]
+            └─# cat /etc/security/pwquality.conf 
+            # Configuration for systemwide password quality limits
+            # Defaults:
+            #
+            # Number of characters in the new password that must not be present in the
+            # old password.
+            # difok = 1
+            #
+            # Minimum acceptable size for the new password (plus one if
+            # credits are not disabled which is the default). (See pam_cracklib manual.)
+            # Cannot be set to lower value than 6.
+            minlen = 14
+            #
+            # The maximum credit for having digits in the new password. If less than 0
+            # it is the minimum number of digits in the new password.
+            # dcredit = 0
+            #
+            # The maximum credit for having uppercase characters in the new password.
+            # If less than 0 it is the minimum number of uppercase characters in the new
+            # password.
+            # ucredit = 0
+            #
+            # The maximum credit for having lowercase characters in the new password.
+            # If less than 0 it is the minimum number of lowercase characters in the new
+            # password.
+            # lcredit = 0
+            #
+            # The maximum credit for having other characters in the new password.
+            # If less than 0 it is the minimum number of other characters in the new
+            # password.
+            # ocredit = 0
+            #
+            # The minimum number of required classes of characters for the new
+            # password (digits, uppercase, lowercase, others).
+            minclass = 4
+            #
+            # The maximum number of allowed consecutive same characters in the new password.
+            # The check is disabled if the value is 0.
+            # maxrepeat = 0
+            #
+            # The maximum number of allowed consecutive characters of the same class in the
+            # new password.
+            # The check is disabled if the value is 0.
+            # maxclassrepeat = 0
+            #
+            # Whether to check for the words from the passwd entry GECOS string of the user.
+            # The check is enabled if the value is not 0.
+            # gecoscheck = 0
+            #
+            # Whether to check for the words from the cracklib dictionary.
+            # The check is enabled if the value is not 0.
+            # dictcheck = 1
+            #
+            # Whether to check if it contains the user name in some form.
+            # The check is enabled if the value is not 0.
+            # usercheck = 1
+            #
+            # Length of substrings from the username to check for in the password
+            # The check is enabled if the value is greater than 0 and usercheck is enabled.
+            # usersubstr = 0
+            #
+            # Whether the check is enforced by the PAM module and possibly other
+            # applications.
+            # The new password is rejected if it fails the check and the value is not 0.
+            # enforcing = 1
+            #
+            # Path to the cracklib dictionaries. Default is to use the cracklib default.
+            # dictpath =
+            #
+            # Prompt user at most N times before returning with error. The default is 1.
+            # retry = 3
+            #
+            # Enforces pwquality checks on the root user password.
+            # Enabled if the option is present.
+            # enforce_for_root
+            #
+            # Skip testing the password quality for users that are not present in the
+            # /etc/passwd file.
+            # Enabled if the option is present.
+            # local_users_only
+
+    2) Add robustness to the passwords
+
+        Edit the next file, 
+            /etc/pam.d/common-password 
+        search the next, 
+            pam_pwquality.so retry=3
+        Add the next line:             
+            password    required    pampw_history.so    remember=5
+        be sure to use sha512 or yescrypt algorithm. In my case, i respect yescrypt.
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# cat /etc/pam.d/common-password 
+            #
+            # /etc/pam.d/common-password - password-related modules common to all services
+            #
+            # This file is included from other service-specific PAM config files,
+            # and should contain a list of modules that define the services to be
+            # used to change user passwords.  The default is pam_unix.
+
+            # Explanation of pam_unix options:
+            # The "yescrypt" option enables
+            #hashed passwords using the yescrypt algorithm, introduced in Debian
+            #11.  Without this option, the default is Unix crypt.  Prior releases
+            #used the option "sha512"; if a shadow password hash will be shared
+            #between Debian 11 and older releases replace "yescrypt" with "sha512"
+            #for compatibility .  The "obscure" option replaces the old
+            #`OBSCURE_CHECKS_ENAB' option in login.defs.  See the pam_unix manpage
+            #for other options.
+
+            # As of pam 1.0.1-6, this file is managed by pam-auth-update by default.
+            # To take advantage of this, it is recommended that you configure any
+            # local modules either before or after the default block, and use
+            # pam-auth-update to manage selection of other modules.  See
+            # pam-auth-update(8) for details.
+
+            # here are the per-package modules (the "Primary" block)
+            password        requisite                       pam_pwquality.so retry=3
+            password        [success=1 default=ignore]      pam_unix.so obscure use_authtok try_first_pass yescrypt
+            # here's the fallback if no module succeeds
+            password        requisite                       pam_deny.so
+            # prime the stack with a positive return value if there isn't one already;
+            # this avoids us returning an error just because nothing sets a success code
+            # since the modules above will each just jump around
+            password        required                        pam_permit.so
+            # and here are more per-package modules (the "Additional" block)
+            password        optional        pam_gnome_keyring.so 
+            # end of pam-auth-update config
+
+            # Añado esto
+            # Historial de contraseñas y cifrado
+            password    required    pampw_history.so    remember=5
+
+    3) Caducidad e intervalo de tiempo para cambiarlo
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# leafpad /etc/login.defs
+            ...
+            #
+            # Password aging controls:
+            #
+            #   PASS_MAX_DAYS   Maximum number of days a password may be used.
+            #   PASS_MIN_DAYS   Minimum number of days allowed between password changes.
+            #   PASS_WARN_AGE   Number of days warning given before a password expires.
+            #
+            PASS_MAX_DAYS   90
+            PASS_MIN_DAYS   1
+            PASS_WARN_AGE   7
+    
+    4) Establecer el tiempo de bloqueo de cuenta por inactividad
+
+        Por defecto, lo establecemos a 30 días, 
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# useradd -D -f 30       
+
+        Modificamos para cada usuario, en mi caso para estos dos usuarios                                                                                                                                                                                                                 
+            ┌──(root㉿kali)-[/home/kali]
+            └─# chage --inactive 30 root
+                                                                                                                                                                                                                         
+            ┌──(root㉿kali)-[/home/kali]
+            └─# chage --inactive 30 kali
+        
+        Comprobamos                                                                                                                                                                                                             
+            ┌──(root㉿kali)-[/home/kali]
+            └─# useradd -D | grep INACTIVE
+            INACTIVE=30
+            
+            ┌──(root㉿kali)-[/home/kali]
+            └─# grep -E ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1,7
+            root:30
+            kali:30
+
+    5) Establecer el timeout por inactividad
+
+
+    6) Desactivar servicios innecesarios
+
+    List all services, running or not...
+
+        > systemctl list-units --type=service
+        ...
+    
+    List running services... It is named like cron.service
+
+    > systemctl | grep running
+  proc-sys-fs-binfmt_misc.automount                                                                        loaded active running   Arbitrary Executable File Formats File System Automount Point
+  init.scope                                                                                               loaded active running   System and Service Manager
+  session-3.scope                                                                                          loaded active running   Session 3 of User kali
+  colord.service                                                                                           loaded active running   Manage, Install and Generate Color Profiles
+  containerd.service                                                                                       loaded active running   containerd container runtime
+  cron.service                                                                                             loaded active running   Regular background program processing daemon
+  darkstat.service                                                                                         loaded active running   LSB: start darkstat monitoring system at boot time
+  dbus.service                                                                                             loaded active running   D-Bus System Message Bus
+  docker.service                                                                                           loaded active running   Docker Application Container Engine
+  getty@tty1.service                                                                                       loaded active running   Getty on tty1
+  haveged.service                                                                                          loaded active running   Entropy Daemon based on the HAVEGE algorithm
+  lightdm.service                                                                                          loaded active running   Light Display Manager
+  ModemManager.service                                                                                     loaded active running   Modem Manager
+  NetworkManager.service                                                                                   loaded active running   Network Manager
+  nfs-idmapd.service                                                                                       loaded active running   NFSv4 ID-name mapping service
+  nfs-mountd.service                                                                                       loaded active running   NFS Mount Daemon
+  nfsdcld.service                                                                                          loaded active running   NFSv4 Client Tracking Daemon
+  open-vm-tools.service                                                                                    loaded active running   Service for virtual machines hosted on VMware
+  packagekit.service                                                                                       loaded active running   PackageKit Daemon
+  polkit.service                                                                                           loaded active running   Authorization Manager
+  rpc-statd.service                                                                                        loaded active running   NFS status monitor for NFSv2/3 locking.
+  rpcbind.service                                                                                          loaded active running   RPC bind portmap service
+  rsyslog.service                                                                                          loaded active running   System Logging Service
+  rtkit-daemon.service                                                                                     loaded active running   RealtimeKit Scheduling Policy Service
+  ssh.service                                                                                              loaded active running   OpenBSD Secure Shell server
+  systemd-journald.service                                                                                 loaded active running   Journal Service
+  systemd-logind.service                                                                                   loaded active running   User Login Management
+  systemd-timesyncd.service                                                                                loaded active running   Network Time Synchronization
+  systemd-udevd.service                                                                                    loaded active running   Rule-based Manager for Device Events and Files
+  tor@default.service                                                                                      loaded active running   Anonymizing overlay network for TCP
+  udisks2.service                                                                                          loaded active running   Disk Manager
+  unattended-upgrades.service                                                                              loaded active running   Unattended Upgrades Shutdown
+  upower.service                                                                                           loaded active running   Daemon for power management
+  user@1000.service                                                                                        loaded active running   User Manager for UID 1000
+  dbus.socket                                                                                              loaded active running   D-Bus System Message Bus Socket
+  docker.socket                                                                                            loaded active running   Docker Socket for the API
+  rpcbind.socket                                                                                           loaded active running   RPCbind Server Activation Socket
+  syslog.socket                                                                                            loaded active running   Syslog Socket
+  systemd-journald-audit.socket                                                                            loaded active running   Journal Audit Socket
+  systemd-journald-dev-log.socket                                                                          loaded active running   Journal Socket (/dev/log)
+  systemd-journald.socket                                                                                  loaded active running   Journal Socket
+  systemd-udevd-control.socket                                                                             loaded active running   udev Control Socket
+  systemd-udevd-kernel.socket                                                                              loaded active running   udev Kernel Socket
+
+ ⭐  ~  ok  at 13:27:32 >   
+
+         Too much services, right? disable one with:
+
+         > systemctl stop postgresql@14-main.service
+         > systemctl disable postgresql@14-main.service
+         > sudo systemctl status postgresql@14-main.service
+            ○ postgresql@14-main.service - PostgreSQL Cluster 14-main
+                 Loaded: loaded (/lib/systemd/system/postgresql@.service; enabled-runtime; preset: disabled)
+                Drop-In: /usr/lib/systemd/system/postgresql@.service.d
+                         └─kali_postgresql.conf
+                 Active: inactive (dead) since Mon 2022-09-19 13:22:38 CEST; 1min 5s ago
+               Duration: 1h 46min 24.729s
+                Process: 7851 ExecStop=/usr/bin/pg_ctlcluster --skip-systemctl-redirect -m fast 14-main stop (co>
+               Main PID: 1108 (code=exited, status=0/SUCCESS)
+                    CPU: 4.478s
+
+            Sep 19 11:36:10 kali systemd[1]: Starting PostgreSQL Cluster 14-main...
+            Sep 19 11:36:13 kali systemd[1]: Started PostgreSQL Cluster 14-main.
+            Sep 19 13:22:38 kali systemd[1]: Stopping PostgreSQL Cluster 14-main...
+            Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Deactivated successfully.
+            Sep 19 13:22:38 kali systemd[1]: Stopped PostgreSQL Cluster 14-main.
+            Sep 19 13:22:38 kali systemd[1]: postgresql@14-main.service: Consumed 4.478s CPU time.
+            lines 1-16/16 (END)
+
+    Which ones are truly essential to run in Kali/Ubuntu Server?
+
+    
     1. Editar correctamente el fstab con las flags adecuadas en cada partición (nodev, noexec, nosuid, etc) para una securización adecuada.
     2. Editar los permisos del directorio btmp a 660.
     3. Si tenéis un SSD, activar el elevator=noop, así como los servicios para que se ejecute TRIM correctamente.
