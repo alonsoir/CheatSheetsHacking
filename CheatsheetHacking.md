@@ -358,7 +358,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     sudo ufw reload
 
     # After these commands you are almost there, finally, you dont want to respond to external ping commands, so: 
-    # Drop pings
+    # Drop pings!!
 
     # Edit the UFW config file
 
@@ -370,6 +370,55 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     sudo ufw reload
      
+# More hardening advices
+
+    Crear una contraseña de arranque del sistema:
+        > sudo grub-mkpasswd-pbkdf2
+        Enter password: 
+        Reenter password: 
+        PBKDF2 hash of your password is grub.pbkdf2.sha512.10000.A473A05D5AD4E246775773AA43DF9FBA52CF9C75352FE60504D1EF5A3F3B269AF5B2B69D943B5F62528186DEF30B696881A958D5881E0103EBCA191476351580.B4483B3C0CA3FD0C88090242C31701CB46EB49828660230D2A537B8B1F90BC3C87A015800AD9FF084A79D0B4D5A617ED7968BA7E27F7B2124EBBCCBAEA110FAA
+        > cd /etc/grub.d
+        > ls
+        00_header  05_debian_theme  10_linux  20_linux_xen  30_os-prober  30_uefi-firmware  40_custom  41_custom  README
+        > sudo leafpad init-pwd
+        // Add next content to the file, obviously your hash password must be the one you generated with grub-mkpasswd-pbkdf2 command...
+        > cat init-pwd
+        cat << EOF
+        set superuser="root"
+        password_pbkdf2 root grub.pbkdf2.sha512.10000.A473A05D5AD4E246775773AA43DF9FBA52CF9C75352FE60504D1EF5A3F3B269AF5B2B69D943B5F62528186DEF30B696881A958D5881E0103EBCA191476351580.B4483B3C0CA3FD0C88090242C31701CB46EB49828660230D2A537B8B1F90BC3C87A015800AD9FF084A79D0B4D5A617ED7968BA7E27F7B2124EBBCCBAEA110FAA%
+        > chmod +x init-pwd
+        chmod: changing permissions of 'init-pwd': Operation not permitted
+        > sudo chmod +x init-pwd
+        > sudo update-grub
+        Generating grub configuration file ...
+        Found theme: /boot/grub/themes/kali/theme.txt
+        Found background image: /usr/share/images/desktop-base/desktop-grub.png
+        Found linux image: /boot/vmlinuz-5.18.0-kali5-amd64
+        Found initrd image: /boot/initrd.img-5.18.0-kali5-amd64
+        Found linux image: /boot/vmlinuz-5.18.0-kali2-amd64
+        Found initrd image: /boot/initrd.img-5.18.0-kali2-amd64
+        Warning: os-prober will not be executed to detect other bootable partitions.
+        Systems on them will not be added to the GRUB boot configuration.
+        Check GRUB_DISABLE_OS_PROBER documentation entry.
+        done
+         
+        Reboot the system!
+
+    1. Editar correctamente el fstab con las flags adecuadas en cada partición (nodev, noexec, nosuid, etc) para una securización adecuada.
+    2. Editar los permisos del directorio btmp a 660.
+    3. Si tenéis un SSD, activar el elevator=noop, así como los servicios para que se ejecute TRIM correctamente.
+    4. Desactivar el usuario invitado si lo tenéis activo.
+    5. Activar sudo y desactivar el usuario root (en caso de querer una mayor seguridad).
+    6. Revisar bien los paquetes y directorios. Eliminar paquetes que no utilicemos y paquetes potencialmente peligrosos como el de telnet.
+    7. Revisar correctamente los servicios y desactivar los que no queramos activos. Si utilizáis SystemD debéis utilizar la orden "systemctl list-unit-files" para verlos.
+    8. Activar y configurar el cortafuegos. Con esta página (http://www.puertosabiertos.com) podéis averiguar cuantos puertos peligrosos tenéis abiertos. Con que os salgan todos en verde, es suficiente.
+    9. Agregar las reglas para evitar el spoffing a través del archivo sysctl.conf en la mayoría de distribuciones (Linux puede, de manera nativa, evitar este tráfico).
+    10. Desactivar el ping (es muy peligroso tener el recibo del ping activo).
+    11. Editar los permisos de la Umask a 027.
+    12. Configurar correctamente la swappines si no la utilizáis.
+    13. Configurar correctamente las DNS para evitar el spoffing de DNS.
+    14. Asegurar el funcionamiento correcto de las IRQ con el IRQBALANCE
+
 # Hacking Web y Bug Bounty
 
     This url is important: https://pentester.land/list-of-bug-bounty-writeups.html
