@@ -15,9 +15,17 @@ También me gustaría que este trabajo llegue algún a las manos de Israel, la p
 Estoy aprendiendo de él y de otros más como Santiago Hernandez y S4vitar.
 En estos momentos voy agregando lo último que voy viendo al principio del fichero.
 
+Mis disculpas por poner cosas en inglés y en Español, hay veces que me da por escribir en uno u otro, dependiendo del humor y de la dificultad
+de cada cosa.
+
+Este fichero está dedicado a mis sobrinos Marcos y Blanca, a los dos por igual, con la esperanza que algún día lo encuentren y les sea útil.
+Os quiero mucho.
+
 # Disclaimer
 The purpose of this file is to collect updated information while I learn pentesting,hardening cloud systems and
-cybersecurity . Please do not use this knowledge to commit illegal acts, so i am not responsible for any illegal 
+cybersecurity. 
+
+Please do not use this knowledge to commit illegal acts, so i am not responsible for any illegal 
 actions you may commit.
 
 Use these commands in a controlled lab, for example running different virtual machines on vmware or virtualbox,
@@ -95,8 +103,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     Install this script:
     
-    https://github.com/blacklanternsecurity/kali-setup-script
-    
+        git clone https://github.com/blacklanternsecurity/kali-setup-script
+        
+        cd kali-setup-script
+
+        chmod +x 
+
+        sudo ./kali-setup-script.sh
+
     # Full feature list:
 
     Enables details logging of terminal sessions
@@ -468,7 +482,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     adduser {username}
 
-
     # Add user to the sudo group:
 
     usermod -aG sudo {username}
@@ -554,50 +567,18 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     sudo ufw reload
     
-# Do you need to know what connections are you doing? use conntrack
 
-    ❯ sudo conntrack -L -p tcp
-    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=52.24.10.4 sport=44402 dport=443 src=52.24.10.4 dst=192.168.85.130 sport=443 dport=44402 [ASSURED] mark=0 use=1
-    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=18.154.48.122 sport=42512 dport=443 src=18.154.48.122 dst=192.168.85.130 sport=443 dport=42512 [ASSURED] mark=0 use=1
-    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.184.1 sport=36768 dport=443 src=142.250.184.1 dst=192.168.85.130 sport=443 dport=36768 [ASSURED] mark=0 use=1
-    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50428 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50428 [ASSURED] mark=0 use=1
-    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.185.14 sport=44590 dport=443 src=142.250.185.14 dst=192.168.85.130 sport=443 dport=44590 [ASSURED] mark=0 use=1
-    tcp      6 431707 ESTABLISHED src=192.168.85.130 dst=198.252.206.25 sport=46572 dport=443 src=198.252.206.25 dst=192.168.85.130 sport=443 dport=46572 [ASSURED] mark=0 use=1
-    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50426 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50426 [ASSURED] mark=0 use=1
-    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50430 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50430 [ASSURED] mark=0 use=1
-    tcp      6 10 TIME_WAIT src=192.168.85.130 dst=104.18.103.100 sport=55670 dport=80 src=104.18.103.100 dst=192.168.85.130 sport=80 dport=55670 [ASSURED] mark=0 use=1
-    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50432 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50432 [ASSURED] mark=0 use=1
-    tcp      6 431956 ESTABLISHED src=192.168.85.130 dst=142.250.184.3 sport=51630 dport=443 src=142.250.184.3 dst=192.168.85.130 sport=443 dport=51630 [ASSURED] mark=0 use=1
-    tcp      6 431961 ESTABLISHED src=192.168.85.130 dst=35.165.143.157 sport=48020 dport=443 src=35.165.143.157 dst=192.168.85.130 sport=443 dport=48020 [ASSURED] mark=0 use=1
-    tcp      6 431958 ESTABLISHED src=192.168.85.130 dst=140.82.114.25 sport=33788 dport=443 src=140.82.114.25 dst=192.168.85.130 sport=443 dport=33788 [ASSURED] mark=0 use=1
-    tcp      6 431963 ESTABLISHED src=192.168.85.130 dst=34.120.195.249 sport=52270 dport=443 src=34.120.195.249 dst=192.168.85.130 sport=443 dport=52270 [ASSURED] mark=0 use=1
-    tcp      6 85 TIME_WAIT src=192.168.85.130 dst=18.154.19.109 sport=49306 dport=443 src=18.154.19.109 dst=192.168.85.130 sport=443 dport=49306 [ASSURED] mark=0 use=1
-    tcp      6 431966 ESTABLISHED src=192.168.85.130 dst=108.157.96.46 sport=56996 dport=443 src=108.157.96.46 dst=192.168.85.130 sport=443 dport=56996 [ASSURED] mark=0 use=1
-    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=142.250.201.67 sport=56110 dport=443 src=142.250.201.67 dst=192.168.85.130 sport=443 dport=56110 [ASSURED] mark=0 use=1
-    tcp      6 11 TIME_WAIT src=192.168.85.130 dst=192.99.200.113 sport=37540 dport=80 src=192.99.200.113 dst=192.168.85.130 sport=80 dport=37540 [ASSURED] mark=0 use=2
-    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=18.154.48.69 sport=34058 dport=443 src=18.154.48.69 dst=192.168.85.130 sport=443 dport=34058 [ASSURED] mark=0 use=1
-    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.200.78 sport=34652 dport=443 src=142.250.200.78 dst=192.168.85.130 sport=443 dport=34652 [ASSURED] mark=0 use=1
-    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=104.16.148.64 sport=56114 dport=443 src=104.16.148.64 dst=192.168.85.130 sport=443 dport=56114 [ASSURED] mark=0 use=1
-    tcp      6 431967 ESTABLISHED src=192.168.85.130 dst=108.157.109.12 sport=53636 dport=443 src=108.157.109.12 dst=192.168.85.130 sport=443 dport=53636 [ASSURED] mark=0 use=1
-    conntrack v1.4.6 (conntrack-tools): 22 flow entries have been shown.
 
-# Do you need to know what ports are opened by files/processes? Put this script in your .bashrc and reload bash
-
-    ports() {
-    (
-        echo 'PROC PID USER x IPV x x PROTO BIND PORT'
-        (
-            sudo lsof +c 15 -iTCP -sTCP:LISTEN -P -n | tail -n +2
-            sudo lsof +c 15 -iUDP -P -n | tail -n +2 | egrep -v ' (127\.0\.0\.1|\[::1\]):'
-        ) | sed -E 's/ ([^ ]+):/ \1 /' | sort -k8,8 -k5,5 -k1,1 -k10,10n
-    ) | awk '{ printf "%-16s %-6s %-9s %-5s %-7s %s:%s\n",$1,$2,$3,$5,$8,$9,$10 }'
-}
 
 # More hardening advices from INCIBE
 
     https://www.youtube.com/watch?v=YZnkAWdXB4s
+    
+    Precaución! cuidaito, yo he ejecutado todos estos en mi kali corriendo en vmware, y no fue bien. No se porqué, pero el pass de mi usuario kali se cambió y 
+    tuve que reiniciar toda la instalación. 
+    Está claro que estos consejos son para configurar servidores que vayan a correr en la nube, 24x7x365.
 
-    # Crear una contraseña de arranque del sistema:
+# Crear una contraseña de arranque del sistema, 
         
         > sudo grub-mkpasswd-pbkdf2
         Enter password: 
@@ -631,7 +612,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
          
         Reboot the system!
     
-    #   Activar modo single user
+# Activar modo single user
 
             Asignar una contraseña al usuario root y que este usuario sea el único que pueda leer el fichero de arranque.
 
@@ -644,9 +625,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             ┌──(root㉿kali)-[/home/kali]
             └─# chmod 400 /boot/grub/grub.cfg
 
-    # Configuracion de usuarios y grupos
+# Configuracion de usuarios y grupos
 
-        1) Instalar libpam-pwquality
+# Instalar libpam-pwquality
 
             apt install libpam-pwquality
             vi /etc/security/pwquality.conf
@@ -734,7 +715,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             # Enabled if the option is present.
             # local_users_only
 
-    2) Add robustness to the passwords
+# Add robustness to the passwords
 
         Edit the next file, 
             /etc/pam.d/common-password 
@@ -786,7 +767,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             # Historial de contraseñas y cifrado
             password    required    pampw_history.so    remember=5
 
-    3) Caducidad e intervalo de tiempo para cambiarlo
+# Caducidad e intervalo de tiempo para cambiarlo
 
             ┌──(root㉿kali)-[/home/kali]
             └─# leafpad /etc/login.defs
@@ -802,7 +783,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             PASS_MIN_DAYS   1
             PASS_WARN_AGE   7
     
-    4) Establecer el tiempo de bloqueo de cuenta por inactividad
+# Establecer el tiempo de bloqueo de cuenta por inactividad
 
         Por defecto, lo establecemos a 30 días, 
 
@@ -826,10 +807,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             root:30
             kali:30
 
-    5) Establecer el timeout por inactividad
+ # Establecer el timeout por inactividad
 
+        Pending!
 
-    6) Desactivar servicios innecesarios
+# Desactivar servicios innecesarios
 
     List all services, running or not...
 
@@ -876,7 +858,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900
 
-    # Configurar las cuentas de servicio con el parametro nologin
+# Configurar las cuentas de servicio con el parametro nologin
 
         Editamos /etc/passwd
 
@@ -887,7 +869,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         sys:x:3:3:sys:/dev:/usr/sbin/nologin
         ...
 
-    # configurar valores por defecto de umask
+# configurar valores por defecto de umask
 
         Editamos 
             /etc/bash.bashrc
@@ -903,7 +885,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             que significa, control total para el creador (7), permisos de lectura y ejecución para el grupo (2), todo denegado para el resto (0).
 
-    # Restringir el acceso a su
+# Restringir el acceso a su
 
         https://www.zeppelinux.es/como-agregar-un-usuario-a-un-grupo-en-linux/#an_n5
 
@@ -920,10 +902,231 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         Con este comando, hemos añadido al usuario kali al grupo sugroup
         
 
-    # Fortificar el servidor por ssh
+# Fortificar el servidor por ssh
 
         Pendiente
         
+# Do you need to stop nfs service?
+
+    ❯ nmap localhost
+    Starting Nmap 7.92 ( https://nmap.org ) at 2022-09-20 10:52 EDT
+    Nmap scan report for localhost (127.0.0.1)
+    Host is up (0.000081s latency).
+    Other addresses for localhost (not scanned): ::1
+    Not shown: 998 closed tcp ports (conn-refused)
+    PORT     STATE SERVICE
+    111/tcp  open  rpcbind
+    2049/tcp open  nfs
+
+    Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+    
+    ❯ sudo systemctl stop nfs
+    Failed to stop nfs.service: Unit nfs.service not loaded.
+    ❯ sudo service portmap stop
+    Warning: Stopping portmap.service, but it can still be activated by:
+      rpcbind.socket
+    ❯ sudo service nfs-kernel-server stop
+
+# Do you need to delete the nfs service?
+
+    $ sudo apt-get --purge remove nfs-kernel-server nfs-common portmap
+
+# Do you need to disable and stop rpcbind service?
+
+    As root, run the next commands:
+
+    systemctl disable rpcbind.target
+    systemctl disable rpcbind.socket
+    systemctl disable rpcbind.service
+    systemctl stop rpcbind.target
+    systemctl stop rpcbind.socket
+    systemctl stop rpcbind.service
+
+# Do you need to disable and stop neo4j?
+
+    ne04j usually listens in 7473 and 7474 ports, so...
+
+    ❯ neo4j disable
+    Usage: neo4j { console | start | stop | restart | status | version }
+    ❯ neo4j stop
+    Neo4j not running
+    rm: remove write-protected regular file '/var/run/neo4j/neo4j.pid'? y
+    rm: cannot remove '/var/run/neo4j/neo4j.pid': Permission denied
+    ❯ sudo neo4j stop
+    Stopping Neo4j.. stopped
+    ❯ sudo neo4j status
+    Neo4j is not running
+    ❯ sudo systemctl status neo4j.service
+    ○ neo4j.service - Neo4j Graph Database
+         Loaded: loaded (/lib/systemd/system/neo4j.service; disabled; preset: disabled)
+         Active: inactive (dead)
+    ❯ sudo systemctl disable neo4j.service
+    Synchronizing state of neo4j.service with SysV service script with /lib/systemd/systemd-sysv-install.
+    Executing: /lib/systemd/systemd-sysv-install disable neo4j
+    perl: warning: Setting locale failed.
+    perl: warning: Please check that your locale settings:
+            LANGUAGE = "",
+            LC_ALL = (unset),
+            LANG = "en_US.UTF-8"
+        are supported and installed on your system.
+    perl: warning: Falling back to the standard locale ("C").
+    perl: warning: Setting locale failed.
+    perl: warning: Please check that your locale settings:
+            LANGUAGE = "",
+            LC_ALL = (unset),
+            LANG = "en_US.UTF-8"
+        are supported and installed on your system.
+    perl: warning: Falling back to the standard locale ("C").
+    perl: warning: Setting locale failed.
+    perl: warning: Please check that your locale settings:
+            LANGUAGE = "",
+            LC_ALL = (unset),
+            LANG = "en_US.UTF-8"
+        are supported and installed on your system.
+    perl: warning: Falling back to the standard locale ("C").
+    perl: warning: Setting locale failed.
+    perl: warning: Please check that your locale settings:
+            LANGUAGE = "",
+            LC_ALL = (unset),
+            LANG = "en_US.UTF-8"
+        are supported and installed on your system.
+    perl: warning: Falling back to the standard locale ("C").
+    ❯ ports
+    PROC             PID    USER      IPV   PROTO   BIND:PORT
+    containerd       10933  root      IPv4  TCP     127.0.0.1:39533
+    NetworkManager   51986  root      IPv4  UDP     192.168.85.130:68->192.168.85.254:67
+    charon           42335  root      IPv4  UDP     *:500
+    charon           42335  root      IPv4  UDP     *:4500
+    firefox-esr      95783  kali      IPv4  UDP     *:48285
+    charon           42335  root      IPv6  UDP     *:500
+    charon           42335  root      IPv6  UDP     *:4500
+
+# Add this line to /etc/sudoers
+
+    # You need to know which user run sudo
+
+    Defaults        logfile=/var/log/sudo.log
+
+    optional, maybe you want to do this...
+
+    # Host alias specification
+    Host_Alias BBDD = 192.168.023
+    # User alias specification
+    User_Alias BDOP = kali,mysqluser
+    # Cmnd alias specification
+    Cmnd_Alias BDBKP = /bin/mysqldump, /usr/bin/back.sh
+    # User privilege specification
+    root    ALL=(ALL:ALL) ALL
+    
+    BDOP    BBDD=(root:root) NOPASSWD:BDBKP
+
+    # Members of the admin group may gain root privileges
+    %admin ALL=(ALL) ALL
+    # Allow members of group sudo to execute any command
+    %sudo   ALL=(ALL:ALL) ALL
+
+# Do you need to know what connections are you doing? use conntrack
+
+    ❯ sudo conntrack -L -p tcp
+    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=52.24.10.4 sport=44402 dport=443 src=52.24.10.4 dst=192.168.85.130 sport=443 dport=44402 [ASSURED] mark=0 use=1
+    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=18.154.48.122 sport=42512 dport=443 src=18.154.48.122 dst=192.168.85.130 sport=443 dport=42512 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.184.1 sport=36768 dport=443 src=142.250.184.1 dst=192.168.85.130 sport=443 dport=36768 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50428 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50428 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.185.14 sport=44590 dport=443 src=142.250.185.14 dst=192.168.85.130 sport=443 dport=44590 [ASSURED] mark=0 use=1
+    tcp      6 431707 ESTABLISHED src=192.168.85.130 dst=198.252.206.25 sport=46572 dport=443 src=198.252.206.25 dst=192.168.85.130 sport=443 dport=46572 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50426 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50426 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50430 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50430 [ASSURED] mark=0 use=1
+    tcp      6 10 TIME_WAIT src=192.168.85.130 dst=104.18.103.100 sport=55670 dport=80 src=104.18.103.100 dst=192.168.85.130 sport=80 dport=55670 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50432 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50432 [ASSURED] mark=0 use=1
+    tcp      6 431956 ESTABLISHED src=192.168.85.130 dst=142.250.184.3 sport=51630 dport=443 src=142.250.184.3 dst=192.168.85.130 sport=443 dport=51630 [ASSURED] mark=0 use=1
+    tcp      6 431961 ESTABLISHED src=192.168.85.130 dst=35.165.143.157 sport=48020 dport=443 src=35.165.143.157 dst=192.168.85.130 sport=443 dport=48020 [ASSURED] mark=0 use=1
+    tcp      6 431958 ESTABLISHED src=192.168.85.130 dst=140.82.114.25 sport=33788 dport=443 src=140.82.114.25 dst=192.168.85.130 sport=443 dport=33788 [ASSURED] mark=0 use=1
+    tcp      6 431963 ESTABLISHED src=192.168.85.130 dst=34.120.195.249 sport=52270 dport=443 src=34.120.195.249 dst=192.168.85.130 sport=443 dport=52270 [ASSURED] mark=0 use=1
+    tcp      6 85 TIME_WAIT src=192.168.85.130 dst=18.154.19.109 sport=49306 dport=443 src=18.154.19.109 dst=192.168.85.130 sport=443 dport=49306 [ASSURED] mark=0 use=1
+    tcp      6 431966 ESTABLISHED src=192.168.85.130 dst=108.157.96.46 sport=56996 dport=443 src=108.157.96.46 dst=192.168.85.130 sport=443 dport=56996 [ASSURED] mark=0 use=1
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=142.250.201.67 sport=56110 dport=443 src=142.250.201.67 dst=192.168.85.130 sport=443 dport=56110 [ASSURED] mark=0 use=1
+    tcp      6 11 TIME_WAIT src=192.168.85.130 dst=192.99.200.113 sport=37540 dport=80 src=192.99.200.113 dst=192.168.85.130 sport=80 dport=37540 [ASSURED] mark=0 use=2
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=18.154.48.69 sport=34058 dport=443 src=18.154.48.69 dst=192.168.85.130 sport=443 dport=34058 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.200.78 sport=34652 dport=443 src=142.250.200.78 dst=192.168.85.130 sport=443 dport=34652 [ASSURED] mark=0 use=1
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=104.16.148.64 sport=56114 dport=443 src=104.16.148.64 dst=192.168.85.130 sport=443 dport=56114 [ASSURED] mark=0 use=1
+    tcp      6 431967 ESTABLISHED src=192.168.85.130 dst=108.157.109.12 sport=53636 dport=443 src=108.157.109.12 dst=192.168.85.130 sport=443 dport=53636 [ASSURED] mark=0 use=1
+    conntrack v1.4.6 (conntrack-tools): 22 flow entries have been shown.
+
+# Do you need to know what ports are opened by files/processes? Put this script in your .bashrc and reload bash
+
+    ports() {
+    (
+        echo 'PROC PID USER x IPV x x PROTO BIND PORT'
+        (
+            sudo lsof +c 15 -iTCP -sTCP:LISTEN -P -n | tail -n +2
+            sudo lsof +c 15 -iUDP -P -n | tail -n +2 | egrep -v ' (127\.0\.0\.1|\[::1\]):'
+        ) | sed -E 's/ ([^ ]+):/ \1 /' | sort -k8,8 -k5,5 -k1,1 -k10,10n
+    ) | awk '{ printf "%-16s %-6s %-9s %-5s %-7s %s:%s\n",$1,$2,$3,$5,$8,$9,$10 }'
+    }
+
+# Configuracion de servidor de tiempo
+
+    ❯ systemctl enable systemd-timesyncd.service
+    ==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-unit-files ===
+    Authentication is required to manage system service or unit files.                                                                                                                                            
+    Authenticating as: Kali,,, (kali)
+    Password: 
+    ==== AUTHENTICATION COMPLETE ===
+    ❯ systemctl status systemd-timesyncd
+    ● systemd-timesyncd.service - Network Time Synchronization
+         Loaded: loaded (/lib/systemd/system/systemd-timesyncd.service; enabled; preset: enabled)
+         Active: active (running) since Tue 2022-09-20 04:58:58 EDT; 6h ago
+           Docs: man:systemd-timesyncd.service(8)
+       Main PID: 82270 (systemd-timesyn)
+         Status: "Contacted time server 178.215.228.24:123 (0.debian.pool.ntp.org)."
+          Tasks: 2 (limit: 2234)
+         Memory: 1.1M
+            CPU: 134ms
+         CGroup: /system.slice/systemd-timesyncd.service
+                 └─82270 /lib/systemd/systemd-timesyncd
+
+    Sep 20 04:58:58 kali systemd[1]: Starting Network Time Synchronization...
+    Sep 20 04:58:58 kali systemd[1]: Started Network Time Synchronization.
+    Sep 20 04:58:59 kali systemd-timesyncd[82270]: Contacted time server 178.215.228.24:123 (0.debian.pool.ntp.org).
+    Sep 20 04:58:59 kali systemd-timesyncd[82270]: Initial clock synchronization to Tue 2022-09-20 04:58:59.067376 EDT.
+
+    ❯ cat /etc/systemd/timesyncd.conf
+    #  This file is part of systemd.
+    #
+    #  systemd is free software; you can redistribute it and/or modify it under the
+    #  terms of the GNU Lesser General Public License as published by the Free
+    #  Software Foundation; either version 2.1 of the License, or (at your option)
+    #  any later version.
+    #
+    # Entries in this file show the compile time defaults. Local configuration
+    # should be created by either modifying this file, or by creating "drop-ins" in
+    # the timesyncd.conf.d/ subdirectory. The latter is generally recommended.
+    # Defaults can be restored by simply deleting this file and all drop-ins.
+    #
+    # See timesyncd.conf(5) for details.
+
+    [Time]
+    NTP=0.es.pool.ntp.org 1.es.pool.es.ntp.org 2.es.pool.ntp.org 3.es.pool.ntp.org
+    FallbackNTP=0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org 3.debian.pool.ntp.org pool.ntp.org
+    RootDistanceMaxSec=1
+    #PollIntervalMinSec=32
+    #PollIntervalMaxSec=2048
+    #ConnectionRetrySec=30
+    #SaveIntervalSec=60
+
+    ❯ systemctl start systemd-timesyncd.service
+    ==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+    Authentication is required to start 'systemd-timesyncd.service'.                                                                                                                                              
+    Authenticating as: Kali,,, (kali)
+    Password: 
+    ==== AUTHENTICATION COMPLETE ===
+
+    ❯ timedatectl set-ntp true
+    ==== AUTHENTICATING FOR org.freedesktop.timedate1.set-ntp ===
+    Authentication is required to control whether network time synchronization shall be enabled.                                                                                                                  
+    Authenticating as: Kali,,, (kali)
+    Password: 
+    ==== AUTHENTICATION COMPLETE ===
     1. Editar correctamente el fstab con las flags adecuadas en cada partición (nodev, noexec, nosuid, etc) para una securización adecuada.
     2. Editar los permisos del directorio btmp a 660.
     3. Si tenéis un SSD, activar el elevator=noop, así como los servicios para que se ejecute TRIM correctamente.
