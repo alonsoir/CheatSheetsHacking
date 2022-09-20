@@ -76,6 +76,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             git push
 
         A browser like firefox will launch
+
 # First steps
     
     Install vmware or virtualbox in your host system and then install kali. 
@@ -195,9 +196,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
     Modificamos el fichero de configuracion ~/.zshrc y añadimos la siguiente sentencia:
-
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -208,6 +207,78 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     )
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Modificamos el fichero ~/.p10k.zsh
+
+    Busca POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS si quieres modificar los iconos de la derecha para que sea vea asi:
+
+          ~                                                                                                       ✔ │ 27%    364M    at 07:45:32 AM    ⇣0 B/s ⇡0 B/s 192.168.85.130    your public IP
+
+    typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    status                  # exit code of the last command
+    command_execution_time  # duration of the last command
+    background_jobs         # presence of background jobs
+    direnv                  # direnv status (https://direnv.net/)
+    asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
+    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    anaconda                # conda environment (https://conda.io/)
+    pyenv                   # python environment (https://github.com/pyenv/pyenv)
+    goenv                   # go environment (https://github.com/syndbg/goenv)
+    nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
+    nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
+    nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
+    # node_version          # node.js version
+    # go_version            # go version (https://golang.org)
+    # rust_version          # rustc version (https://www.rust-lang.org)
+    # dotnet_version        # .NET version (https://dotnet.microsoft.com)
+    # php_version           # php version (https://www.php.net/)
+    # laravel_version       # laravel php framework version (https://laravel.com/)
+    # java_version          # java version (https://www.java.com/)
+    # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
+    # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
+    # rvm                     # ruby version from rvm (https://rvm.io)
+    # fvm                     # flutter version management (https://github.com/leoafarias/fvm)
+    # luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
+    # jenv                    # java version from jenv (https://github.com/jenv/jenv)
+    # plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
+    # perlbrew                # perl version from perlbrew (https://github.com/gugod/App-perlbrew)
+    # phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
+    # scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
+    # haskell_stack           # haskell version from stack (https://haskellstack.org/)
+    # kubecontext             # current kubernetes context (https://kubernetes.io/)
+    # terraform               # terraform workspace (https://www.terraform.io)
+    # terraform_version     # terraform version (https://www.terraform.io)
+    # aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    # aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
+    # azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
+    # gcloud                  # google cloud cli account and project (https://cloud.google.com/)
+    # google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
+    # toolbox                 # toolbox name (https://github.com/containers/toolbox)
+    context                 # user@hostname
+    # nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
+    # ranger                  # ranger shell (https://github.com/ranger/ranger)
+    # nnn                     # nnn shell (https://github.com/jarun/nnn)
+    # xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
+    vim_shell               # vim shell indicator (:sh)
+    # midnight_commander      # midnight commander shell (https://midnight-commander.org/)
+    # nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
+    vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
+    vpn_ip                # virtual private network indicator
+    # load                  # CPU load
+    disk_usage            # disk usage
+    ram                   # free RAM
+    # swap                  # used swap
+    # todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
+    # timewarrior             # timewarrior tracking status (https://timewarrior.net/)
+    # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    time                    # current time
+    ip                    # ip address and bandwidth usage for a specified network interface
+    public_ip             # public IP address
+    # proxy                 # system-wide http/https/ftp proxy
+    # battery               # internal battery
+    # wifi                  # wifi speed
+    # example               # example user-defined segment (see prompt_example function below)
+    )
 
 
     Por último cambiamos la configuración de la terminal y creamos los siguientes atajos de teclado:
@@ -426,7 +497,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ssh-copy-id {username}@{server ip}
 
-
     # STEP 4 - Lockdown Logins
 
     Edit the SSH config file, follow the steps in the video editing this file, then save it 
@@ -483,7 +553,46 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
     
     sudo ufw reload
-     
+    
+# Do you need to know what connections are you doing? use conntrack
+
+    ❯ sudo conntrack -L -p tcp
+    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=52.24.10.4 sport=44402 dport=443 src=52.24.10.4 dst=192.168.85.130 sport=443 dport=44402 [ASSURED] mark=0 use=1
+    tcp      6 431968 ESTABLISHED src=192.168.85.130 dst=18.154.48.122 sport=42512 dport=443 src=18.154.48.122 dst=192.168.85.130 sport=443 dport=42512 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.184.1 sport=36768 dport=443 src=142.250.184.1 dst=192.168.85.130 sport=443 dport=36768 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50428 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50428 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.185.14 sport=44590 dport=443 src=142.250.185.14 dst=192.168.85.130 sport=443 dport=44590 [ASSURED] mark=0 use=1
+    tcp      6 431707 ESTABLISHED src=192.168.85.130 dst=198.252.206.25 sport=46572 dport=443 src=198.252.206.25 dst=192.168.85.130 sport=443 dport=46572 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50426 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50426 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50430 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50430 [ASSURED] mark=0 use=1
+    tcp      6 10 TIME_WAIT src=192.168.85.130 dst=104.18.103.100 sport=55670 dport=80 src=104.18.103.100 dst=192.168.85.130 sport=80 dport=55670 [ASSURED] mark=0 use=1
+    tcp      6 82 TIME_WAIT src=192.168.85.130 dst=108.157.108.68 sport=50432 dport=80 src=108.157.108.68 dst=192.168.85.130 sport=80 dport=50432 [ASSURED] mark=0 use=1
+    tcp      6 431956 ESTABLISHED src=192.168.85.130 dst=142.250.184.3 sport=51630 dport=443 src=142.250.184.3 dst=192.168.85.130 sport=443 dport=51630 [ASSURED] mark=0 use=1
+    tcp      6 431961 ESTABLISHED src=192.168.85.130 dst=35.165.143.157 sport=48020 dport=443 src=35.165.143.157 dst=192.168.85.130 sport=443 dport=48020 [ASSURED] mark=0 use=1
+    tcp      6 431958 ESTABLISHED src=192.168.85.130 dst=140.82.114.25 sport=33788 dport=443 src=140.82.114.25 dst=192.168.85.130 sport=443 dport=33788 [ASSURED] mark=0 use=1
+    tcp      6 431963 ESTABLISHED src=192.168.85.130 dst=34.120.195.249 sport=52270 dport=443 src=34.120.195.249 dst=192.168.85.130 sport=443 dport=52270 [ASSURED] mark=0 use=1
+    tcp      6 85 TIME_WAIT src=192.168.85.130 dst=18.154.19.109 sport=49306 dport=443 src=18.154.19.109 dst=192.168.85.130 sport=443 dport=49306 [ASSURED] mark=0 use=1
+    tcp      6 431966 ESTABLISHED src=192.168.85.130 dst=108.157.96.46 sport=56996 dport=443 src=108.157.96.46 dst=192.168.85.130 sport=443 dport=56996 [ASSURED] mark=0 use=1
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=142.250.201.67 sport=56110 dport=443 src=142.250.201.67 dst=192.168.85.130 sport=443 dport=56110 [ASSURED] mark=0 use=1
+    tcp      6 11 TIME_WAIT src=192.168.85.130 dst=192.99.200.113 sport=37540 dport=80 src=192.99.200.113 dst=192.168.85.130 sport=80 dport=37540 [ASSURED] mark=0 use=2
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=18.154.48.69 sport=34058 dport=443 src=18.154.48.69 dst=192.168.85.130 sport=443 dport=34058 [ASSURED] mark=0 use=1
+    tcp      6 431957 ESTABLISHED src=192.168.85.130 dst=142.250.200.78 sport=34652 dport=443 src=142.250.200.78 dst=192.168.85.130 sport=443 dport=34652 [ASSURED] mark=0 use=1
+    tcp      6 431964 ESTABLISHED src=192.168.85.130 dst=104.16.148.64 sport=56114 dport=443 src=104.16.148.64 dst=192.168.85.130 sport=443 dport=56114 [ASSURED] mark=0 use=1
+    tcp      6 431967 ESTABLISHED src=192.168.85.130 dst=108.157.109.12 sport=53636 dport=443 src=108.157.109.12 dst=192.168.85.130 sport=443 dport=53636 [ASSURED] mark=0 use=1
+    conntrack v1.4.6 (conntrack-tools): 22 flow entries have been shown.
+
+# Do you need to know what ports are opened by files/processes? Put this script in your .bashrc and reload bash
+
+    ports() {
+    (
+        echo 'PROC PID USER x IPV x x PROTO BIND PORT'
+        (
+            sudo lsof +c 15 -iTCP -sTCP:LISTEN -P -n | tail -n +2
+            sudo lsof +c 15 -iUDP -P -n | tail -n +2 | egrep -v ' (127\.0\.0\.1|\[::1\]):'
+        ) | sed -E 's/ ([^ ]+):/ \1 /' | sort -k8,8 -k5,5 -k1,1 -k10,10n
+    ) | awk '{ printf "%-16s %-6s %-9s %-5s %-7s %s:%s\n",$1,$2,$3,$5,$8,$9,$10 }'
+}
+
 # More hardening advices from INCIBE
 
     https://www.youtube.com/watch?v=YZnkAWdXB4s
