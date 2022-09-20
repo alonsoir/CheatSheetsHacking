@@ -43,7 +43,39 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     To get latest updates, run the next command in git folder:
     
         git pull
+
+    To push new stuff, first you need to create a personal account in github
+
+        Go to https://github.com/
+
+        click on Sign Up
+
+        provide credentials to github.
+
+        Take notes!
+
+    then, you need to install git-credential-manager
+
+    https://github.com/GitCredentialManager/git-credential-manager/blob/main/README.md
+
+    Download .deb package, in my case at the time of writing this text, 
+
+        https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb
     
+    then, 
+
+        dpkg -i gcm-linux_amd64.2.0.785.deb
+        git-credential-manager-core configure
+
+        git config --global credential.credentialStore secretservice
+
+        finally, you can do 
+
+            git add FILES
+            git commit -m "some commit message"
+            git push
+
+        A browser like firefox will launch
 # First steps
     
     Install vmware or virtualbox in your host system and then install kali. 
@@ -104,6 +136,88 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Initializes Metasploit database
     Installs rad BLS wallpaper
     
+# Personalización de zsh en Kali Linux
+
+    Lo primero de todo comprobamos la shell en la que se esta trabajando. 
+
+    Recuerda que $$ se corresponde con el pid del proceso actual.
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    ls -l /proc/$$/exe
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Más información sobre la shell zsh: https://en.wikipedia.org/wiki/Z_shell
+
+    Para facilitar la gestión de la configuración de zsh, instalamos ohmyzsh: https://github.com/ohmyzsh/ohmyzsh/wiki
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    El mensaje que aparece de Python es simplemente informativo cuando haces login con Kali Linux
+
+    Instalamos el tema powerlevel10k: https://github.com/romkatv/powerlevel10k
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Modificamos el fichero de configuracion ~/.zshrc y añadimos la siguiente sentencia:
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    ZSH_THEME="powerlevel10k/powerlevel10k"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Para cambiar la configuración del prompt reiniciamos la terminal o ejecutamos el siguiente comando: 
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    p10k configure
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Modificamos el fichero de configuracion ~/.p10k.zsh y seleccionamos las características que nos interesen.
+
+    Instalamos un modulo para sugerencias automaticas:
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Instalamos un plugin que resalta la sintaxis:
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    Modificamos el fichero de configuracion ~/.zshrc y añadimos la siguiente sentencia:
+
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    plugins=( 
+        # other plugins...
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+    )
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    Por último cambiamos la configuración de la terminal y creamos los siguientes atajos de teclado:
+
+    - Split Terminal Horizontally -> Ctrl-space
+    - Split Terminal Vertically -> Ctrl-\
+    - Collapse Subterminal -> Ctrl-Backspace
+    - Right subterminal -> Ctrl-]
+    - Left subterminal -> Ctrl-[
+
 # 30 cybersecurity search engines for researchers:
 
     1. Dehashed—View leaked credentials.
