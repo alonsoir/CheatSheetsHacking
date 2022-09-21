@@ -68,7 +68,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Download .deb package, in my case at the time of writing this text, 
 
-        https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb
+        wget https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb
     
     then, 
 
@@ -150,6 +150,104 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Enables tap-to-click
     Initializes Metasploit database
     Installs rad BLS wallpaper
+    
+    Opcional (redimensionar el disco duro)
+
+    Personalmente, como me gusta trabajar con máquinas virtuales sobre un sistema anfitrion, en mi caso el anfitrion es osx y vmware,
+    encuentro que siempre se me olvida añadir un tamaño adecuado para el sistema Kali, por lo que voy a proveer instruccciones para cambiar.
+    Voy a usar gparted, es una herramienta con mil años de antiguedad pero hace su trabajo. Para instalarla, abre una terminal y ejecuta el siguiente comando:
+
+        sudo apt install gparted
+
+    https://aprendiendoavirtualizar.com/aumentar-particion-de-sistema-con-gparted/
+
+    En definitiva, quieres acabar así, una particion raiz de 200 GB y una particion swap de 1GB:
+
+        ❯ df -Hh
+        S.ficheros     Tamaño Usados  Disp Uso% Montado en
+        udev             3,8G      0  3,8G   0% /dev
+        tmpfs            783M   1,3M  782M   1% /run
+        /dev/sda1        196G    20G  168G  11% /
+        tmpfs            3,9G      0  3,9G   0% /dev/shm
+        tmpfs            5,0M      0  5,0M   0% /run/lock
+        tmpfs            783M    72K  783M   1% /run/user/130
+        tmpfs            783M    84K  783M   1% /run/user/1000
+        
+        ❯ sudo fdisk /dev/sda
+        [sudo] contraseña para kali: 
+
+        Welcome to fdisk (util-linux 2.38.1).
+        Changes will remain in memory only, until you decide to write them.
+        Be careful before using the write command.
+
+        This disk is currently in use - repartitioning is probably a bad idea.
+        It's recommended to umount all file systems, and swapoff all swap
+        partitions on this disk.
+
+
+        Command (m for help): p
+
+        Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors
+        Disk model: VMware Virtual S
+        Units: sectors of 1 * 512 = 512 bytes
+        Sector size (logical/physical): 512 bytes / 512 bytes
+        I/O size (minimum/optimal): 512 bytes / 512 bytes
+        Disklabel type: dos
+        Disk identifier: 0xcf6159e3
+
+        Device     Boot     Start       End   Sectors  Size Id Type
+        /dev/sda1  *         2048 417398783 417396736  199G 83 Linux
+        /dev/sda3       417400832 419430399   2029568  991M 82 Linux swap / Solaris
+
+        Command (m for help):
+    
+    Y partes de una particion raiz de 80 GB, una particion swap de 1 GB y tienes 120 GB de espacio sin asignar.
+    Para rizar el rizo, la swap está colocada entre la partición raiz y la del espacio sin asignar.
+
+    En el documento html se describe esta situación, sigue las instrucciones, pero, básicamente tienes que hacer lo siguiente:
+
+        IMPORTANTE!!!
+        
+        Guardad todos los ficheros importantes en otro lugar diferente a este disco duro. 
+        Sobrinos, vamos a hacer tareas muy delicadas, podemos perder datos importantes, por lo que guardarlos en otro lugar.
+
+    1) desactivar la particion swap 
+    2) redimensionar la antigua particion swap con el espacio desasignado.
+    3) asignar a la particion raiz el espacio desasignado. No asignes todo, deja 1 GB
+    4) Crea una particion raiz de tipo swap con ese GB
+    5) Aplicad los cambios.
+    6) ejecuta en la terminal el comando siguiente:
+
+        ❯ sudo blkid
+        /dev/sda3: UUID="d5508cbb-b4df-4ce9-ae3f-f46d4dcccdc9" TYPE="swap" PARTUUID="cf6159e3-03"
+        /dev/sda1: UUID="c846c5cd-8447-4d17-a782-8e5bf4be60ae" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="cf6159e3-01"
+
+        copia el UUID de la particion tipo swapp, en mi caso d5508cbb-b4df-4ce9-ae3f-f46d4dcccdc9
+    
+    7) edita el fichero /etc/fstab con permisos de administrador:
+
+        ❯ sudo gedit /etc/fstab
+
+            # /etc/fstab: static file system information.
+            #
+            # Use 'blkid' to print the universally unique identifier for a
+            # device; this may be used with UUID= as a more robust way to name devices
+            # that works even if disks are added and removed. See fstab(5).
+            #
+            # systemd generates mount units based on this file, see systemd.mount(5).
+            # Please run 'systemctl daemon-reload' after making changes here.
+            #
+            # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+            # / was on /dev/sda1 during installation
+            UUID=c846c5cd-8447-4d17-a782-8e5bf4be60ae /               ext4    errors=remount-ro 0       1
+            # swap was on /dev/sda5 during installation
+            UUID=d5508cbb-b4df-4ce9-ae3f-f46d4dcccdc9 none            swap    sw              0       0
+            # /dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+            Ya puestos, desactiva el cdrom, probablemente ni lo tengas instalado en la máquina que estés usando.
+            Veis como he puesto el UUID de la particion SWAP?
+
+    8) reiniciad el sistema, y si todo ha ido bien, el sistema arrancará como un tiro y tendrás una particion raiz del tamaño deseado.
     
 # Personalización de zsh en Kali Linux
 
