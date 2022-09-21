@@ -2460,8 +2460,13 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             Para hacer transformaciones a los datos que introduzcas, es una pasada. Creado por los servicios de inteligencia Occidentales.
             Muy poderoso.
+            Tienes una instancia funcionando en 
             
-            https://gchq.github.io/CyberChef/
+                https://gchq.github.io/CyberChef/
+
+            Es posible que algún día la quiten, por lo que tienes una copia en 
+
+                https://github.com/alonsoir/CyberChef
 
     # Post explotacion avanzada
 
