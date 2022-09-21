@@ -73,9 +73,63 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     then, 
 
         dpkg -i gcm-linux_amd64.2.0.785.deb
-        git-credential-manager-core configure
 
-        git config --global credential.credentialStore secretservice
+        git-credential-manager-core configure gpg
+
+    Es posible que no tengas generadas el par de claves público/privadas gpg, y que tampoco tengas instalada la utilidad pass, 
+    por lo que, vamos a ello.
+    Para generar el par de claves:
+
+        ❯ gpg --gen-key
+        gpg (GnuPG) 2.2.39; Copyright (C) 2022 g10 Code GmbH
+        This is free software: you are free to change and redistribute it.
+        There is NO WARRANTY, to the extent permitted by law.
+
+        gpg: caja de claves '/home/kali/.gnupg/pubring.kbx' creada
+        Nota: Usa "gpg --full-generate-key" para el diálogo completo de generación de clave.
+
+        GnuPG debe construir un ID de usuario para identificar su clave.
+
+        Nombre y apellidos: Alonso Isidoro Román
+        Dirección de correo electrónico: alonsoir@gmail.com
+        ...
+    
+    Recien generadas, puedes listarlas. No os preocupeis por el mogollón de información. 
+    Lo más importante es que al proporcionar el email, este funciona como el parametro para usar el comando pass.
+
+        ❯ gpg --list-keys
+        ...
+
+    Vamos a inicializar el almacen de claves con la utilidad pass:
+
+        ❯ pass init alonsoir@gmail.com
+        zsh: command not found: pass
+    
+    ups, no está instalada!
+
+        ❯ sudo apt install pass
+        ...
+    Ahora si la tengo instalada, uso como parámetro, el correo electrónico que hayáis usado.
+
+        ❯ pass init alonsoir@gmail.com
+        mkdir: se ha creado el directorio '/home/kali/.password-store/'
+        Password store initialized for alonsoir@gmail.com
+        ❯ git push
+        info: please complete authentication in your browser...
+        Enumerando objetos: 5, listo.
+        Contando objetos: 100% (5/5), listo.
+        Compresión delta usando hasta 4 hilos
+        Comprimiendo objetos: 100% (3/3), listo.
+        Escribiendo objetos: 100% (3/3), 2.56 KiB | 654.00 KiB/s, listo.
+        Total 3 (delta 2), reusados 0 (delta 0), pack-reusados 0
+        remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+        To https://github.com/alonsoir/CheatSheetsHacking.git
+           b4ba622..eab859c  master -> master
+
+    Ahora, finalmente por fin puedo inicializar git para que use gpg y éste gestione el usuario/contraseña.
+    (Lo sé, sobrinos, es un coñazo, pero son buenas prácticas de seguridad y en los tiempos que vais a vivir, vuestra información privada es super importante.)
+
+        git config --global credential.credentialStore gpg
 
         finally, you can do 
 
@@ -83,7 +137,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             git commit -m "some commit message"
             git push
 
-        A browser like firefox will launch
+        A browser like firefox will launch y acabarán viendo algo como 
+        
+                                Authentication Succeeded
+
+                                You may now close this tab and return to the application.
+
 
 # First steps
     
@@ -248,7 +307,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             Veis como he puesto el UUID de la particion SWAP?
 
     8) reiniciad el sistema, y si todo ha ido bien, el sistema arrancará como un tiro y tendrás una particion raiz del tamaño deseado.
-    
+
 # Personalización de zsh en Kali Linux
 
     Lo primero de todo comprobamos la shell en la que se esta trabajando. 
