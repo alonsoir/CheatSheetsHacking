@@ -97,6 +97,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Recien generadas, puedes listarlas. No os preocupeis por el mogollón de información. 
     Lo más importante es que al proporcionar el email, este funciona como el parametro para usar el comando pass.
 
+    También, muy importante, cuando las generen, os pedirán una contraseña para gestionar dicho almacen de contraseñas gpg.
+    Proporcionad una, es una muy importante, por lo que tenéis que recordadla. Si queréis, proporcionad la misma que tenéis 
+    para el usuario root para que no se os olvide. (*)
+
         ❯ gpg --list-keys
         ...
 
@@ -137,7 +141,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             git commit -m "some commit message"
             git push
 
-        A browser like firefox will launch y acabarán viendo algo como 
+        A browser like firefox will launch y acabarán viendo algo como después de proporcionar la contraseña que usaron para crear el almacen de claves gpg. (*)
         
                                 Authentication Succeeded
 
