@@ -1363,8 +1363,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     14. Asegurar el funcionamiento correcto de las IRQ con el IRQBALANCE
 
 # Comprueba los servicios instalados
+    
+    Desinstala todo lo que activamente no uses. Si tienes dudas, búscalo.
+    
+    ❯ sudo service --status-all
+    [sudo] contraseña para kali: 
 
-  service --status-all
 
 # Hacking Web y Bug Bounty
 
