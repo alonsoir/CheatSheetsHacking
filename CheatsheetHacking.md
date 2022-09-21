@@ -1,6 +1,7 @@
 <img src="https://cdn.pixabay.com/photo/2013/07/13/11/43/tux-158547_960_720.png"/>
 
 # Descargo de responsabilidad
+
 La finalidad de este fichero es recopilar información actualizada mientras aprendo pentesting, hardening y 
 seguridad informática en definitiva. Por favor, no uses este conocimiento para cometer actos ilegales, por lo que 
 yo no me hago responsable de las acciones ilegales que puedas cometer. 
@@ -21,7 +22,13 @@ de cada cosa.
 Este fichero está dedicado a mis sobrinos Marcos y Blanca, a los dos por igual, con la esperanza que algún día lo encuentren y les sea útil.
 Os quiero mucho.
 
+Dejaré tambien en mi repositorio gist algunos scripts que podrán usar si le encuentran utilidad, claro.
+En algún momento, les legaré las contraseñas o la manera de poder tener control total sobre mis repositorios de código.
+
+    https://gist.github.com/alonsoir
+
 # Disclaimer
+
 The purpose of this file is to collect updated information while I learn pentesting,hardening cloud systems and
 cybersecurity. 
 
@@ -33,7 +40,28 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Prerequisites:
     
-    I recommend to install firts git in your host machine in order to clone this repo in your host machine
+    Marcos, Blanca, cuando veáis algo así:
+
+    ❯ 
+
+    significa que voy a escribir comandos en la terminal. Habrá veces donde no he puesto ese símbolo, puede que se me haya pasado.
+    Por ejemplo, aquí estoy ejecutando el comando ls que sirve para listar ficheros:
+
+        ❯ ls
+         AWS_Secure_Account_Setup.pdf   CheatsheetHacking.md  'ciberseguridad avanzado.pdf'   despliegue_nube.ctd   output-cncintel.htlml   README.md   report-cnc   report-cnc.html   skipfish-cnc.html
+
+              ~/CheatSheetsHacking  on    master !1  
+
+    También puede ser que veáis algo así:
+
+            ┌──(root㉿kali)-[/home/kali]
+            └─# passwd
+
+    Es otra manera chula de mostrar la línea de comandos, como usar >
+
+    Si os preguntáis por qué, en el momento de escribir esto tuve que reinstalar el sistema al menos un par de veces, y al configurar p10k, algunas veces iba por una u otra manera. 
+    I recommend to install git in order to clone this repo.
+
     Install git in windows machines:
     
         https://phoenixnap.com/kb/how-to-install-git-windows
@@ -44,15 +72,15 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         
     Once you have git installed, clone this repo, using a terminal run the next command:
         
-        mkdir git
-        cd git
-        git clone https://github.com/alonsoir/CheatSheetsHacking.git
+        ❯ mkdir git
+        ❯ cd git
+        ❯ git clone https://github.com/alonsoir/CheatSheetsHacking.git
         
     To get latest updates, run the next command in git folder:
     
-        git pull
+        ❯ git pull
 
-    To push new stuff, first you need to create a personal account in github
+    To push new content, first you need to create a personal account in github
 
         Go to https://github.com/
 
@@ -62,22 +90,25 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         Take notes!
 
-    then, you need to install git-credential-manager
+    then, you need to install git-credential-manager and maybe install pass.
 
-    https://github.com/GitCredentialManager/git-credential-manager/blob/main/README.md
+        https://github.com/GitCredentialManager/git-credential-manager/blob/main/README.md
+
+        https://www.passwordstore.org/
 
     Download .deb package, in my case at the time of writing this text, 
 
-        wget https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb
+        ❯ wget https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb
     
     then, 
 
-        dpkg -i gcm-linux_amd64.2.0.785.deb
+        ❯ dpkg -i gcm-linux_amd64.2.0.785.deb
 
-        git-credential-manager-core configure gpg
+        ❯ git-credential-manager-core configure gpg
 
     Es posible que no tengas generadas el par de claves público/privadas gpg, y que tampoco tengas instalada la utilidad pass, 
     por lo que, vamos a ello.
+
     Para generar el par de claves:
 
         ❯ gpg --gen-key
@@ -113,6 +144,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         ❯ sudo apt install pass
         ...
+    
     Ahora si la tengo instalada, uso como parámetro, el correo electrónico que hayáis usado.
 
         ❯ pass init alonsoir@gmail.com
@@ -131,15 +163,19 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
            b4ba622..eab859c  master -> master
 
     Ahora, finalmente por fin puedo inicializar git para que use gpg y éste gestione el usuario/contraseña.
-    (Lo sé, sobrinos, es un coñazo, pero son buenas prácticas de seguridad y en los tiempos que vais a vivir, vuestra información privada es super importante.)
 
-        git config --global credential.credentialStore gpg
+    Lo sé, sobrinos, es un coñazo, pero son buenas prácticas de seguridad y en los tiempos que vais a vivir, 
+    vuestra información privada es super importante. 
+    
+    Tenéis que aprender a protegeros.
+
+        ❯ git config --global credential.credentialStore gpg
 
         finally, you can do 
 
-            git add FILES
-            git commit -m "some commit message"
-            git push
+        ❯ git add FILES
+        ❯ git commit -m "some commit message"
+        ❯ git push
 
         A browser like firefox will launch y acabarán viendo algo como después de proporcionar la contraseña que usaron para crear el almacen de claves gpg. (*)
         
@@ -148,7 +184,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                                 You may now close this tab and return to the application.
 
 
-# First steps
+# First steps, primeros pasos
     
     Install vmware or virtualbox in your host system and then install kali. 
     You have to dowload a ISO image of Kali linux. Follow instructions.
@@ -166,13 +202,13 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     Install this script:
     
-        git clone https://github.com/blacklanternsecurity/kali-setup-script
+        ❯ git clone https://github.com/blacklanternsecurity/kali-setup-script
         
-        cd kali-setup-script
+        ❯ cd kali-setup-script
 
-        chmod +x 
+        ❯ chmod +x 
 
-        sudo ./kali-setup-script.sh
+        ❯ sudo ./kali-setup-script.sh
 
     # Full feature list:
 
@@ -216,11 +252,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     Opcional (redimensionar el disco duro)
 
-    Personalmente, como me gusta trabajar con máquinas virtuales sobre un sistema anfitrion, en mi caso el anfitrion es osx y vmware,
+    Personalmente, como me gusta trabajar con máquinas virtuales sobre un sistema anfitrion, en mi caso el anfitrion es osx y uso vmware para virtualizar sistemas,
     encuentro que siempre se me olvida añadir un tamaño adecuado para el sistema Kali, por lo que voy a proveer instruccciones para cambiar.
     Voy a usar gparted, es una herramienta con mil años de antiguedad pero hace su trabajo. Para instalarla, abre una terminal y ejecuta el siguiente comando:
 
-        sudo apt install gparted
+        ❯ sudo apt install gparted
 
     https://aprendiendoavirtualizar.com/aumentar-particion-de-sistema-con-gparted/
 
@@ -267,7 +303,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Y partes de una particion raiz de 80 GB, una particion swap de 1 GB y tienes 120 GB de espacio sin asignar.
     Para rizar el rizo, la swap está colocada entre la partición raiz y la del espacio sin asignar.
 
-    En el documento html se describe esta situación, sigue las instrucciones, pero, básicamente tienes que hacer lo siguiente:
+    En el documento html aprendiendoavirtualizar se describe esta situación, sigue las instrucciones, pero, básicamente tienes que hacer lo siguiente:
 
         IMPORTANTE!!!
         
@@ -320,7 +356,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    ls -l /proc/$$/exe
+    ❯ ls -l /proc/$$/exe
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Más información sobre la shell zsh: https://en.wikipedia.org/wiki/Z_shell
@@ -329,7 +365,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    ❯ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     El mensaje que aparece de Python es simplemente informativo cuando haces login con Kali Linux
@@ -338,7 +374,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    ❯ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Modificamos el fichero de configuracion ~/.zshrc y añadimos la siguiente sentencia:
@@ -352,7 +388,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    p10k configure
+    ❯ p10k configure
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Modificamos el fichero de configuracion ~/.p10k.zsh y seleccionamos las características que nos interesen.
@@ -361,14 +397,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    ❯ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Instalamos un plugin que resalta la sintaxis:
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    ❯ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Modificamos el fichero de configuracion ~/.zshrc y añadimos la siguiente sentencia:
@@ -385,9 +421,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Modificamos el fichero ~/.p10k.zsh
 
-    Busca POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS si quieres modificar los iconos de la derecha para que sea vea asi:
+    Busca POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS si quieres modificar los iconos de la derecha para que vuestra terminal sea vea asi:
 
-          ~                                                                                                       ✔ │ 27%    364M    at 07:45:32 AM    ⇣0 B/s ⇡0 B/s 192.168.85.130    your public IP
+          ~                                                                                                       ✔ │ 27%    364M    at 07:45:32 AM    ⇣0 B/s ⇡0 B/s 192.168.85.130   your public IP
 
     typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     status                  # exit code of the last command
@@ -466,6 +502,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # 30 cybersecurity search engines for researchers:
 
+    Estos son motores de búsqueda para encontrar información importante para investigadores como vosotros.
+
     1. Dehashed—View leaked credentials.
         https://www.dehashed.com
     2. SecurityTrails—Extensive DNS data.
@@ -529,16 +567,18 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # How to encrypt and decrypt files using gpg
 
-    sudo apt install gpg
+    Si gpg aún no está instalado en vuestro sistema, ejecutad:
 
-        importante!
+    ❯ sudo apt install gpg
+
+    importante!
 
         https://itsfoss.com/gpg-encrypt-files-basic/#comments
 
-        Aquí generas el par de claves y el recipient con el par de claves público/privado. 
-        Muy importante si quieres usar este mecanismo.
+    Aquí generas el par de claves y el recipient con el par de claves público/privado. 
+    Muy importante si quieres usar este mecanismo.
         
-        gpg --full-generate-key
+        ❯ gpg --full-generate-key
 
     If you want to just encrypt a file in your computer, nobody knows your password, just you, and you can share this password, just use this command:
 
@@ -623,120 +663,122 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     
     https://www.makeuseof.com/how-to-change-root-password-kali-linux/
     
-    sudo passwd root
+    ❯ sudo passwd root
     
     # follow instructions, remember this password, then:
 
-    sudo su
-    apt update
-    apt dist-upgrade
+    ❯ sudo su
+    ❯ apt update
+    ❯ apt dist-upgrade
 
     # Automatic Updates:
 
-    apt install unattended-upgrades
-    dpkg-reconfigure --priority=low unattended-upgrades
+    ❯ apt install unattended-upgrades
+    ❯ dpkg-reconfigure --priority=low unattended-upgrades
 
 
     # STEP 2 - Create a Limited User Account
 
-    # Create a User, change {username} for one you like it, like jeremy. This is a user with much privileges.
+    # Create a User, change {username} for one you like it, like blanca. This is a user with much privileges.
 
-    adduser {username}
+    ❯ adduser {username}
 
     # Add user to the sudo group:
 
-    usermod -aG sudo {username}
+    ❯ usermod -aG sudo {username}
 
 
     # STEP 3 - Passwords are for SUCKERS! optional, you want to do this if you have another machine
 
     Create the Public Key Directory on your Linux Server
 
-    mkdir ~/.ssh && chmod 700 ~/.ssh
+    ❯ mkdir ~/.ssh && chmod 700 ~/.ssh
 
 
     # Create Public/Private keys on your computer. optional
 
-    ssh-keygen -b 4096
+    ❯ ssh-keygen -b 4096
 
     # Upload your Public key to the your Linux Server (Windows). optional
 
-    scp $env:USERPROFILE/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
+    ❯ scp $env:USERPROFILE/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
 
     # Upload your Public key to the your Linux Server (MAC). optional
 
-    scp ~/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
+    ❯ scp ~/.ssh/id_rsa.pub {username}@{server ip}:~/.ssh/authorized_keys
 
     # Upload your Public key to the your Linux Server (LINUX). optional
 
-    ssh-copy-id {username}@{server ip}
+    ❯ ssh-copy-id {username}@{server ip}
 
     # STEP 4 - Lockdown Logins
 
     Edit the SSH config file, follow the steps in the video editing this file, then save it 
 
-    sudo gedit /etc/ssh/sshd_config
+    ❯ sudo gedit /etc/ssh/sshd_config
 
-    sudo systemctl restart ssh.service
+    ❯ sudo systemctl restart ssh.service
     
     # STEP 5 - FIREWALL IT UP. Very important.
 
     # See open ports, unless you want in your machine services like apache web server or ssh, you dont want to have open ports.
 
-    sudo ss -tupln
+    ❯ sudo ss -tupln
 
-    # Install UFW
+    # Install UFW (universal firewall)
 
-    sudo apt install ufw
+    https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-22-04
+
+    ❯ sudo apt install ufw
 
     # See UFW status
 
-    sudo ufw status
+    ❯ sudo ufw status
 
     # Allow port through firewall
 
-    sudo ufw allow {port number}
+    ❯ sudo ufw allow {port number}
     
     # Deny ports 
     
-    sudo ufw deny {port number}
+    ❯ sudo ufw deny {port number}
     
     # example, port 80 and 443is usually dedicated to apache web server,22 is dedicated to ssh:
     
-    sudo ufw deny 80
-    sudo ufw deny 22
-    sudo ufw deny 443
+    ❯ sudo ufw deny 80
+    ❯ sudo ufw deny 22
+    ❯ sudo ufw deny 443
 
-    # Enable Firewall
+    # Enable Firewall at startup system
 
-    sudo ufw enable
+    ❯ sudo ufw enable
 
     # Reload Firewall
 
-    sudo ufw reload
+    ❯ sudo ufw reload
 
     # After these commands you are almost there, finally, you dont want to respond to external ping commands, so: 
     # Drop pings!!
 
     # Edit the UFW config file
 
-    sudo gedit /etc/ufw/before.rules
+    ❯ sudo gedit /etc/ufw/before.rules
 
     # Add this line of config:
 
-    -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+        -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
     
-    sudo ufw reload
+    ❯ sudo ufw reload
     
-
-
+    Existe una aplicación gráfica, gufw, pero en el momento de escribir ésto, no funcionaba bien la instalación en Kali Linux, pero si en Debian/Ubuntu.
 
 # More hardening advices from INCIBE
 
     https://www.youtube.com/watch?v=YZnkAWdXB4s
     
     Precaución! cuidaito, yo he ejecutado todos estos en mi kali corriendo en vmware, y no fue bien. No se porqué, pero el pass de mi usuario kali se cambió y 
-    tuve que reiniciar toda la instalación. 
+    tuve que reiniciar toda la instalación. Yo haría todo esto si estoy aprendiendo a securizar servidores muy importantes. 
+    Primero hay que practicar en un entorno seguro.
     Está claro que estos consejos son para configurar servidores que vayan a correr en la nube, 24x7x365.
 
 # Crear una contraseña de arranque del sistema, 
@@ -790,8 +832,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Instalar libpam-pwquality
 
-            apt install libpam-pwquality
-            vi /etc/security/pwquality.conf
+            > apt install libpam-pwquality
+            > vi /etc/security/pwquality.conf
 
             Como mínimo, descomentar minlen, minclass=4 significa que debe tener al menos letra minuscula, letra mayuscula, numero y otros caracteres extraños
             ┌──(root㉿kali)-[/home/kali]
@@ -880,7 +922,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         Edit the next file, 
             /etc/pam.d/common-password 
-        search the next, 
+        search the next line, be sure to put 3 in retry 
             pam_pwquality.so retry=3
         Add the next line:             
             password    required    pampw_history.so    remember=5
@@ -1046,21 +1088,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             que significa, control total para el creador (7), permisos de lectura y ejecución para el grupo (2), todo denegado para el resto (0).
 
-# Restringir el acceso a su
+# Restringir el acceso al comando su
 
         https://www.zeppelinux.es/como-agregar-un-usuario-a-un-grupo-en-linux/#an_n5
 
-        Añadir al sistema el grupo sugroup
-
-        groupadd sugroup
-
-        descomentar o añadir la línea
-
-        auth       required   pam_wheel.so use_uid group=sugroup
-
-        sudo usermod -a -G sugroup kali
-
-        Con este comando, hemos añadido al usuario kali al grupo sugroup
+        https://computingforgeeks.com/restrict-su-access-to-privileged-accounts-linux/
         
 
 # Fortificar el servidor por ssh
@@ -1068,6 +1100,13 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         Pendiente
         
 # Do you need to stop nfs service?
+
+    Vamos a comprobar si hay puertos abiertos en tu sistema localhost.
+    Si aún no tienes nmap instalado, usa el comando:
+
+    ❯ sudo apt install nmap
+
+    Luego
 
     ❯ nmap localhost
     Starting Nmap 7.92 ( https://nmap.org ) at 2022-09-20 10:52 EDT
@@ -1081,8 +1120,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
     
+    Paramos la ejecucion del servicio nfs:
     ❯ sudo systemctl stop nfs
     Failed to stop nfs.service: Unit nfs.service not loaded.
+    
+    nfs es usado por el servicio portmap, por lo que para parar nfs, paramos primero portmap y luego nfs-kernel-server.
+
     ❯ sudo service portmap stop
     Warning: Stopping portmap.service, but it can still be activated by:
       rpcbind.socket
@@ -1090,18 +1133,21 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Do you need to delete the nfs service?
 
-    $ sudo apt-get --purge remove nfs-kernel-server nfs-common portmap
+    ❯ sudo apt-get --purge remove nfs-kernel-server nfs-common portmap
 
 # Do you need to disable and stop rpcbind service?
 
-    As root, run the next commands:
+    Became root, 
+    ❯ sudo su
 
-    systemctl disable rpcbind.target
-    systemctl disable rpcbind.socket
-    systemctl disable rpcbind.service
-    systemctl stop rpcbind.target
-    systemctl stop rpcbind.socket
-    systemctl stop rpcbind.service
+    run the next commands:
+
+    ❯ systemctl disable rpcbind.target
+    ❯ systemctl disable rpcbind.socket
+    ❯ systemctl disable rpcbind.service
+    ❯ systemctl stop rpcbind.target
+    ❯ systemctl stop rpcbind.socket
+    ❯ systemctl stop rpcbind.service
 
 # Do you need to disable and stop neo4j?
 
@@ -1152,6 +1198,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             LANG = "en_US.UTF-8"
         are supported and installed on your system.
     perl: warning: Falling back to the standard locale ("C").
+
     ❯ ports
     PROC             PID    USER      IPV   PROTO   BIND:PORT
     containerd       10933  root      IPv4  TCP     127.0.0.1:39533
@@ -1215,6 +1262,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Do you need to know what ports are opened by files/processes? Put this script in your .bashrc and reload bash
 
+    Para editar el fichero .bashrc, lee antes esta guía si aún tenéis dudas:
+
+    https://ubunlog.com/bashrc-modifica-prompt-bash/?_gl=1%2A1feezy4%2A_ga%2AYW1wLU0weXllbDJDakZ0S3R0Q0trWmZ6WW1SQVlsVTZGRm5WX3ZYUm9PUnlaeFNQMmNFSzU1QU5rQkI5Mlh0UE1Ic1Q
+    
     ports() {
     (
         echo 'PROC PID USER x IPV x x PROTO BIND PORT'
@@ -1224,6 +1275,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         ) | sed -E 's/ ([^ ]+):/ \1 /' | sort -k8,8 -k5,5 -k1,1 -k10,10n
     ) | awk '{ printf "%-16s %-6s %-9s %-5s %-7s %s:%s\n",$1,$2,$3,$5,$8,$9,$10 }'
     }
+
+    Para confirmar cambios en bash, bien cerráis y volvéis a abrir una terminal, o ejecutais el siguiente comando en la misma terminal donde habéis realizado el cambio:
+
+    ❯ source ~/.bashrc
+
+    También es posible que no estéis usando bash como vuestro tío, y que estéis usando zsh, por ejemplo, entonces tenéis que modificar el fichero .zshrc
+
+    El principio es el mismo, estará guardado en el directorio hombre de vuestro usuario, en mi caso, /home/kali/.zshrc
 
 # Configuracion de servidor de tiempo
 
@@ -1305,17 +1364,30 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Hacking Web y Bug Bounty
 
+    Una vez que hemos configurado nuestro entorno, voy a empezar a describir comandos y técnicas de seguridad informática ofensiva, pero antes, 
+    realizar estas técnicas en internet es claramente ilegal y peligroso, sobre todo siendo menores de edad. Siendo mayores de edad, si os pillan lanzando estas cosas
+    sobre sistemas en internet, se os puede caer el pelo! por lo que, primero hay que aprender en un entorno controlado con máquinas virtualizadas corriendo en vuestra máquina anfitrión o en máquinas de internet preparadas especialmente para este propósito. 
+
+    Insisto, no ataqueis máquinas que no hayan firmado con vosotros algún contrato en el que se especifique que podéis hacerlo.
+
     This url is important: https://pentester.land/list-of-bug-bounty-writeups.html
 
-    # Preparacion entorno vulnerable
+    # Preparacion entornos vulnerables en local:
 
-        Mutillidae -> https://github.com/webpwnized/mutillidae
+        Mutillidae -> 
+            Seguid instrucciones del siguiente sitio web:
 
-        vulnhub.com search vple
+                https://github.com/webpwnized/mutillidae
+        Otro, id a vulnhub.com
+         
+            Buscad lo siguiente: vple
 
         https://www.vulnhub.com/entry/vulnerable-pentesting-lab-environment-1,737/
 
     # Identificacion Subdominios. 
+
+    Muchas veces, una máquina en internet alberga multiples dominios, bien pertenecientes a una misma organización o pertenecientes a distintas organizaciones,
+    es decir, recursos de páginas web, para encontrarlas, existen multitud de herramientas, una es subfinder.
 
         1. Subfinder
 
@@ -1338,7 +1410,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             ...
              ⭐  ~  ok  took 47s  at 12:29:17 >  
 
-             Lo interesante de esta aplicacion es que se puede enlazar con otras, por ejemplo:
+            Vale, no tenía permiso de meristation.com, pero no lo hagáis!
+
+            Lo interesante de esta aplicacion es que se puede enlazar con otras, por ejemplo:
 
              > subfinder -d meristation.com -silent  | httpx -silent -threads 80 -ports 80,443,8080,8443,4443,4000,5000,9001 | nuclei -tags  log4j
 
@@ -1364,8 +1438,15 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
              ⭐  ~  ok  took 3m 9s  at 12:35:59 >  
 
             Busco en los subdominios de esa url, a través de los puertos descritos en httpx, si la libreria log4j está siendo usada...
+            Es decir, el comando anterior sirve para encontrar si dicha url está usando la libreria log4j, (uso la app nuclei para saberlo), en alguno de los servicios que están ocupando algunos de los puertos usados por httpx.
+
+            Vale, me doy cuenta que para ser el primero, es un poco heavy, pero esto sirve para recordaros que los comandos linux/unix se pueden encadenar mediante la tuberia |
+            es decir, coger la salida de un comando para que sirva de entrada para el siguiente. Muy poderoso.
+            La tuberia sale pulsando la combinación Option 1 en mi macbook pro.
 
         2. Sublist3r
+
+        Parecido a subfinder.
 
             https://github.com/aboul3la/Sublist3r
 
@@ -1400,12 +1481,14 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         
         3. Subbrute 
 
-            Se suele usar con la otra app, haciendo un -b
+        Parecido a los anteriores, pero ésta hace técnica de fuerza bruta probando todas las combinaciones posibles. Muy intrusiva, genera mucho tráfico, os pillan seguro.
 
-            sublist3r -d hackthissite.org -v -b
+        Se suele usar con la otra app, haciendo un -b
+
+            > sublist3r -d hackthissite.org -v -b
             ...
 
-    # Identificando tecnologías web
+    # Identificando tecnologías web detrás de un dominio.
 
         1. Whatweb
 
@@ -1614,7 +1697,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                     Content-Encoding: gzip
 
 
-             ⭐  ~/CheatSheetsHacking  ok  took 10s  at 17:25:38 > 
+            ⭐  ~/CheatSheetsHacking  ok  took 10s  at 17:25:38 > 
 
         2. WebAnalyze
 
@@ -1737,7 +1820,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 # Docker way
                 # Download the Source Code
 
-                    git clone https://github.com/beefproject/beef  
+                    > git clone https://github.com/beefproject/beef  
                 
                 # Setting Your Credentials
 
@@ -1755,11 +1838,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
                 
                     To build your image:
 
-                    docker build -t beef .
+                    > docker build -t beef .
                 
                 # To run your container, If you'd prefer the container to run backgrounded/detached just add the -d tag to the command below
                   
-                    docker run -p 3000:3000 -p 6789:6789 -p 61985:61985 -p 61986:61986 -d --name beef beef
+                    > docker run -p 3000:3000 -p 6789:6789 -p 61985:61985 -p 61986:61986 -d --name beef beef
 
                 # Optional, you can run beef behind a NAT with ngrok, but i truly recommend you to run it in a cloud server.
 
@@ -1771,7 +1854,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 or 
 
-                    Need to be tested!
+                    (Need to be tested!)
 
                     https://hackingvision.com/2018/12/15/cloning-websites-beef-xss/
 
@@ -1792,7 +1875,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
             # Zap Proxy
 
                 Es como Burp Suite, pero con más recursos, un interceptor proxy, busca vulnerabilidades de manera activa o pasiva.
-                Very intrusive! generates a lot of http trafick.
+                Very intrusive! generates a lot of http traffic.
 
                 > sudo apt install zaproxy
                 ...
@@ -1840,13 +1923,15 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 It is the first tool that gives me real ips beyond the ones protected by cloudflare. 
 
-                sudo apt install dmitry
+                > sudo apt install dmitry
 
                 https://github.com/jaygreig86/dmitry/
 
                 Run a domain whois lookup (w), an IP whois lookup (i), retrieve Netcraft info (n), search for subdomains (s), search for email addresses (e), do a TCP port scan (p), and save the output to example.txt (o) for the domain example.com:
 
-                sudo dmitry -winsepo output.txt target.com
+                > sudo dmitry -winsepo output.txt target.com
+
+                Generamos un fichero host-cncintel.com al escanear el sitio web malicioso cncintel.com
 
                 > sudo dmitry -winsepfb -o host-cncintel.com.txt cncintel.com
 
@@ -1859,11 +1944,11 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 https://www.openvas.org/
 
-                sudo apt update && apt upgrade -y 
-                sudo apt install openvas
-                sudo gvm-setup
-                sudo gvm-check-setup
-                sudo gvm-start 
+                > sudo apt update && apt upgrade -y 
+                > sudo apt install openvas
+                > sudo gvm-setup
+                > sudo gvm-check-setup
+                > sudo gvm-start 
 
                 open a web browser manually and enter the URL
                 https://127.0.0.1:9392
@@ -1873,12 +1958,12 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
                 how to set up the Scans / Tasks to start the first scan. But while setting up the 1st scan, I had some errors and I also explained how I fixed that error as well. 
                 These are the commands I used to fix the error
-                sudo runuser -u _gvm -- greenbone-nvt-sync
-                sudo runuser -u _gvm -- gvmd --get-scanners
+                > sudo runuser -u _gvm -- greenbone-nvt-sync
+                > sudo runuser -u _gvm -- gvmd --get-scanners
                 (note your scanner id)
-                sudo runuser -u _gvm -- gvmd --get-users --verbose
+                > sudo runuser -u _gvm -- gvmd --get-users --verbose
                 (note your user id)
-                sudo runuser -u _gvm -- gvmd --modify-scanner [scanner id] --value [user id]
+                > sudo runuser -u _gvm -- gvmd --modify-scanner [scanner id] --value [user id]
 
             # Faraday.
 
@@ -1959,11 +2044,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
             # Fuzzing básico. ffuz
 
-                Enviar parámetros de entrada raros, largos, para tratar de romper la aplicacion, 
-                o para encontrar recursos ocultos.
+                Consiste en enviar parámetros de entrada raros a una página web,largos, para tratar de romper la aplicacion, o para encontrar recursos ocultos.
 
-                Como si le das a tu abuela el ordenador para que pruebe la app o se la dejas a un
-                ladrón para encontrar las joyas ocultas de un futbolista.
+                Como si le das a tu abuela el ordenador para que pruebe la app o se la dejas a un ladrón para encontrar las joyas ocultas de un futbolista.
 
                 wfuz -> https://github.com/xmendez/wfuzz
                 Está en kali por defecto
@@ -2291,6 +2374,8 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     # Explotacion
 
+    Una vez que has comprometido un sistema, quieres poder explotarlo, encontrar ficheros, contraseñas, cosas así.
+
         # Commix
 
         https://github.com/commixproject/commix
@@ -2362,8 +2447,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         # Gitleaks
 
-            sudo apt install gitleaks
-            brew install gitleaks
+            > sudo apt install gitleaks
+
+            También se puede instalar en osx:
+            > brew install gitleaks
 
             Lo más interesante aparte de escanear por contraseñas y demás credenciales, es que mira también los commits antiguos.
 
@@ -2371,8 +2458,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
         # Cyberchef
 
-            Para hacer transformaciones a los datos que introduzcas, es una pasada.
-
+            Para hacer transformaciones a los datos que introduzcas, es una pasada. Creado por los servicios de inteligencia Occidentales.
+            Muy poderoso.
+            
             https://gchq.github.io/CyberChef/
 
     # Post explotacion avanzada
