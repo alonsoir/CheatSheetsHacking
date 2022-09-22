@@ -1364,12 +1364,192 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
 # Comprueba los servicios instalados
     
-    Desinstala todo lo que activamente no uses. Si tienes dudas, búscalo.
-    
+    Desinstala o deshabilita todo lo que activamente no uses. Si tienes dudas, búscalo.
+
+    Los listamos...
     ❯ sudo service --status-all
     [sudo] contraseña para kali: 
 
+    Los que no quieras, los deshabilitas del arranque, 
+    ❯ sudo systemctl --now disable neo4j.service
+    [sudo] contraseña para kali: 
+    Synchronizing state of neo4j.service with SysV service script with /lib/systemd/systemd-sysv-install.
+    Executing: /lib/systemd/systemd-sysv-install disable neo4j
 
+    luego, si quieres los desinstalas.
+    ❯ sudo apt remove neo4j
+    Leyendo lista de paquetes... Hecho
+    Creando árbol de dependencias... Hecho
+    Leyendo la información de estado... Hecho
+    Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+      cypher-shell daemon
+    Utilice «sudo apt autoremove» para eliminarlos.
+    Los siguientes paquetes se ELIMINARÁN:
+      neo4j
+    0 actualizados, 0 nuevos se instalarán, 1 para eliminar y 126 no actualizados.
+    Se liberarán 118 MB después de esta operación.
+    ¿Desea continuar? [S/n] 
+    (Leyendo la base de datos ... 354962 ficheros o directorios instalados actualmente.)
+    Desinstalando neo4j (1:3.5.14) ...
+    Procesando disparadores para man-db (2.10.2-3) ...
+    Procesando disparadores para kali-menu (2022.4.1) ...
+
+# Audita el sistema de vez en cuando
+
+    A día de hoy, uso lynis
+
+    ❯ sudo apt install lynis
+    ...
+    ❯ lynis audit system
+
+    [ Lynis 3.0.7 ]
+    ...
+    Files:
+    - Test and debug information      : /home/kali/lynis.log
+    - Report data                     : /home/kali/lynis-report.dat
+    ...
+
+    Atiende con cuidado lo que te digan esos ficheros de log, sigue sus recomendaciones.
+
+    Ejecuta de vez en cuando
+
+    ❯ systemctl --now status
+    ● kali
+        State: degraded
+        Units: 262 loaded (incl. loaded aliases)
+         Jobs: 0 queued
+       Failed: 1 units
+    ...
+
+    Ok, vemos que hay un servicio que ha fallado, podemos averiguar cuál es con el comando:
+
+    ❯ systemctl --failed
+      UNIT                       LOAD   ACTIVE SUB    DESCRIPTION               
+    ● postgresql@14-main.service loaded failed failed PostgreSQL Cluster 14-main
+
+    LOAD   = Reflects whether the unit definition was properly loaded.
+    ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+    SUB    = The low-level unit activation state, values depend on unit type.
+    1 loaded units listed.
+
+    Vemos que es el servicio de base de datos postgres, creo que se utiliza en kali para mantener 
+    los datos del framework Metasploit. 
+
+    Veamos si podemos sacar algo en claro del log...
+
+    ❯ journalctl -xe
+    ░░ Support: https://www.debian.org/support
+    ░░ 
+    ░░ The unit man-db.service has successfully entered the 'dead' state.
+    sep 22 06:13:35 kali systemd[1]: Finished Daily man-db regeneration.
+    ░░ Subject: A start job for unit man-db.service has finished successfully
+    ░░ Defined-By: systemd
+    ░░ Support: https://www.debian.org/support
+    ░░ 
+    ░░ A start job for unit man-db.service has finished successfully.
+    ░░ 
+    ░░ The job identifier is 1661.
+    ...
+
+    Leelo con mucha atención para sacar algo en claro, aunque, personalmente yo no he podido, por lo que trato de resetear los servicios que fallaron...
+
+    ❯ sudo systemctl reset-failed
+    
+    Compruebo de nuevo, y ahora parece que todo va bien. Travesura realizada.
+
+    ❯ systemctl --now status
+    ● kali
+        State: running
+        Units: 262 loaded (incl. loaded aliases)
+         Jobs: 0 queued
+       Failed: 0 units
+        Since: Thu 2022-09-22 05:02:13 EDT; 1h 24min ago
+      systemd: 251.4-3
+       CGroup: /
+    ...
+
+    Aprovecho para que conozcais una de las páginas web más importantes para poder preguntar y aprender de otras personas, stackexchange
+
+    https://unix.stackexchange.com/questions/447561/systemctl-status-shows-state-degraded
+
+# Definición de particiones en un servidor
+
+    Particionar un disco es beneficioso debido a que si ocurre un problema, ocurrirá en en esa partición, a menos que sea un fallo catastrófico del disco.
+    Una partición se puede montar con las opciones de montaje específicas y más eficaces.
+
+    Se propone particionar un disco de 40GB en:
+
+        /                   14GB    ext4
+        /home               10GB    ext4
+        /tmp                1GB     ext4
+        /var                10GB    ext4
+        /var/log            1GB     ext4
+        /var/log/audit      1GB     ext4
+        /var/tmp            1GB     ext4
+        /swapp              2GB     swap
+
+    Configurar el fichero /etc/fstab de manera adecuada, que cada partición tenga el nodev, nosuid, etc...
+    Esta es una tarea muy delicada y que depende muchísimo del propósito que tenga el servidor que queráis montar. 
+    Una vez que lo tengais claro, podréis elegir la mejor configuración. Por ejemplo, no es lo mismo configurar un servidor de correo, que
+    uno para alojar un servidor de base de datos, de aplicaciones, uno web o uno para tener muchos usuarios concurrentes.
+
+    https://www.debian.org/releases/stable/s390x/apcs03.es.html
+
+# Configuración de red. MUY IMPORTANTE
+
+    /etc/sysctl.conf
+
+    Deshabilitar redireccion ICMP
+
+        sysctl -w net.ipv4.conf.all.send_redirects=0
+        sysctl -w net.ipv4.conf.default.send_redirects=0
+        sysctl -w net.ipv4.route.flush=1
+
+    Deshabilitar IP forwarding
+
+        sysctl -w net.ipv4.ip_forward=0
+
+    Deshabilitar respuestas ICMP broadcast
+
+        sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+        sysctl -w net.ipv4.route.flush=1
+
+    Registro solo de paquetes que cumplen estándares
+
+        sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1
+        sysctl -w net.ipv4.route.flush=1
+
+    Aseguramiento del origen
+
+        sysctl -w net.ipv4.conf.all.rp_filter=1
+        sysctl -w net.ipv4.conf.default.rp_filter=1
+        sysctl -w net.ipv4.route.flush=1
+
+    TCP SYN Cookies
+
+        sysctl -w net.ipv4.tcp_syncookies=1
+        sysctl -w net.ipv4.route.flush=1
+
+    Copiar y pegar ésto en /etc/sysctl.conf
+    # Deshabilitar redireccion ICMP
+    net.ipv4.conf.all.send_redirects=0
+    net.ipv4.conf.default.send_redirects=0
+    net.ipv4.ip_forward=0
+    # Deshabilitar IP forwarding
+    net.ipv4.icmp_echo_ignore_broadcasts=1
+    # Registro solo de paquetes que cumplen estándares
+    net.ipv4.icmp_ignore_bogus_error_responses=1
+    # Aseguramiento del origen
+    net.ipv4.conf.all.rp_filter=1
+    net.ipv4.conf.default.rp_filter=1
+    # TCP SYN Cookies
+    net.ipv4.tcp_syncookies=1
+    # Aplicamos cambios
+    net.ipv4.route.flush=1
+
+    PENDIENTE
+
+    Protocolos no habituales
 # Hacking Web y Bug Bounty
 
     Una vez que hemos configurado nuestro entorno, voy a empezar a describir comandos y técnicas de seguridad informática ofensiva, pero antes,
