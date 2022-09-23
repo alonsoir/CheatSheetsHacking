@@ -648,7 +648,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         > cat file
         esto es un mensaje para cifrar
 
-
 # Basic hardening linux server, debian based systems, and kali.
 
     Please, follow every step described in this video:
@@ -693,7 +692,6 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     Create the Public Key Directory on your Linux Server
 
     ❯ mkdir ~/.ssh && chmod 700 ~/.ssh
-
 
     # Create Public/Private keys on your computer. optional
 
@@ -771,6 +769,20 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     ❯ sudo ufw reload
 
     Existe una aplicación gráfica, gufw, pero en el momento de escribir ésto, no funcionaba bien la instalación en Kali Linux, pero si en Debian/Ubuntu.
+    Actualización 23 Septiembre 2022:
+    
+    # Para ejecutar directamente en la consola como configuración inicial asumiendo que esta máquina no va a actuar como servidor de ningun tipo, solo va a navegar por internet:
+    ufw status
+    ufw default deny incoming
+    ufw default deny outgoing
+    ufw default deny routed
+    ufw allow in on lo
+    ufw deny in from 127.0.0.1/8
+    ufw allow out to any port 80
+    ufw allow out to any port 443
+    ufw allow out to any port 53
+    ufw enable
+    ufw status
 
 # More hardening advices from INCIBE
 
@@ -1499,6 +1511,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     /etc/sysctl.conf
 
+    Solo voy a tener en cuenta IPV4, pero llegará un momento en el que activar IPV6.
+    Todos los comandos siguientes se deben lanzar como root
+
     Deshabilitar redireccion ICMP
 
         sysctl -w net.ipv4.conf.all.send_redirects=0
@@ -1530,7 +1545,9 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         sysctl -w net.ipv4.tcp_syncookies=1
         sysctl -w net.ipv4.route.flush=1
 
-    Copiar y pegar ésto en /etc/sysctl.conf
+    Los comandos anteriores se pierden si reinicias la máquina, por lo que mejor dejarlos activados
+    copiando lo siguiente en el fichero /etc/sysctl.conf
+    
     # Deshabilitar redireccion ICMP
     net.ipv4.conf.all.send_redirects=0
     net.ipv4.conf.default.send_redirects=0
@@ -1544,12 +1561,142 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     net.ipv4.conf.default.rp_filter=1
     # TCP SYN Cookies
     net.ipv4.tcp_syncookies=1
+
+    Esto siguiente no debería hacer falta en el fichero, sirve para aplicar los cambios en caliente.
     # Aplicamos cambios
     net.ipv4.route.flush=1
 
-    PENDIENTE
 
-    Protocolos no habituales
+# Protocolos no habituales
+
+    Hay que deshabilitar los protocolos que no vayas a usar.
+    Para ello crearemos un fichero en /etc/modprobe.d/
+
+    Datagram Congestion Control Protocol
+        dccp.conf
+        El contenido del fichero:
+        install dccp /bin/true
+    Stream Control Transmission Protocol
+        sctp.conf
+        install sctp /bin/true
+    Reliable Datagram Sockets
+        rds.conf
+        install rds /bin/true
+    Transparent Inter-process communication
+        tipc.conf
+        install tipc /bin/true
+
+# Configuración del firewall (ufw)
+
+    https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+
+    Para instalarlo:
+
+        sudo apt install ufw
+
+        # Denegar todo el tráfico de entrada:
+        ufw default deny incoming
+        # Denegar todo el tráfico de salida:
+        ufw default deny outgoing
+        # Denegar todo el tráfico enrutado:
+        ufw default deny routed
+        # Habilitar tráfico loopback pero aislarlo del resto de interfaces:
+        ufw allow in on lo
+        ufw deny in from 127.0.0.1/8
+        # habilitar conexiones entrantes y salientes permitidas:
+        # las salientes coinciden con los servicios que queremos acceder desde el servidor
+        ufw allow out to <IP or any> port <puerto>
+        # habilitar conexion saliente a servicios de internet, 
+        # vamos, para que puedas navegar por internet:
+        ufw allow out to any port 80
+        ufw allow out to any port 443
+        ufw allow out to any port 53
+        # habilitar conexiones entrantes, es decir, tienes un servicio que quieres exponer al exterior
+        ufw allow in <puerto>/(tcp o udp)
+        # p ej, quieres abrir el puerto 80 de tu servidor apache
+        ufw allow in 80/tcp
+        # quieres abrir el servicio ssh que normalmente escucha en el puerto 22
+        ufw allow in 22/tcp
+        # quieres abrir el puerto 8080 del tomcat?
+        ufw allow in 8080/tcp
+        # finalmente, aplicamos cambios
+        ufw enable
+        # comprobar el estado del firewall
+        ufw status
+
+        # las entrantes se corresponden con los servicios que presta el servidor
+
+        # listar reglas, quizas necesitas borrar una?
+        sudo ufw status numbered
+        # por ejemplo, borro la 1
+        sudo ufw delete 1
+        # listar perfiles:
+        ┌──(root㉿kali)-[/home/kali]
+        └─# ufw app list
+        Available applications:
+          AIM
+          Bonjour
+          CIFS
+          DNS
+          Deluge
+          IMAP
+          IMAPS
+          IPP
+          KTorrent
+          Kerberos Admin
+          Kerberos Full
+          Kerberos KDC
+          Kerberos Password
+          LDAP
+          LDAPS
+          LPD
+          MSN
+          MSN SSL
+          Mail submission
+          NFS
+          Nginx Full
+          Nginx HTTP
+          Nginx HTTPS
+          OpenSSH
+          POP3
+          POP3S
+          PeopleNearby
+          SMTP
+          SSH
+          Samba
+          Socks
+          Telnet
+          Transmission
+          Transparent Proxy
+          VNC
+          WWW
+          WWW Cache
+          WWW Full
+          WWW Secure
+          XMPP
+          Yahoo
+          mosh
+          qBittorrent
+          svnserve        
+        # activar un perfil, en este caso ssh y Nginx HTTPS
+        sudo ufw allow “OpenSSH”
+        sudo ufw allow "Nginx HTTPS"
+        # Desactivar el perfile Nginx HTTPS
+        sudo ufw delete allow "Nginx Full"
+
+# Para ejecutar directamente en la consola como configuración inicial asumiendo que esta máquina no va a actuar como servidor de ningun tipo, solo va a navegar por internet:
+ufw status
+ufw default deny incoming
+ufw default deny outgoing
+ufw default deny routed
+ufw allow in on lo
+ufw deny in from 127.0.0.1/8
+ufw allow out to any port 80
+ufw allow out to any port 443
+ufw allow out to any port 53
+ufw enable
+ufw status
+        
 # Hacking Web y Bug Bounty
 
     Una vez que hemos configurado nuestro entorno, voy a empezar a describir comandos y técnicas de seguridad informática ofensiva, pero antes,
