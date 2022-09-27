@@ -770,7 +770,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Existe una aplicación gráfica, gufw, pero en el momento de escribir ésto, no funcionaba bien la instalación en Kali Linux, pero si en Debian/Ubuntu.
     Actualización 23 Septiembre 2022:
-    
+
     # Para ejecutar directamente en la consola como configuración inicial asumiendo que esta máquina no va a actuar como servidor de ningun tipo, solo va a navegar por internet:
     ufw status
     ufw default deny incoming
@@ -1375,16 +1375,16 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     14. Asegurar el funcionamiento correcto de las IRQ con el IRQBALANCE
 
 # Comprueba los servicios instalados
-    
+
     Desinstala o deshabilita todo lo que activamente no uses. Si tienes dudas, búscalo.
 
     Los listamos...
     ❯ sudo service --status-all
-    [sudo] contraseña para kali: 
+    [sudo] contraseña para kali:
 
-    Los que no quieras, los deshabilitas del arranque, 
+    Los que no quieras, los deshabilitas del arranque,
     ❯ sudo systemctl --now disable neo4j.service
-    [sudo] contraseña para kali: 
+    [sudo] contraseña para kali:
     Synchronizing state of neo4j.service with SysV service script with /lib/systemd/systemd-sysv-install.
     Executing: /lib/systemd/systemd-sysv-install disable neo4j
 
@@ -1400,7 +1400,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
       neo4j
     0 actualizados, 0 nuevos se instalarán, 1 para eliminar y 126 no actualizados.
     Se liberarán 118 MB después de esta operación.
-    ¿Desea continuar? [S/n] 
+    ¿Desea continuar? [S/n]
     (Leyendo la base de datos ... 354962 ficheros o directorios instalados actualmente.)
     Desinstalando neo4j (1:3.5.14) ...
     Procesando disparadores para man-db (2.10.2-3) ...
@@ -1444,29 +1444,29 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
     SUB    = The low-level unit activation state, values depend on unit type.
     1 loaded units listed.
 
-    Vemos que es el servicio de base de datos postgres, creo que se utiliza en kali para mantener 
-    los datos del framework Metasploit. 
+    Vemos que es el servicio de base de datos postgres, creo que se utiliza en kali para mantener
+    los datos del framework Metasploit.
 
     Veamos si podemos sacar algo en claro del log...
 
     ❯ journalctl -xe
     ░░ Support: https://www.debian.org/support
-    ░░ 
+    ░░
     ░░ The unit man-db.service has successfully entered the 'dead' state.
     sep 22 06:13:35 kali systemd[1]: Finished Daily man-db regeneration.
     ░░ Subject: A start job for unit man-db.service has finished successfully
     ░░ Defined-By: systemd
     ░░ Support: https://www.debian.org/support
-    ░░ 
+    ░░
     ░░ A start job for unit man-db.service has finished successfully.
-    ░░ 
+    ░░
     ░░ The job identifier is 1661.
     ...
 
     Leelo con mucha atención para sacar algo en claro, aunque, personalmente yo no he podido, por lo que trato de resetear los servicios que fallaron...
 
     ❯ sudo systemctl reset-failed
-    
+
     Compruebo de nuevo, y ahora parece que todo va bien. Travesura realizada.
 
     ❯ systemctl --now status
@@ -1501,7 +1501,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         /swapp              2GB     swap
 
     Configurar el fichero /etc/fstab de manera adecuada, que cada partición tenga el nodev, nosuid, etc...
-    Esta es una tarea muy delicada y que depende muchísimo del propósito que tenga el servidor que queráis montar. 
+    Esta es una tarea muy delicada y que depende muchísimo del propósito que tenga el servidor que queráis montar.
     Una vez que lo tengais claro, podréis elegir la mejor configuración. Por ejemplo, no es lo mismo configurar un servidor de correo, que
     uno para alojar un servidor de base de datos, de aplicaciones, uno web o uno para tener muchos usuarios concurrentes.
 
@@ -1547,7 +1547,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     Los comandos anteriores se pierden si reinicias la máquina, por lo que mejor dejarlos activados
     copiando lo siguiente en el fichero /etc/sysctl.conf
-    
+
     # Deshabilitar redireccion ICMP
     net.ipv4.conf.all.send_redirects=0
     net.ipv4.conf.default.send_redirects=0
@@ -1606,7 +1606,7 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
         # habilitar conexiones entrantes y salientes permitidas:
         # las salientes coinciden con los servicios que queremos acceder desde el servidor
         ufw allow out to <IP or any> port <puerto>
-        # habilitar conexion saliente a servicios de internet, 
+        # habilitar conexion saliente a servicios de internet,
         # vamos, para que puedas navegar por internet:
         ufw allow out to any port 80
         ufw allow out to any port 443
@@ -1696,7 +1696,7 @@ ufw allow out to any port 443
 ufw allow out to any port 53
 ufw enable
 ufw status
-        
+
 # Hacking Web y Bug Bounty
 
     Una vez que hemos configurado nuestro entorno, voy a empezar a describir comandos y técnicas de seguridad informática ofensiva, pero antes,
@@ -5261,9 +5261,27 @@ ufw status
 
 # Recon web sites, semippassives
 
-    A fantastic resource with a lot of links:
-
     https://start.me/p/rx6Qj8/nixintel-s-osint-resource-list
+
+    https://github.com/cipher387/osint_stuff_tool_collection
+
+    https://www.brigadaosint.com
+
+    https://esgeeks.com
+
+    https://github.com/AhmedConstant/lazyGrandma
+
+    https://zmap.io
+
+    https://www.hackplayers.com/?m=1
+
+# Fail2ban
+
+  scans log files (e.g. /var/log/apache/error_log) and bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc. Generally Fail2Ban is then used to update firewall rules to reject the IP addresses for a specified amount of time, although any arbitrary other action (e.g. sending an email) could also be configured. Out of the box Fail2Ban comes with filters for various services (apache, courier, ssh, etc).
+
+  Fail2Ban is able to reduce the rate of incorrect authentications attempts however it cannot eliminate the risk that weak authentication presents. Configure services to use only two factor or public/private authentication mechanisms if you really want to protect services.
+
+  https://www.fail2ban.org/wiki/index.php/Main_Page
 
 # subwalker, searching subdomains
 
