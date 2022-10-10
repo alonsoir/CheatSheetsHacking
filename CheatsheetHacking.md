@@ -2340,7 +2340,49 @@ ufw status
                 Una vez se ha completado la instalación con éxito podremos usarlo. En este caso no hemos instalado ningún plugin.
 
                 Para ver las opciones que permite Photon bastaría con escribir en la shell: python3 photon.py -h
+
+            # Arjun
+
+                Arjun can find query parameters for URL endpoints.
+
+                https://github.com/s0md3v/Arjun
+
+            # smap
+
+                nmap a través de shodan.
+
+                ┌<▸> ~/g/CheatSheetsHacking 
+                └➤ smap -sV vermont-solutions.com 
+                Starting Nmap 9.99 ( https://nmap.org ) at 2022-10-10 11:37 CEST
+                Nmap scan report for vermont-solutions.com (217.160.0.210)
+                Host is up.
+                rDNS record for 217.160.0.210: 217-160-0-210.elastic-ssl.ui-r.com
+
+                PORT    STATE SERVICE     VERSION
+                80/tcp  open  http        nginx
+                81/tcp  open  hosts2-ns?  
+                443/tcp open  https?      
+
+                Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+                Nmap done: 1 IP address (1 host up) scanned in 0.34 seconds
+
+                Mira la diferencia si hacemos un scan activo.
                 
+                ┌<▸> ~/g/CheatSheetsHacking 
+                └➤ nmap -sV vermont-solutions.com
+                Starting Nmap 7.93 ( https://nmap.org ) at 2022-10-10 11:37 CEST
+                Nmap scan report for vermont-solutions.com (217.160.0.210)
+                Host is up (0.055s latency).
+                Other addresses for vermont-solutions.com (not scanned): 2001:8d8:100f:f000::283
+                rDNS record for 217.160.0.210: 217-160-0-210.elastic-ssl.ui-r.com
+                Not shown: 940 filtered tcp ports (no-response), 57 closed tcp ports (conn-refused)
+                PORT    STATE SERVICE  VERSION
+                80/tcp  open  http     nginx
+                81/tcp  open  http     nginx
+                443/tcp open  ssl/http nginx
+
+                Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+                Nmap done: 1 IP address (1 host up) scanned in 57.36 seconds
             # Dmitry. Deepmagic Information Gathering Tool.
 
                 It is the first tool that gives me real ips beyond the ones protected by cloudflare.
