@@ -2254,6 +2254,93 @@ ufw status
 
                 > skipfish -o report-cnc https://cncintel.com/  
                 ...
+
+            # Photon
+
+              Un crawler para OSINT (Inteligencia de fuentes abiertas por sus siglas en inglés).
+              Un crawler es un rastreador web o araña, muy parecido a lo que utilizaría un motor de búsqueda. Extrae información de las webs y las categoriza. Su uso más común es el de realizar búsquedas en Internet, pero, se le pueden dar otros usos enfocados a la minería de datos. Photon está escrito en Python 3 y disponible en Github en la siguiente url: https://github.com/s0md3v/Photon.
+              Photon nos permite extraer la siguiente información:
+              URLs
+              URLs con parámetros
+              Intel (correos, cuentas en redes sociales, amazon buckets, etc.)
+              Archivos (PDF, PNG, XML, etc.)
+              Claves secretas (Api Keys & hashes)
+              Archivos JavaScript y Endpoints presentes en ellos.
+              Strings que coinciden con el patrón de expresiones personalizado.
+              Subdominios e información e los DNS.
+              Todo ello lo extrae de forma organizada y puede ser almacenado en un JSON.
+
+              Posee además varios plugins con los que se pueden ampliar las búsquedas.
+
+              Ahora vamos a pasar a ver el crawler funcionando. Pero antes, vamos a proceder a su instalación.
+
+              Funcionamiento e instalación de Photon
+
+              Para instalarlo debemos hacer una serie de sencillos pasos. Si queremos usarlo con Docker podemos encontrar una guía en el propio proyecto de Github.
+
+              Lo primero que vamos a hacer es clonar el proyecto en la ruta que queramos:
+              Lo típico, creamos un directorio, vas alli, ejecutas el siguiente comando:
+              
+                git clone https://github.com/s0md3v/Photon
+
+              Acto seguido vamos a pasar a instalar los requisitos de la instalación del archivo, es decir, algunos módulos de Python que necesitaremos para usar el proyecto. Estos vienen en un archivo dentro del proyecto denominado “requirements.txt”. Podemos instalarlos tanto de forma manual cómo de la forma rápida.
+
+              Para instalar, usamos pip3:
+
+                ┌<▸> ~/g/Photon 
+                └➤ pip3 install -r requirements.txt
+                Requirement already satisfied: requests in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (2.28.1)
+                Requirement already satisfied: urllib3 in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (1.26.12)
+                Collecting tld
+                  Downloading tld-0.12.6-py39-none-any.whl (412 kB)
+                     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 412.2/412.2 kB 6.5 MB/s eta 0:00:00
+                Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 1)) (2022.9.14)
+                Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 1)) (3.4)
+                Requirement already satisfied: charset-normalizer<3,>=2 in /usr/local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 1)) (2.1.1)
+                Collecting PySocks!=1.5.7,>=1.5.6
+                  Downloading PySocks-1.7.1-py3-none-any.whl (16 kB)
+                Installing collected packages: tld, PySocks
+                Successfully installed PySocks-1.7.1 tld-0.12.6
+
+              Para ejecutar por ejemplo contra google.com:
+              
+                ┌<▸> ~/g/Photon 
+                └➤ python3 photon.py -u google.com -e csv -t 50
+                      ____  __          __
+                     / __ \/ /_  ____  / /_____  ____
+                    / /_/ / __ \/ __ \/ __/ __ \/ __ \
+                   / ____/ / / / /_/ / /_/ /_/ / / / /
+                  /_/   /_/ /_/\____/\__/\____/_/ /_/ v1.3.2
+
+                 URLs retrieved from robots.txt: 241
+                 URLs retrieved from sitemap.xml: 24
+                 Level 1: 266 URLs
+                 Progress: 266/266
+                 Crawling 0 JavaScript files
+
+                --------------------------------------------------
+                 Intel: 3
+                 Robots: 241
+                 Internal: 266
+                 External: 2
+                 Fuzzable: 7
+                --------------------------------------------------
+                 Total requests made: 267
+                 Total time taken: 0 minutes 5 seconds
+                 Requests per second: 47
+                 Results saved in google.com directory
+
+              Los resultados se han guardado en un directorio recien creado google.com, con ficheros en formato csv.
+              
+                ┌<▸> ~/g/Photon 
+                └➤ ls
+                CHANGELOG.md        LICENSE.md      README.md       external.txt        google.com      internal.txt        plugins         robots.txt
+                Dockerfile      MANIFEST.in     core            fuzzable.txt        intel.txt       photon.py       requirements.txt
+
+                Una vez se ha completado la instalación con éxito podremos usarlo. En este caso no hemos instalado ningún plugin.
+
+                Para ver las opciones que permite Photon bastaría con escribir en la shell: python3 photon.py -h
+                
             # Dmitry. Deepmagic Information Gathering Tool.
 
                 It is the first tool that gives me real ips beyond the ones protected by cloudflare.
