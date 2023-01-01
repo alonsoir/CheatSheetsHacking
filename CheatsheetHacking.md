@@ -7358,3 +7358,7 @@ Egg hunting This technique can be categorized as a “graded shellcode”, which
     >
 
     ⭐  ~/CheatSheetsHacking  ok  at 12:53:28 >
+    
+ # Scraping redes sociales
+ 
+    https://github.com/bellingcat/snscrape
