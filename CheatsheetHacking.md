@@ -348,6 +348,10 @@ or on machines provided by hackthebox. They are designed to be fun to hack while
 
     8) reiniciad el sistema, y si todo ha ido bien, el sistema arrancará como un tiro y tendrás una particion raiz del tamaño deseado.
 
+# A vast collection of security tools for bug bounty, pentest and red teaming
+
+    https://offsec.tools
+    
 # Personalización de zsh en Kali Linux
 
     Lo primero de todo comprobamos la shell en la que se esta trabajando.
