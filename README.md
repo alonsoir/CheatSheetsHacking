@@ -1,4 +1,6 @@
 # CheatSheetsHacking
+Marcos, Blanca, este repositorio de conocimiento lo creé hace un tiempo para dejaros conocimiento sobre como proteger vuestros ordenadores, y practicar hacking ético. Recordad que un gran poder conlleva una gran responsabilidad, tratad a las personas como os gustaría que os trataran.
 
-Well, a cheatsheet with tons of pentesting tools. Start with one from @Perito_inf, thanks pal, and I intend to add the ones that seem to me
-interesting while learning this field.
+Os quiero.
+
+El fichero principal se llama Cheatsheethacking.txt
