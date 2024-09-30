@@ -13,19 +13,9 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def summarize_video(url):
     try:
-        print(f"Procesando la URL: {url}")
-        video_id = url.split("v=")[-1]
-        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
+        documents = create_summarized_doc_from_url(url)
 
-        transcript_text = " ".join([entry['text'] for entry in transcript])
-
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-        split_texts = text_splitter.split_text(transcript_text)
-
-        documents = [Document(page_content=text) for text in split_texts]
-
-        llm = OpenAI(temperature=0.7, max_tokens=500)
-        chain = load_summarize_chain(llm, chain_type="map_reduce")
+        chain = initialize_llm()
 
         summary = chain.invoke({"input_documents": documents})
 
@@ -33,6 +23,23 @@ def summarize_video(url):
 
     except Exception as e:
         print(f"Ups!, Ocurrió un error: {e}")
+
+
+def initialize_llm():
+    llm = OpenAI(temperature=0.7, max_tokens=500)
+    chain = load_summarize_chain(llm, chain_type="map_reduce")
+    return chain
+
+
+def create_summarized_doc_from_url(url):
+    print(f"Procesando la URL: {url}")
+    video_id = url.split("v=")[-1]
+    transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
+    transcript_text = " ".join([entry['text'] for entry in transcript])
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    split_texts = text_splitter.split_text(transcript_text)
+    documents = [Document(page_content=text) for text in split_texts]
+    return documents
 
 
 def send_whatsapp_message(url, message):
