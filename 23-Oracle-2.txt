@@ -1,0 +1,270 @@
+Parte 2
+
+4. Clases y Métodos de Instancia Declarados Implícitamente (JEP 477)
+
+	Esta característica, que se encuentra en su tercera versión preliminar en el JDK 23, está diseñada para hacer que Java sea más accesible para los principiantes y simplificar el código para todos los desarrolladores5.
+
+	Objetivo principal
+
+	El propósito es permitir declaraciones de clase más simples y una expansión más fácil de los programas, especialmente para los nuevos programadores, un tanto más vagos que las anteriores generaciones. En mi opinión, han introducido esto para atraer a los programadores python que se atragantan con tanta verbosidad. :)
+
+	Características clave
+
+	Declaraciones de clase simplificadas: Permite omitir la declaración explícita de la clase en programas simples.
+	
+	Métodos de instancia main: Introduce la posibilidad de tener un método main de instancia en lugar del tradicional método estático.
+	
+	Importaciones automáticas: El JDK 23 incluye la importación automática de tres métodos estáticos para E/S de texto y todas las clases e interfaces públicas de nivel superior de los paquetes exportados por el módulo java.base5.
+	
+	Ejemplo de uso
+	Antes de esta característica, un programa simple en Java requería una estructura como esta:
+	
+		public class HelloWorld {
+		    public static void main(String[] args) {
+		        System.out.println("Hello, World!");
+		    }
+		}
+
+	Con las clases y métodos de instancia declarados implícitamente, el mismo programa podría escribirse así:
+
+		void main() {
+		    System.out.println("Hello, World!");
+		}
+
+	Beneficios
+
+	Reducción de la verbosidad: Elimina la necesidad de declarar explícitamente la clase y el método estático main para programas simples.
+
+	Facilita el aprendizaje: Hace que Java sea más accesible para principiantes, permitiéndoles centrarse en la lógica del programa sin preocuparse por la estructura de clases en etapas iniciales.
+
+	Evolución gradual: Permite a los programadores comenzar con programas simples y expandirlos gradualmente a medida que crecen en complejidad.
+
+	Alineación con otros lenguajes: Se asemeja a la estructura de programas en lenguajes como Python o JavaScript, lo que puede facilitar la transición a Java para desarrolladores de otros lenguajes5.
+
+	Contexto y comparación
+	Esta característica se inspira en enfoques similares adoptados por otros lenguajes y frameworks populares entre los principiantes, como Node.js. C# implementó una funcionalidad parecida hace algunas versiones con el mismo objetivo de simplificar la entrada al lenguaje5.
+
+	Conclusión
+	Las Clases y Métodos de Instancia Declarados Implícitamente representan un esfuerzo significativo por parte de Java para modernizar su sintaxis y hacerla más accesible, especialmente para nuevos programadores. Aunque está en su tercera versión preliminar, esta característica promete cambiar la forma en que se escriben los programas Java simples, allanando el camino para una curva de aprendizaje más suave y una transición más fácil desde otros lenguajes de programación.
+
+5. Class-File API (JEP 466)
+
+	Propósito y funcionalidad
+	La Class-File API está diseñada para parsear, generar y transformar archivos de clase Java (.class). Se define en el paquete java.lang.classfile y proporciona una interfaz estándar para procesar archivos de clase que se alinea con el formato definido en la Especificación de la Máquina Virtual de Java12.
+
+	Características principales
+
+	Representación inmutable: Todos los elementos del archivo de clase (campos, métodos, atributos, instrucciones de bytecode, etc.) se representan como objetos inmutables12.
+
+	Estructura de árbol: Refleja la naturaleza jerárquica de los archivos de clase2.
+	
+	Navegación dirigida por el usuario: Permite una análisis eficiente1.
+	
+	Parseo perezoso: Procesa solo las partes del archivo de clase que el usuario requiere1.
+
+	Transformación como propiedad emergente: No requiere un modo especial o una superficie de API significativamente nueva para las transformaciones1.
+
+	Abstracciones principales
+	
+	Elementos: Descripciones inmutables de componentes del archivo de clase.
+	Constructores (Builders): Facilitan la construcción de archivos de clase.
+	Transformaciones: Funciones que modifican elementos durante el proceso de construcción2.
+
+	Beneficios
+	
+	Evolución conjunta: La API evolucionará junto con el formato de archivo de clase, facilitando la adopción rápida de nuevas características del lenguaje y la JVM24
+
+
+	Estandarización: Proporciona una API estándar para el procesamiento de archivos de clase, reduciendo la dependencia de bibliotecas de terceros2.
+
+	Soporte automático: Las herramientas y frameworks que usen esta API soportarán automáticamente los archivos de clase de las últimas versiones del JDK1.
+
+	Aplicaciones
+
+	Esta API es particularmente útil para:
+	
+	Frameworks y bibliotecas que necesitan manipular bytecode.
+	Herramientas de análisis de código.
+	Generación dinámica de clases en tiempo de ejecución4
+
+	Es decir, es probable que esta característica no vaya a ser útil para un developer normal si no para creadores de frameworks, como si hubiera pocos.
+	Con suerte, veremos integrada esta feature en una RELEASE de spring-boot cuando adopten el JDK23, al igual que la anterior feature.
+
+	Estado actual
+	
+	La Class-File API es una característica en preview en el JDK 23, lo que significa que su diseño y especificación están completos, pero puede cambiar en futuras versiones de Java1.
+
+
+6. Cuerpos de Constructor Flexibles (JEP 482)
+
+	Objetivo
+
+	El objetivo principal de esta JEP es permitir que los cuerpos de los constructores contengan declaraciones antes de la invocación explícita de otro constructor (super(...) o this(...)). Esto facilita la inicialización de campos en la misma clase antes de llamar a un constructor de la superclase, lo que puede ser crucial para evitar que el código en el constructor de la superclase acceda a valores predeterminados (como 0, false o null) de los campos en la subclase.
+
+	Cambios Clave
+	Estructura del Cuerpo del Constructor: Se permite que el cuerpo del constructor contenga declaraciones antes de una invocación explícita, lo que se denomina prologue. Las declaraciones después de la invocación se denominan epilogue.
+
+		ConstructorBody:
+	    	{ [BlockStatements] ExplicitConstructorInvocation [BlockStatements] }
+
+	Inicialización Previo a la Invocación: Los constructores pueden inicializar campos antes de llamar a super(...), permitiendo así que los métodos en la superclase operen sobre valores ya inicializados.
+	
+	Validación y Manejo de Errores: Permite realizar validaciones y lanzar excepciones antes de llamar al constructor de la superclase, lo que mejora el manejo de errores y permite un estilo más limpio y directo.
+	
+	Ejemplo Práctico
+	
+	Consideremos un ejemplo donde queremos validar un valor antes de pasarle al constructor de la superclase:
+	
+		class Vehicle {
+		    private final int value;
+
+		    Vehicle(int value) {
+		        this.value = value;
+		    }
+		}
+
+		class EngineValueSensor extends Vehicle {
+		    private final String type = "engine_sensor";
+
+		    EngineValueSensor(Integer value) {
+		        if (value <= 0) {
+		            throw new IllegalArgumentException("Value must be greater than zero: " + value);
+		        }
+		        super(value); // Llamada al constructor de Vehicle
+		    }
+		}
+
+	En este ejemplo, si el valor es inválido, lanzamos una excepción antes de llamar al constructor super(value), asegurando así que no se cree un objeto con un estado inválido.
+	
+	Beneficios
+	
+	Simplicidad y Legibilidad: Reduce la necesidad de métodos auxiliares para preparar argumentos antes de las llamadas al constructor.
+	
+	Mejor Mantenimiento: Facilita el mantenimiento del código al permitir una estructura más lógica y menos fragmentada.
+	
+	Flexibilidad: Permite patrones de diseño más simples y efectivos, como el patrón Factory, donde se pueden crear instancias con configuraciones complejas sin complicaciones adicionales.
+
+
+7. Comentarios en Markdown para Documentación (JEP 467)
+
+	/// Example Class
+	/// 
+	/// This class demonstrates the use of Markdown in JavaDoc comments.
+	/// 
+	/// #Features
+	/// - Easy to read and write
+	/// - Supports Markdown syntax for formatting
+	/// 
+	/// ##Methods
+	/// 
+	/// - `void exampleMethod(int param)` - An example method that does something.
+	/// 
+	/// #Usage
+	/// To use this class, create an instance and call the method:
+	///
+	/// ```java
+	/// ExampleClass example = new ExampleClass();
+	/// example.exampleMethod(10);
+	/// ```
+	/// 
+	/// ##Note
+	/// This feature simplifies documentation by allowing Markdown syntax instead of HTML.
+	/// 
+	/// @param param an integer parameter for the example method
+	public class ExampleClass {
+	    /// This is an example method.
+	    /// 
+	    /// @param param an integer parameter for the method
+	    public void exampleMethod(int param) {
+	        // Implementation goes here
+	    }
+	}
+
+
+	Explicación del Código
+	
+	Encabezados y Formato:
+	Se utilizan encabezados (#, ##, ###) para estructurar la documentación, lo que facilita la lectura.
+	Se pueden crear listas usando guiones (-) para enumerar características.
+	
+	Código en Bloques:
+	El uso de tres acentos graves (```) permite incluir ejemplos de código, lo que es útil para mostrar cómo utilizar la clase o método.
+	
+	Parámetros y Notas:
+	Se pueden incluir descripciones de parámetros utilizando la etiqueta @param, manteniendo la compatibilidad con las convenciones de JavaDoc.
+	
+	Markdown vs. HTML:
+	Este enfoque evita la complejidad del HTML, haciendo que los comentarios sean más accesibles y fáciles de mantener.
+	
+	Ventajas:
+		Simplicidad: La sintaxis Markdown es más fácil de escribir y leer en comparación con HTML.
+		
+		Compatibilidad: Las etiquetas JavaDoc tradicionales siguen siendo utilizables dentro de los comentarios en Markdown.
+	
+		Flexibilidad: Permite una mejor presentación de la documentación, incluyendo listas, enlaces y bloques de código.
+	
+	Conclusión:
+
+		El uso de comentarios en Markdown para documentación en Java (JEP 467) mejora significativamente la experiencia del desarrollador al escribir y mantener documentación. Este enfoque permite a los desarrolladores aprovechar la simplicidad y claridad del Markdown mientras mantienen la funcionalidad completa de JavaDoc.
+
+Stream Gatherers (JEP 473)
+
+	import java.util.List;
+	import java.util.stream.Collectors;
+	import java.util.stream.Stream;
+	import java.util.stream.Gatherers;
+
+	public class StreamGatherersExample {
+	    public static void main(String[] args) {
+	        // Generar un flujo de números enteros
+	        List<List<Integer>> sample = Stream.iterate(0, i -> i + 2)
+	            .gather(Gatherers.windowFixed(2)) // Usar un gatherer para agrupar elementos en ventanas fijas
+	            .limit(5) // Limitar el flujo a 5 grupos
+	            .collect(Collectors.toList()); // Recoger el resultado en una lista
+
+	        // Imprimir el resultado
+	        System.out.println(sample);
+	    }
+	}
+
+	javac --enable-preview --release 23 StreamGatherersExample.java
+	Note: StreamGatherersExample.java uses preview features of Java SE 23.
+	Note: Recompile with -Xlint:preview for details.
+
+	java --enable-preview StreamGatherersExample
+	[[0, 2], [4, 6], [8, 10], [12, 14], [16, 18]]
+
+	Explicación del Código
+
+	Importaciones:
+	Se importan las clases necesarias para trabajar con flujos y colectores.
+	
+	Generación del Flujo:
+	Stream.iterate(0, i -> i + 2) genera un flujo infinito de números enteros comenzando desde 0 y aumentando de 2 en 2.
+	
+	Uso del Gatherer:
+		gather(Gatherers.windowFixed(2)) utiliza un gatherer predefinido que agrupa los elementos en ventanas fijas de tamaño 2. Esto significa que cada grupo contendrá dos elementos del flujo original.
+	
+	Limitación del Flujo:
+		limit(5) restringe el flujo a solo 5 grupos, lo que resulta en un total de 10 elementos.
+	
+	Colección del Resultado:
+	collect(Collectors.toList()) convierte el flujo resultante en una lista de listas.
+	
+	Impresión del Resultado:
+	Finalmente, se imprime la lista resultante, que debería mostrar grupos de números enteros.
+	
+	Salida Esperada
+	Al ejecutar el código anterior, la salida será:
+	text
+	[[0, 2], [4, 6], [8, 10], [12, 14], [16, 18]]
+
+	Esto indica que los números han sido agrupados correctamente en ventanas de tamaño 2.
+	
+	Conclusión
+	
+	El uso de Stream Gatherers permite a los desarrolladores crear operaciones intermedias personalizadas que no son fácilmente alcanzables con las operaciones integradas existentes. Esto proporciona mayor flexibilidad y expresividad al trabajar con flujos de datos en Java.
+
+Z Garbage Collector (ZGC) en Modo Generacional por Defecto (JEP 474)
+
+	java -XX:+UseZGC -XX:+ZGenerational -jar tu_aplicacion.trabajar

@@ -1,0 +1,207 @@
+JDK 23-Oracle.txt 
+
+Parte 1
+
+Esto es una sesión con la jshell después de instalar el jdk 23-oracle con sdkman.
+
+	jshell --enable-preview
+	|  Welcome to JShell -- Version 23
+	|  For an introduction type: /help intro
+
+La JDK 23 nos trae varias novedades:
+
+	1. Tipos Primitivos en Patterns (JEP 455)
+	
+	2. Tipos Primitivos en Patterns (JEP 476)
+	
+	3. Scoped Values (JEP 481)
+
+	4. Clases y Métodos de Instancia Declarados Implícitamente (JEP 477)
+
+	5. Class-File API (JEP 466)
+
+	6. Cuerpos de Constructor Flexibles (JEP 482)
+
+	7. Comentarios en Markdown para Documentación (JEP 467)
+
+1. Tipos Primitivos en Patterns (JEP 455)
+	
+Veamoslo en un ejemplo.
+
+	jshell> 
+	System.out.println("Pattern Matching New Model.... Primitive Supported");
+		   Object o = 127;
+		    switch (o) {
+		        case int i -> System.out.println("Integer: " + i);
+		        case long l -> System.out.println("Long: " + l);
+		        default -> System.out.println("Other: " + o);
+		    }
+	Pattern Matching New Model.... Primitive Supported
+	o ==> 127
+	Integer: 127
+
+2. Tipos Primitivos en Patterns (JEP 476)
+
+		 jshell> 
+	    // New way of Java
+	    import static java.lang.System.out;
+	    import module java.base;
+	   
+	    public class _3_ModuleImport {
+	   
+	        public static void main (String[] args) throws Exception{
+	            // Multiple API's are called with a single import.  JEP 476
+	            // import module java.base
+	            System.out.println("java --enable-preview _3_ModuleImport.java");
+	            System.out.println("Array of Values  = "+List.of("Hello ", "Module Import ", "World!"));
+	            File file = new File("README.MD");
+	            System.out.println("File README.MD = "+file.canRead());
+	            System.out.println("Reading the file....");
+	            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	                while(br.ready()) {
+	                    System.out.println(br.readLine());
+	                }
+	            }
+	            System.out.println("File closed ....");
+	   
+	        }
+	    }
+	
+	Me aseguro que en el directorio donde he generado .java anterior tiene un README.md
+
+		ls README.md
+		README.md
+
+	Compilo y ejecuto el nuevo fichero, ojito que hay que activar los flags.
+
+		javac --enable-preview --release 23 _3_ModuleImport.java
+		java --enable-preview _3_ModuleImport
+		java --enable-preview _3_ModuleImport.java
+
+	Por lo visto, da igual usar el .java que no usarlo. Demasiado tiempo con python, supongo...
+
+		Array of Values = [Hello , Module Import , World!]
+		File README.MD = true
+		Reading the file....
+		hola esto es un fichero README de pruebas para que spark-shell-3.5.0 pueda leerlo.
+		File closed ....
+
+3. Scoped Values (JEP 481)
+
+	Concepto principal
+	
+	Un "scoped value" es un objeto contenedor que permite compartir un valor de datos inmutable entre un método y sus llamadas directas e indirectas dentro del mismo hilo, así como con hilos secundarios2. Se declara típicamente como un campo estático final de tipo ScopedValue.
+	
+	Ventajas sobre variables thread-local
+		Los Scoped Values ofrecen varias ventajas sobre las variables thread-local tradicionales:
+		
+		Mayor facilidad de razonamiento sobre el flujo de datos
+		
+		Menor costo en espacio y tiempo, especialmente al usarse con hilos virtuales y concurrencia estructurada
+	
+		Garantía de inmutabilidad de los datos compartidos
+	
+		Ciclo de vida más predecible y acotado
+
+	Ejemplo: Sistema de Comercio Electrónico
+
+	Configuración de Scoped Values
+
+		public class ApplicationContext {
+		    public static final ScopedValue<UserSession> USER_SESSION = ScopedValue.newInstance();
+		    public static final ScopedValue<AuditInfo> AUDIT_INFO = ScopedValue.newInstance();
+		}
+
+	Filtro de Servlet para inicializar el contexto
+
+		@WebFilter("/*")
+		public class ContextInitializationFilter implements Filter {
+		    @Override
+		    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+		            throws IOException, ServletException {
+		        HttpServletRequest httpRequest = (HttpServletRequest) request;
+		        UserSession userSession = authenticateAndCreateUserSession(httpRequest);
+		        AuditInfo auditInfo = new AuditInfo(UUID.randomUUID().toString());
+
+		        ScopedValue.where(ApplicationContext.USER_SESSION, userSession)
+		            .where(ApplicationContext.AUDIT_INFO, auditInfo)
+		            .run(() -> chain.doFilter(request, response));
+		    }
+
+		    private UserSession authenticateAndCreateUserSession(HttpServletRequest request) {
+		        // Lógica de autenticación
+		        // ...
+		    }
+		}
+
+	Servicio de Carrito de Compras
+
+		@Service
+		public class ShoppingCartService {
+		    @Autowired
+		    private ProductRepository productRepository;
+		    @Autowired
+		    private CartRepository cartRepository;
+
+		    public void addToCart(String productId, int quantity) {
+		        UserSession userSession = ApplicationContext.USER_SESSION.get();
+		        AuditInfo auditInfo = ApplicationContext.AUDIT_INFO.get();
+
+		        Product product = productRepository.findById(productId)
+		            .orElseThrow(() -> new ProductNotFoundException(productId));
+
+		        Cart cart = cartRepository.findByUserId(userSession.getUserId())
+		            .orElseGet(() -> new Cart(userSession.getUserId()));
+
+		        cart.addItem(new CartItem(product, quantity));
+		        cartRepository.save(cart);
+
+		        logAuditEvent(auditInfo, "ADD_TO_CART", Map.of(
+		            "userId", userSession.getUserId(),
+		            "productId", productId,
+		            "quantity", quantity
+		        ));
+		    }
+
+		    private void logAuditEvent(AuditInfo auditInfo, String eventType, Map<String, Object> details) {
+		        // Lógica para registrar el evento de auditoría
+		        // ...
+		    }
+		}
+
+	Controlador REST
+
+		@RestController
+		@RequestMapping("/api/cart")
+		public class ShoppingCartController {
+		    @Autowired
+		    private ShoppingCartService shoppingCartService;
+
+		    @PostMapping("/add")
+		    public ResponseEntity<String> addToCart(@RequestBody AddToCartRequest request) {
+		        shoppingCartService.addToCart(request.getProductId(), request.getQuantity());
+		        return ResponseEntity.ok("Producto añadido al carrito");
+		    }
+		}
+
+	Explicación del ejemplo
+
+	Configuración: Definimos dos ScopedValue: uno para la sesión del usuario y otro para la información de auditoría.
+
+	Filtro de Servlet: Inicializa los ScopedValue para cada solicitud HTTP. Esto asegura que la información de sesión y auditoría esté disponible para todo el procesamiento de la solicitud.
+
+	Servicio de Carrito: Utiliza los ScopedValue para acceder a la información de sesión del usuario y los detalles de auditoría sin necesidad de pasarlos explícitamente como parámetros.
+
+	Controlador: Simplemente llama al servicio, sin preocuparse por pasar información de contexto.
+
+	Beneficios en este escenario
+
+	Limpieza del código: Los métodos no necesitan pasar explícitamente la información de sesión o auditoría.
+
+	Seguridad: La información de sesión está contenida y no puede ser modificada accidentalmente.
+
+	Facilidad de testing: Es más fácil simular diferentes contextos en pruebas unitarias.
+
+	Rendimiento: Especialmente útil con hilos virtuales, ya que no hay sobrecarga de almacenamiento por hilo.
+
+	Este ejemplo muestra cómo los Scoped Values pueden simplificar significativamente el manejo de información contextual en una aplicación web, mejorando la legibilidad del código y la seguridad de los datos.
